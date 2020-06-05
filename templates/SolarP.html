@@ -1,0 +1,143 @@
+{% extends "baseM.html" %}
+{% block main %}
+    
+
+<link rel="stylesheet" href="../static/css/p_style.css">
+<section class="module-small" id = "secSunpath">
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+	       
+            <h2 class="module-title font-alt">Sunpath</h2>
+            <div class="module-subtitle font-serif">
+                Orthographic sun chart showing analemma for all 24 hours of the day
+            </div>
+            <div  style="text-align:center;" id="svgsunpath"> </div>
+            <p></p>
+            <div class="module-subtitle font-serif">
+                 <!-- Azimuth [&#xb0;] <br> -->
+                 <font class="dl" href="#" onclick="save_as_svg('svgsunpath','Sunpath diagram.svg')">[download svg]</font>
+            </div>
+            <!-- <div class="module-subtitle font-serif">
+                <font color='grey' id="sunpath"> Azimuth [&#xb0;] </font>
+            </div> -->
+        </div>
+    </div>
+</div>
+</section>
+
+
+<section class="module-small" id = "secFacadeRad">
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Facade Radiation</h2>
+            <div class="module-subtitle font-serif">
+                Monthly radiation levels for different surface orientations
+                <!-- Mean daily radiation levels for different surface orientations -->
+            </div>
+
+            <div  style="text-align:center;" id="svgradmonth"> </div>
+            <p></p>
+            <div class="module-subtitle font-serif">
+                <!-- Monthly radiation on four facade orientations in kWh/m2 <br> -->
+                <font class="dl" href="#" onclick="save_as_svg('svgradmonth','Radiation on Facade.svg')">[download svg]</font>
+            </div>
+        </div>
+    </div>
+</div>
+</section >
+
+<section class="module-small" id = "secAnnualRad">
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Annual Solar Radiation Map</h2>
+            <div class="module-subtitle font-serif">
+                False color map of annual solar radiation levels for different surface orientations, 
+                    using an upward-facing hemisphere
+            </div>
+
+            <div class="centerBlock">
+                <!-- <font size='2' onclick="save_as_svg('canvas','Anual Solar Radiation.jpg')">[download svg]</font> -->
+            </div>
+
+            <div><canvas class="circle" id="canvas" width="520" height="520">  
+            </canvas></div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div  id="radScale"></div>
+        <div class= 'centerBlock' class = "greyDes">0 kWh/m2 <font color = "white">gapppppppppppppppppping space to be fixed </font>
+         <a id = "radmax"> maxRad </a> &nbsp; kWh/m2 </div>
+        
+        <p></p>
+        <div class="module-subtitle font-serif">
+            Annual radiation in kWh/m2 ( <a id = radval></a> )
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript">
+    
+    var ANALEMMA = {{analemma}}
+    var ML = {{monthLines}}
+    var ML_ = {{monthLines_}}
+    var CITY = "{{session['city']}}"
+
+    var HORRADM = {{session["HORRADM"]}}
+    var RADMS= {{session["RADMS"]}}
+    var RADME= {{session["RADME"]}}
+    var RADMW= {{session["RADMW"]}}
+    var RADMN= {{session["RADMN"]}}
+    var maxRad = {{session["maxRad"]}} | 0
+
+    $(document).ready(function(){
+        console.log(CITY);
+        $("#radmax").text(maxRad);
+    });
+
+    var session= {
+        id: "{{session["id"]}}",
+        location: "{{session["location"]}}",
+    };
+
+
+</script>
+
+</script>
+<script src= '/static/js/SunPath.js'></script>
+<script src= '/static/js/RadMonth.js'></script>
+<script src= '/static/js/RadCum.js'></script>
+<script src= '/static/js/FileSaver.js'></script>
+{% endblock %}

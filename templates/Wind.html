@@ -1,0 +1,135 @@
+{% extends "baseM.html" %}
+{% block main %}
+
+<link rel="stylesheet" href="../static/css/p_style.css">
+
+<section class="module-small" id = "secWindRose">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Wind Chart</h2>
+            <div class="module-subtitle font-serif">
+                Frequency of wind directions and velocities for the whole year or selected hours during the year 
+            </div>
+            <div class = "centerBlock">
+                <!-- <b><font size="2">Annual energy output, kWh/year - <font color="orange" size="3" id="kWhyear"> </font> </font></b> -->
+                <!-- <b><font size="2"> &nbsp;&nbsp; CDD in the year - <font color="orange" size="3" id="cdd"> CDD </font> </font></b> -->
+            </div>
+
+            <!-- <div class="centerBlock">
+                <font class="dl" href="#" size='2' onclick="save_as_svg('svgwindrose','Wind Rose.svg')">[download svg]</font>
+            </div>
+ -->
+            <div style="text-align:center;" id="svgwindrose"> </div>
+            
+            <div class="module-subtitle font-serif">  
+                Wind velocity (m/s) <br>
+                <font class="dl" href="#" size='2' onclick="save_as_svg('svgwindrose','Wind Rose.svg')">[download svg]</font>
+            </div>
+
+            <form action="{{ url_for('Wind') }}"  method='post'>
+                <div >
+                    <input class='dd' id='starthr_input' type="text" name="start_hr" default=0 placeholder="Start (hr)">
+                    <input class='dd' id='endhr_input' type="text" name="end_hr" default=8760 placeholder="End (hr)">
+                    <input type="submit" value="Go" name="submitWindRose">
+                </div>   
+            </form>
+            
+            <div class = "centerBlock">
+                <font size="2">Displayed data is for the hours between  <font color="orangered" size="3" id = "wcstartdisplay">  1   </font> </font>
+               
+                <font size="2">   --  <font color="orangered" size="3" id = "wcenddisplay">  8670 </font>
+                , from the total 8670 hours in a year</font>  
+            </div>  
+        </div>
+</div></div>
+
+
+
+<section class="module-small" id = "secWindEnergy">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Wind Energy</h2>
+            <div class="module-subtitle font-serif">
+                Frequency of wind velocities and electricity produced using the specified wind turbine in an urban setting 
+            </div>
+            <div class = "centerBlock">
+                <b><font size="2">Annual energy output, kWh/year - <font color="orangered" size="3" id="kWhyear"> </font> </font></b>
+                <!-- <b><font size="2"> &nbsp;&nbsp; CDD in the year - <font color="orange" size="3" id="cdd"> CDD </font> </font></b> -->
+            </div>
+
+            <!-- <div class="centerBlock">
+                <font class="dl" href="#" size='2' onclick="save_as_svg('svgwindenergy','Wind Power.svg')">[download svg]</font>
+            </div> -->
+
+            <div style="text-align:center;" id="svgwindenergy"> </div>
+            
+            <div class="module-subtitle font-serif">  
+                Wind velocity (m/s) <br> 
+                <font class="dl" href="#" onclick="save_as_svg('svgwindenergy','Wind Power.svg')">[download svg]</font>
+            </div>
+
+            <form action="{{ url_for('Wind') }}"  method='post'>
+                <div >
+                    <input class='dd' id='turbd_input' type="text" name="turb_d" default=3 placeholder="D (m)">
+                    <input class='dd' id='turbh_input' type="text" name="turb_h" default=100 placeholder="H (m)">
+                    <input type="submit" value="Go" name="submitWindEnergy">
+                </div>   
+            </form>
+            
+            <div class = "centerBlock">
+                <font size="2">Wind turbine rotor diameter (D) in m, <font color="orangered" size="3" id = "turbddisplay"> 3 </font> </font>
+               
+                <font size="2"> , Wind turbine height (H) in m, <font color="orangered" size="3" id = "turbhdisplay"> 100 </font> </font>  
+            </div>  
+        </div>
+</div></div>
+
+
+
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    
+    var WINDV = {{dataW['windv']}}
+    var WINDA = {{dataW['winda']}}
+    var WC_START = {{session['wchartstart_hr']}}
+    var WC_END = {{session['wchartend_hr']}}
+    var WINDTC = {{dataW['windtc']}}
+    var WINDTCdefault = {{dataW['windtcdefault']}}
+    var WINDP = {{dataW['windp']}}
+    var TURBD = {{session["TURBD"]}}
+    var TURBH = {{session["TURBH"]}}
+    var CITY = "{{session['city']}}" 
+    // console.log(WINDTC)
+    $(document).ready(function(){
+        $("#wcstartdisplay").text(WC_START)
+        $("#wcenddisplay").text(WC_END)
+        $("#turbddisplay").text(TURBD);
+        $("#turbhdisplay").text(TURBH);
+        $("#kWhyear").text(WINDP);
+        $("#city").text(CITY);
+        });
+
+</script>
+<script type="text/javascript">
+    function myFunction() {
+        document.getElementById("city").style.color = "red";
+        }
+</script>
+<script src= '/static/js/WindEnergy.js'></script>
+<script src= '/static/js/WindChart.js'></script>
+<script src= '/static/js/FileSaver.js'></script>
+
+{% endblock %}

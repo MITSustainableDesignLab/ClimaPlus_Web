@@ -1,0 +1,46 @@
+{% extends "baseM.html" %}
+{% block main %}
+    
+
+<link rel="stylesheet" href="../static/css/p_style.css">
+<section class="module-small" id = "runRADSim">
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Annual Solar Radiation Map</h2>
+            <div class="module-subtitle font-serif">
+                False color map of annual solar radiation levels for different surface orientations, 
+                    using an upward-facing hemisphere
+            </div>
+            
+    </div>
+</div>
+</section>
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript">
+    
+
+</script>
+
+</script>
+<script src= '/static/js/SunPath.js'></script>
+<script src= '/static/js/RadMonth.js'></script>
+<script src= '/static/js/RadCum.js'></script>
+<script src= '/static/js/FileSaver.js'></script>
+{% endblock %}

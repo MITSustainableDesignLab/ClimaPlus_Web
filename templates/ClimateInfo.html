@@ -1,0 +1,267 @@
+
+{% extends "baseM.html" %}
+{% block main %}
+
+<!DOCTYPE html>
+<html>
+
+<style type="text/css">
+.nobull {
+    display: block;
+    text-align: center;
+    list-style-type: none;
+    padding: 5px;
+    width:35%;
+}
+
+a:link {
+  color: orangered;
+}
+
+a:visited {
+  color: orangered;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.collapse {
+  color: black;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.collapse:link {
+  color: black;
+  text-decoration: none;
+}
+
+.collapse:hover {
+  text-decoration: none;
+}
+
+/*.collapse:active vi {
+  text-decoration: none;
+  color:black;
+  opacity: 0.7;
+}*/
+
+.collapsing {
+  text-decoration: none;
+  color:black;
+  opacity: 0.7;
+}
+
+.more {
+  color: black;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+.more:hover {
+  text-decoration: none;
+  color:black;
+  opacity: 0.7;
+}
+
+/*#moreBtn {
+  color: black;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 700;
+}*/
+
+/*.moreC {
+  display:none;
+  color: grey;
+}*/
+
+</style>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>     
+<body>
+<div class="main">
+
+
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
+
+  <!--  -->
+  <section class="module-small">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h2 class="module-title font-alt" id='city'>CLIMATE</h2>
+            <div class="module-subtitle font-serif">
+              Choose a chart to explore more!
+            </div>
+          </div>
+        </div>
+  </div>
+  </section>
+  
+  <section class="module-small">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <a class="module-subtitle-info nobull">SOLAR</a>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/sunpath.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <a href="/SolarP#secSunpath" class="hover">Sun path diagram </a></br>
+              A sun path diagram is a 2-dimensional representation of the position of the sun with respect to given site over the course of the year. The figure can be used for outdoor direct shading studies or to predict the occurrence of glare indoors.
+              <!-- <span id="dots">...</span>
+              <span onclick="myFunction(this.id)" class="moreBtnC" id="moreBtn"> More >> </span> <br> 
+              <span class="moreC" id="more"> -->
+              <a data-toggle="collapse" data-target="#sunpath_" class='more'> More>> </a><br>
+              <span id="sunpath_" class="collapse">
+                In the figure the position of the sun for each full hour in the year is given as the sun’s azimuth and altitude. The altitude corresponds to the height of the sun above the horizon. The azimuth angle is the angle between the projection of the sun’s position onto the horizon and due South. For example, an azimuth of minus 90° corresponds to due East. The orange objects in the figure are called analemmas and show the position of the sun for every day of the year for the same hour in local standard time. Their shape is a consequence of the Earth’s declination as well as the elliptical shape of the earth’s path around the sun. The solid yellow, and gray lines refer to the sun’s path on Dec 21, Mar/Sep 21 and Jun 21, respectively. For more information refer to MIT OCW Environmental Technologies in Buildings, <a href="http://ocw2.mit.edu/courses/architecture/4-401-environmental-technologies-in-buildings-fall-2018/lecture-slides-1/MIT4_401F18_lec3.pdf">Understanding Climate Solar Radiation</a> or the Daylighting Handbook I chapter 5.  </span>
+
+          </div></div>
+          <div style="padding:10px 0;">
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/facaderad.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <a href="/SolarP#secFacadeRad" class="hover">Monthly Façade Radiation</a></br>
+              This graph shows the monthly solar radiation falling onto different surface orientations over the course of the year for a given site. It can be used for early massing studies.
+              <a data-toggle="collapse" data-target="#facaderadiation_" class='more'> More>> </a><br>
+              <span id="facaderadiation_" class="collapse">
+                The figure shows monthly radiation levels on facades facing in the four main cardinal directions as well as for an upward facing surface. The results can be used to decide whether it is advantageous for a building to be oriented along the West/East axis or not.  For more information refer to MIT OCW Environmental Technologies in Buildings, <a href="http://ocw2.mit.edu/courses/architecture/4-401-environmental-technologies-in-buildings-fall-2018/lecture-slides-1/MIT4_401F18_lec3.pdf"> Understanding Climate Solar Radiation</a> or the Daylighting Handbook I chapter 3.  </span> 
+          </div></div>
+          <div style="padding:10px 0;">
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/annualsolar.jpg" alt="Trulli" width="175" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <a href="/SolarP#secAnnualRad" class="hover">Annual Solar Radiation Map</a></br>
+              This graph shows the annual solar radiation falling onto any surface orientation from a given site. The graph can be used to position and size an unshaded PV system. 
+              <a data-toggle="collapse" data-target="#annualsolar_" class='more'> More>> </a><br>
+              <span id="annualsolar_" class="collapse">
+                The figure shows a false color map that corresponds to the range of annual solar radiation possible at a given site. The center of the color map corresponds to an upward facing surface whose surface normal forms a 90° angle with the horizon. Top, left, right and bottom values correspond to façade orientations for North, West, East and South. In the example figure the maximum solar radiation (around 1700kWh/m2) occurs for a South facing surface with a tilt angle around 40°. If you hover your mouse over the figure, the solar radiation for the corresponding surface orientation is displayed below.  For more information refer to MIT OCW Environmental Technologies in Buildings, <a href="http://ocw2.mit.edu/courses/architecture/4-401-environmental-technologies-in-buildings-fall-2018/lecture-slides-1/MIT4_401F18_lec3.pdf"> Understanding Climate Solar Radiation</a> or <a href="http://ocw2.mit.edu/courses/architecture/4-401-environmental-technologies-in-buildings-fall-2018/lecture-slides-1/MIT4_401F18_lec6.pdf">Active Solar</a> as well as the Daylighting Handbook I chapter 3 and Daylighting Handbook II chapter 9.  </span> 
+          </div></div>
+
+          <a class="module-subtitle-info nobull">TEMP/RH</a>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/temperature.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <a href="/TempRH#secTemp" class="hover">Outdoor Temperature </a></br>
+              This graph shows typical daily temperature profiles for every month for a given site. The information can be used to initially gage the potential for natural ventilation and thermal mass as well as how hot or cold the climate is. 
+              <a data-toggle="collapse" data-target="#temperature_" class='more'> More>> </a><br>
+              <span id="temperature_" class="collapse">
+                The figure shows twelve graphs, one for each month, that are pasted together. For each month the maximum (orange, average (black) and minimum (grey) temperatures over the course of the day are shown. For example, the figure shows that temperatures in January vary for this site between around 5°C at night and 10°C during the day with extremes ranging from around freezing to 10°C. The two horizontal solid gray lines show the upper and lower temperature thresholds and can be adjusted. </span> 
+          </div></div>
+          <div><p> </p></div>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/dd.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <a href="/SolarP#secFacadeRad" class="hover">Degree Days</a></br>
+              This graph shows monthly heating and cooling degree days for adjustable set point temperatures. 
+              <a data-toggle="collapse" data-target="#dd_" class='more'> More>> </a><br>
+              <a id="dd_" class="collapse">
+                A heating/cooling degree day corresponds to the difference between the mean daily temperature and the heating/cooling set point temperature. For example, if the mean daily temperature is 12°C and the heating /cooling set point temperatures are 18°C/ 10°C, the heating/cooling degree days for that day are 6DD and 2DD, respectively. If set point temperatures correspond to the balance point temperature of a building, heating degree days are a good predictor as to when a building is in heating or cooling mode.    </a> 
+          </div></div>
+          <!-- <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/annualsolar.jpg" alt="Trulli" width="175" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <a href="/TempRH#secPSYCHRO" class="hover">Psychrometric</a></br>
+               
+              <a data-toggle="collapse" data-target="#demo"> More>> </a>
+              <a id="demo" class="collapse">
+                  </a> 
+          </div></div> -->
+
+          <a class="module-subtitle-info nobull">WIND</a>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/wind.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              
+              <a href="/Wind#secWindRose" class="hover">Wind Chart </a></br>
+              This figure summarizes wind direction and velocity frequency distributions for all or select hours in the year for a given site. 
+              <a data-toggle="collapse" data-target="#wind_" class='more'> More>> </a><br>
+              <a id="wind_" class="collapse">
+                The figure shows a wind rose with hourly wind data binned into 16 different direction. For each direction the outer radius of the color chart indicates the percentage of time when the wind is blowing from that direction. The color columns indicate the frequency distribution of the wind speed coming from that direction. For example, the wind in the example figure is most prevalent from WNW (around 11% of the year). 4% of the year the wind form that direction has a wind speed above 7m/s (red).  </a> 
+          </div></div>
+          <div><p> </p></div>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/windenergy.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <p></p>
+              <a href="/Wind#secWindEnergy" class="hover">Wind Energy </a></br>
+              This chart estimates the annual electricity yield of a generic 1000kWwind turbine.  
+              <a data-toggle="collapse" data-target="#windenergy_" class='more'> More>> </a><br>
+              <a id="windenergy_" class="collapse">
+                The figure shows the frequency distribution of wind velocity along with the efficiency curve of a wind turbine as well as the resulting annual electricity yield for a given wind speed.  The underlying model estimates the wind speed at a given height and rotor height and diameter.  </a> 
+          </div></div>
+
+          <a class="module-subtitle-info nobull">INDOOR TEMPERATURE</a>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/indoorhourly.jpg" alt="Trulli" width="200" height=""><img src="static/img/indoorfrequency.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              
+              <a href="/Climabox#parameters" class="hover">Indoor Temperature </a></br>
+              The figure shows hourly indoor and outdoor temperatures over the course of the year. This data can be viewed in two ways. Hourly shows time series of all 8760 hours in the year. The frequency version of this graph shows the hours in the year when the indoor and outdoor temperatures are within a given temperature interval.  
+              
+          </div></div>
+          <div><p> </p></div>
+          <a class="module-subtitle-info nobull">ENERGY</a>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/energycarboncost.jpg" alt="Trulli" width="200" height=""><!-- <img src="static/img/carbon.jpg" alt="Trulli" width="82" height=""> --></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <p></p>
+              <a href="/Climabox#indoorTempGraph" class="hover">Energy and Emissions</a></br>
+              The first figure shows the energy use intensity for the given ClimaBox design for cooling, heating, electric lighting and equipment. The energy use intensity corresponds to the sum of the different energy uses of the building divided by the conditioned floor area.  The second figure shows CO2e emissions from gas and electricity and the last figure shows the cost of energy.
+          </div></div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
+
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript">
+
+    var CITY = "{{session['city']}}";
+    console.log('testing city', CITY)
+    if (CITY == "") CITY = "First select a climate";
+    $(document).ready(function(){
+        $("#city").text(CITY);
+        });
+
+
+    function myFunction() {
+      var dots = document.getElementById("dots");
+      var moreText = document.getElementById("more");
+      var btnText = document.getElementById(clicked_id);
+      var btnTextClass = document.getElementsByClassName("moreBtnC");
+
+      if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.innerHTML = "More >>"; 
+        moreText.style.display = "none";
+      } else {
+        dots.style.display = "none";
+        btnText.innerHTML = "Less <<"; 
+        moreText.style.display = "inline";
+      }
+    }
+
+</script>
+
+</body>
+
+{% endblock %}

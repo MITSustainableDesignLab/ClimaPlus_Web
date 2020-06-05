@@ -1,0 +1,1 @@
+[["USA_CA_Mammoth.Yosemite.AP.723894_TMYx", "Mammoth Yosemite AP", "CA", "USA", "2300.0", 38.0, 119.0, 120.0]]

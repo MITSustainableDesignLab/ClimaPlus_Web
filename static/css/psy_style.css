@@ -1,0 +1,318 @@
+/* Table of Contents
+-------------------------------------------
+
+- General Content
+- Typography
+- Pyshc Chart Lines
+- Header & Navigation
+- Images & Media
+- Footer
+- Media Queries
+
+-------------------------------------------*/
+
+
+
+/* General Content
+-------------------------------------------*/
+.box { 
+	display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    width: 1.5em;
+    height: 1.5em;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.box:hover {
+	color: #000;
+	border: 1px solid #000;
+}
+
+li.project:hover {
+	cursor: pointer;
+}
+
+textarea.emailForm {
+	height: 200px ;
+}
+
+/*
+#wrapper43 {
+	width: 100%;
+	display: inline-block;
+	position: relative;
+}
+
+#wrapper43:after {
+	padding-top: 75%;
+	display: block;
+	content: '';
+}
+
+*/
+
+.psychChart {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+
+#svgpsychrochart {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+ 	margin-bottom: 2em;
+}
+
+.over {
+	opacity: 0.5;
+}
+
+/* Psych Chart Line work
+-------------------------------------------*/
+
+.hrCurve, .tempCurve, .wbCurve {
+	/*stroke: #c9c9c9;*/
+	stroke: orange;
+	fill: none;
+	stroke-width: 2px;
+	stroke-opacity: 0.8;
+}
+
+.rhCurve {
+	stroke: #8c8c8c;
+	fill: none;
+	stroke-width: 1px;
+}
+
+#rh100 {
+	stroke: black;
+	fill: none;
+	stroke-width: 2px;
+}
+
+.axis path,
+.axis line {
+    fill:none;
+    stroke: black;
+}
+.axis {
+    font-size:0.7em;
+}
+
+.rhLabelShadow {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 5px;
+	font-size: 0.8em;
+}
+
+.rhLabels {
+	font-size: 0.8em;
+}
+
+.station text {
+	font-size: 1em;
+}
+
+
+
+
+
+
+/* d3 globe
+-------------------------------------------*/
+
+path.land {
+  fill: #bcbcbc;
+  stroke: #FFF;
+  stroke-width: 0.5px;
+}
+
+path.outline {
+  stroke: #bcbcbc;
+  fill: none;
+  stroke-width: 2px;
+}
+
+path.focused {
+	fill: #727272;
+}
+
+#location {
+	fill: #1c9099;
+	stroke: white;
+	stroke-width: 1px;
+}
+
+path.water {
+	stroke: none;
+	fill: #fff;
+}
+
+
+
+
+
+/* sliders
+-------------------------------------------*/
+
+.halo {
+	fill: none;
+	stroke: #bcbcbc;
+	stroke-width: 4px;
+	stroke-linecap: round;
+	cursor: pointer;
+}
+
+.handle {
+	fill: #fff;
+	stroke: #5b5b5b;
+	stroke-width: 1.25px;
+	cursor: pointer;
+}
+
+.brush .extent {
+	fill: #1c9099;
+	shape-rendering: crispEdges;
+
+}
+
+.hourAxis, .monthAxis {
+    font-size:0.7em;
+}
+
+.nir {
+	opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+/* Typography
+-------------------------------------------*/
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.3em;
+	font-weight: 400;
+	color: #000;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+.main_nav a {
+	color: #000;
+	text-decoration: none;
+	font-weight: 700;
+}
+
+.main_nav a:hover {
+	color: #000;
+}
+
+b {	
+	font-weight: 400;
+}
+
+.italic {	font-style: italic; }
+
+.project_text {
+	padding-bottom: 2em;
+	font-size: 1.25em;
+	line-height: 200%;
+}
+
+/* Header & Navigation
+-------------------------------------------*/
+/*header.main_nav {
+	margin-top: 5%;
+	display: block;
+	margin-bottom: 1em;
+}
+
+ul.email { 
+	display: block;
+	float: right;
+	list-style-type: none;
+}
+ ul.email li {
+ 	font-size: em;
+ 	display: inline;
+ 	padding: .5em;
+ }
+
+
+.back {
+	float: left !important;
+}
+*/
+
+
+/* Images & Media
+-------------------------------------------*/
+img { 
+	max-width: 100%;
+}
+
+
+video { max-width: 100%;}
+
+
+
+
+/* Footer
+-------------------------------------------*/
+footer {margin-bottom: 100px;}
+
+
+/* Media Queries
+-------------------------------------------*/
+
+@media (max-width: 600px) {
+	.project_text {
+		font-size: 1em;
+	}
+
+	.title {
+		font-size: .8em;
+	}
+
+	.project {
+	padding-bottom: 1.5em;
+	}
+
+	#chart {
+		margin-bottom: 1.5em;
+	}
+
+	.axis, .rhLabels, .hourAxis, .monthAxis {
+		font-size: 0.8em;
+	}
+
+	path.land {
+  		stroke: none;
+	}
+
+	.station text {
+	font-size: .8em;
+	}
+
+	path.outline {
+		stroke-width: 1px;
+	}
+
+
+}
+

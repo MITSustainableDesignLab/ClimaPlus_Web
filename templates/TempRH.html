@@ -1,0 +1,230 @@
+{% extends "baseM.html" %}
+{% block main %}
+
+
+<!-- <link rel="stylesheet" href="../static/css/p_skeleton.css"> -->
+<link rel="stylesheet" href="../static/css/p_style.css">
+<!-- <link rel="stylesheet" href="../static/css/p_normaize.css"> -->
+<style>
+
+</style>
+<section class="module-small" id = "secTemp">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Outdoor Temperature</h2>
+            <div class="module-subtitle font-serif">
+                Hourly max, min and mean temperatures from each month in the year
+            </div>
+            <!-- <div class = "centerBlock">
+                <b><font size="2">HDD in the year - <font color="orange" size="3" id="hdd"> HDD  </font> </font></b>
+                <b><font size="2"> &nbsp;&nbsp; CDD in the year - <font color="orange" size="3" id="cdd"> CDD </font> </font></b>
+            </div> -->
+
+            <div style="text-align:center;" id="svgtemp"> </div>
+            
+            <div class="module-subtitle font-serif"> 
+                Months <br> 
+                <font class="dl" href="#" size='2' onclick="save_as_svg('svgtemp','Average temperature.svg')">[download svg]</font>
+            </div>
+
+            <form action="{{ url_for('TempRH') }}"  method='post'>
+                <div >
+                    <input class='dd' id='tupper_input' type="text" name="tupper" default=24 placeholder="Upper (&deg;)">
+                    <input class='dd' id='tlower_input' type="text" name="tlower" default=18 placeholder="Lower (&deg;)">
+                    <input type="submit" value="Go" name="submitTemp">
+                </div>   
+            </form>
+            
+            <div class = "centerBlock">
+                <font size="2">Upper treshold limit, <font color="orangered" size="3" id = "tupperdisplay">(default is 25) </font> </font>
+               
+                <font size="2"> , Lower treshold limit, <font color="orangered" size="3" id = "tlowerdisplay"> (default is 18) </font> </font>  
+            </div>  
+        </div>
+</div></div>
+
+<section class="module-small" id = "secDD">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Degree Days</h2>
+            <div class="module-subtitle font-serif">
+                Hourly heating and cooling degree days for each month
+            </div>
+            <div class = "centerBlock">
+                <b><font size="2">HDD in the year - <font color="orangered" size="3" id="hdd"> HDD  </font> </font></b>
+                <b><font size="2"> &nbsp;&nbsp; CDD in the year - <font color="orangered" size="3" id="cdd"> CDD </font> </font></b>
+            </div>
+
+            <div style="text-align:center;" id="svgddchart"> </div>
+            
+            <div class="module-subtitle font-serif"> 
+                Months <br>
+                <font class="dl" href="#" onclick="save_as_svg('svgddchart','Degree Days.svg')">[download svg]</font>
+            </div>
+            <form action="{{ url_for('TempRH') }}"  method='post'>
+                <div >
+                    <input class='dd' id='hdd_input' type="text" name="hddsp" default=18 placeholder="HDD&deg;">
+                    <input class='dd' id='cdd_input' type="text" name="cddsp" default=10 placeholder="CDD&deg;">
+                    <input type="submit" value="Go" name="submitDD">
+                </div>   
+            </form>
+            
+            <div class = "centerBlock">
+                <font size="2">HDD setpoint temperature: <font color="orangered" size="3" id = "hdddisplay">(default is 18) </font> </font>
+               
+                <font size="2"> , CDD setpoint temperature: <font color="orangered" size="3" id = "cdddisplay"> (default is 10) </font> </font>  
+            </div>  
+        </div>
+</div></div>
+
+<section class="module-small" id = "secPSYCHRO">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container" id="pschro_main">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+           
+            <h2 class="module-title font-alt">Psychrometric Chart</h2>
+            <div class="module-subtitle font-serif">
+                Hourly air temperature and humidity <br>
+                <font size="2" color="gray">(Credit: Adopted from a responsive-d3 project by James Perakis)</font>
+            </div>
+            <!-- <div class = "centerBlock">
+                <b><font size="2">HDD in the year - <font color="orange" size="3" id="hdd"> HDD  </font> </font></b>
+                <b><font size="2"> &nbsp;&nbsp; CDD in the year - <font color="orange" size="3" id="cdd"> CDD </font> </font></b>
+            </div> -->
+
+            <div class="centerBlock">
+                <font class="dl" href="#" size='2' onclick="save_as_svg('svgpsychrochart','Psychrometric Chart.svg')">[download svg]</font>
+            </div>
+
+            <div style="text-align:center;" id="svgpsychrochart"> </div>
+            
+            <!-- <div class="module-subtitle font-serif"> Months </div> -->
+
+            <!-- <form action="{{ url_for('TempRH') }}"  method='post'>
+                <div >
+                    <input class='dd' id='hdd_input' type="text" name="hddsp" default=18 placeholder="HDD&deg;">
+                    <input class='dd' id='cdd_input' type="text" name="cddsp" default=10 placeholder="CDD&deg;">
+                    <input type="submit" value="Go" name="submitDD">
+                </div>   
+            </form>
+            
+            <div class = "centerBlock">
+                <font size="2">HDD setpoint temperature, <font color="orange" size="3" id = "hdddisplay">(default is 18) </font> </font>
+               
+                <font size="2"> , CDD setpoint temperature, <font color="orange" size="3" id = "cdddisplay"> (default is 10) </font> </font>  
+            </div>  --> 
+        <!-- </div> -->
+</div></div>
+
+      
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    
+    var min = {{data['min']}}
+    var mean = {{data['mean']}}
+    var max = {{data['max']}}
+    var tlower = {{sp["tlower"]}}
+    var tupper = {{sp["tupper"]}}
+    
+    var HDD = {{dd_data["HDD"]}}
+    var CDD = {{dd_data["CDD"]}}
+    var HDDsp = {{sp["setHDD"]}}
+    var CDDsp = {{sp["setCDD"]}}
+    var HDDL = {{dd_data["HDDL"]}}
+    var CDDL = {{dd_data["CDDL"]}}
+    var CITY = "{{session['city']}}" 
+    var epwName = "{{session['location']}}"
+    var jsFileLoc = "{{session['locationJs']}}"
+    var wthjson = "{{session['id']}}"+".json"
+    // console.log(wthjson)
+
+    var sp= {
+        tlower: "{{sp["tlower"]}}",
+        tupper: "{{sp["tupper"]}}"
+    }
+
+    var dd_data={
+        HDD: "{{dd_data["HDD"]}}",
+        CDD: "{{dd_data["CDD"]}}",
+        HDDL: "{{dd_data["HDDL"]}}",
+        CDDL: "{{dd_data["CDDL"]}}"
+    }
+
+
+    $(document).ready(function(){
+        $("#tupperdisplay").text(tupper);
+        $("#tlowerdisplay").text(tlower);
+        $("#hdd").text(HDD);
+        $("#cdd").text(CDD);
+        $("#hdddisplay").text(HDDsp);
+        $("#cdddisplay").text(CDDsp);
+        $("#citytemp").text(CITY);
+        $("#cityrh").text(CITY);
+        $("#citydd").text(CITY);
+        // tl = $("[name='tlower']").val()
+        // tu = $("[name='tupper']").val()
+
+        var container = $('header').after($('<div/>').addClass('container main'));
+        // var container = $('#pschro_main').addClass('container main');
+        // $('div.main').append($('<div/>').addClass('row').attr('id', 'chart'));
+        // d3.select('#chart').append('svg').attr("id", "psychChart").style({'width': '100%', 'height': '100%'});
+        var chart = new psychrometricChart();
+        // var data = d3.csv.parse(d3.select("#epw").text());
+        // console.log(data);
+        // var epwfile = "/static/epw/"+epwName+".epw"
+        var epwfile = "/static/epw/"+epwName+".epw"
+
+        // var epwfile = "/static/epw/ny.epw"
+        console.log('TESSTT WTH', epwfile)
+        
+        // d3.text(epwfile).then(function(data) {
+        // // d3.text("static/js/AUS_WA_Wyndham.epw").then(function(data) {
+        //     var psych_wth =  formatEpwM(data).psych_wth
+        //     d3.select("#svgpsychrochart").datum(psych_wth).call(chart);
+        // });
+      
+  
+        // $.getJSON("/static/{{session['id']}}.json", function(jd) {
+        $.getJSON(jsFileLoc, function(jd) {
+
+            var psychw_ =(jd.psych_wth);//this part of the function works if epw is loaded manually.
+            var psychw = JSON.stringify(psychw_)
+
+            if (typeof psychw === 'undefined'){ //this part of the function works if wth file is selected form the the dorpdown.
+                d3.text(jsFileLoc).then(function(data) {
+                    psychw =  formatJS(data).psych_wth;
+                    d3.select("#svgpsychrochart").datum(psychw).call(chart);
+                    });
+                }
+            else {
+                d3.select("#svgpsychrochart").datum(psychw).call(chart)
+                }
+        });
+        
+        // $(window).resize(chart.resize);
+    });
+
+</script>
+<script src="/static/js/psychrometricChart.js"></script>
+<!-- <script src="/static/js/readEPW.js"></script> -->
+<script src= '/static/js/TempAve.js'></script>
+<script src= '/static/js/DDChart.js'></script>
+<script src= '/static/js/FileSaver.js'></script>
+{% endblock %}

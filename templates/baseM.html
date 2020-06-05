@@ -1,0 +1,154 @@
+
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>__dbox clima beta</title>
+    <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
+
+    <!-- CSS -->
+    <link href="../static/css/styleM.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- Library for download icon, source https://www.w3schools.com/howto/howto_css_download_button.asp -->
+</head>
+
+<body>
+
+
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+<header class="masthead mb-auto">
+<div class="inner">
+
+<div id="navbar"><!-- Navigation start -->
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target="#custom-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+            <!-- <i class="fa fa-home"></i> -->
+            <a class="navbar-brand" href="/">  climaplus &#9963; </a>
+        </div>
+        <div class="collapse navbar-collapse" id="custom-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- <li><a href="/">Home</a></li> -->
+                <li><a id = "cityNav">City</a></li>
+                <li class="dropdown"><a href="/ClimateInfo">About</a></li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" data-toggle="dropdown">Solar &#x25bc;</a>
+                    <ul class="dropdown-menu" style="right: auto; left: 0px;">
+                        <li><a href="/SolarP#secSunpath">Sunpath</a></li>
+                        <li><a href="/SolarP#secFacadeRad">Facade</a></li>
+                        <li><a href="/SolarP#secAnnualRad">Cummulative</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" data-toggle="dropdown">Temp/RH &#x25bc;</a>
+                    <ul class="dropdown-menu" style="right: auto; left: 0px;">
+                        <li><a href="/TempRH#secTemp">Monthly temp</a></li>
+                        <li><a href="/TempRH#secDD">Degree days</a></li>
+                        <li><a href="/TempRH#secPSYCHRO">Psychrometric</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" data-toggle="dropdown">Wind &#x25bc;</a>
+                    <ul class="dropdown-menu" style="right: auto; left: 0px;">
+                        <li><a href="/Wind#secWindRose">Wind rose</a></li>
+                        <li><a href="/Wind#secWindEnergy">Wind power</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" data-toggle="dropdown">Indoor &#x25bc;</a>
+                    <ul class="dropdown-menu" style="right: auto; left: 0px;">
+                        <li><a href="/Climabox#parameters">GoTo ClimaBox</a></li>
+                        <li><a href="/Climabox#indoorTempGraph">Temperature and Energy</a></li>
+                        <!-- <li><a href="/runRADSim#runRADSim">RADSim(Temp)</a></li> -->
+                    </ul>
+                </li>
+                <!-- <li><a href="/">About</a></li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+</div></div></header>
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+<!-- Navigation end --><!-- </div> -->
+
+<!-- <script async="" src="https://www.google-analytics.com/analytics.js"></script> -->
+<!-- <script>
+    $(function() {
+        var d = new Date();
+        var n = d.getFullYear();
+        $("#copyright").prepend("© " + n);
+    });
+
+    //Google Analytics
+
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-85420316-1', 'auto');
+    ga('send', 'pageview');
+</script></div> -->
+    <!-- About and Footer end -->
+
+	{% block des %}
+	{% endblock %}
+	{% block main %}
+	{% endblock %}
+  
+	<!-- Scroll-up -->
+    <!-- <div class="scroll-up" style="display: block;">
+        <a href="#totop"><i class="fa fa-angle-double-up"></i></a>
+    </div> -->
+
+	<footer class="mastfoot mt-auto">		  		  
+		<a href="http://web.mit.edu/sustainabledesignlab/">
+		<div class="column rightF" id ="sdllogo"> </div></a>           
+  	</footer>
+
+</div>
+
+    <!-- Javascript files -->
+    <script src="/static/js/readEPW.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="../static/assets/jquery-2.1.3.min.js"></script>
+    <script src="../static/assets/bootstrap.min.js"></script>
+    <script src="../static/assets/appear.js"></script>    
+    <script src="../static/assets/custom.js"></script>
+
+    <script src="../static/assets/queue.v1.min.js"></script>
+    <!-- <script src="../static/assets/d3.min.js" charset="utf-8"></script> -->
+    <script src="../static/assets/d3tip.js"></script>
+
+    <script type="text/javascript">
+	    var CITY = "{{session['city']}}"
+	    $(document).ready(function(){
+	        console.log(CITY);
+	        $("#cityNav").text(CITY);
+	        });
+	</script>
+
+    {% block scripts %}
+    {% endblock %}
+
+
+</body></html>

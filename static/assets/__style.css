@@ -1,0 +1,381 @@
+/*
+ * Globals
+ */
+
+/* Links */
+/*a,
+a:focus,
+a:hover {
+  color: #333;
+}*/
+
+/* Custom form, input */
+
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input.cs[type=text] {
+  font-size: 16px;
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input.dd[type=text] {
+  font-size: 16px;
+  background-color: #f1f1f1;
+  width: 35%;
+}
+
+input[type=submit] {
+  background-color: Orange;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+
+/* Custom default button */
+/*.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  color: #fff;
+  text-shadow: none;  
+  border: .05rem solid #ddd;
+}*/
+
+/*
+ * Base structure
+ */
+
+/*html,
+body {
+  height: 100%;
+  background-color: #fff;
+}
+
+body {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  color: #333;
+  text-shadow: none;
+  box-shadow: none;
+}*/
+
+/*
+ * Defines the overall width of all the pages
+ * Min and max are the same to create consistent size
+ */
+
+.cover-container {
+  min-width: 10em;
+  max-width: 1050em;
+}
+
+
+/*
+ * Index structure
+ */
+
+
+/*
+ * Header
+ */
+.masthead {
+  margin-bottom: 2rem;
+}
+
+.masthead-brand {
+  margin-bottom: 100;
+  color: orange;
+}
+
+.nav-masthead .nav-link {
+  padding: .25rem 0;
+  font-weight: 500;
+  color: #333;
+  background-color: transparent;
+  border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(100, 100, 200, .25);
+}
+
+.nav-masthead .nav-link + .nav-link {
+  margin-left: 1rem;
+  color: #333;
+}
+
+.nav-masthead .active {
+  color: #333;
+  border-bottom-color: orange;
+}
+
+@media (min-width: 50em) {
+  .masthead-brand {
+    float: left;
+  }
+  .nav-masthead {
+    float: right;
+  }
+}
+
+ /* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other 
+@media screen and (max-width: 200px) {
+    .column {
+        width: 100%;
+    }
+} 
+*/
+
+
+/*
+ * Columns and rows
+ */
+
+.column {
+    float: center;
+
+}
+
+.left {
+    width: 40%;
+}
+
+.right {
+    width: 12%;
+    text-align: left;
+}
+
+.gutter {
+    width: 16%;
+    float: right;
+}
+
+.middle {
+    width: 60%;
+    
+}
+
+.middleRad {
+    width: 48%;
+}
+
+
+.leftF {
+    width: 60%;
+    text-align: left;
+    color: orange;
+}
+
+.rightF {
+    width: 5%;
+    text-align: left;
+}
+
+
+.middleF {
+    width: 8%;
+    color: orange;
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/*
+ * Cover
+ */
+.cover {
+  padding: 0 1.5rem;
+}
+.cover .btn-lg {
+  padding: .75rem 1.25rem;
+  font-weight: 700;
+}
+
+/*
+ * mask radiation map in circle
+ */
+
+
+
+.circle{
+  width:55%;
+  height:80%;
+  overflow:hidden;
+  position:relative;
+  border-radius:50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:100%;
+}
+
+
+/*
+ * mask radiation hover effect
+
+.circle:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+ }
+ */
+
+#canvas{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.feedbackVal{
+    color: orange;
+    background: black;
+    margin-top: 5px;
+    padding-left: 5px;
+    padding-right: 7px;
+    clear: both;
+    text-align: center;
+}
+
+.feedbackVal_g{
+    color: orange;
+    background: #808080;
+    margin-top: 5px;
+    
+    clear: both;
+    text-align: center;
+}
+
+#radScale{
+    background-image: url(radscale.jpg);    
+    width: 440px;
+    height: 17px;
+}
+
+#climaBox{
+    background-image: url(climaBox.png);
+    background-size: 150px;
+    width: 150px;
+    height: 75px;
+    border: 0;
+    
+}
+
+#RCGeo{
+    background-image: url(RCGeo.png);
+    background-size: 60px;
+    width: 60px;
+    height: 85px;
+    border: 0;
+    
+}
+
+
+.greyDes{
+	color: #606060;
+}
+
+.footer div{
+  display: inline;
+}
+
+#axisSpace {
+    word-spacing: 43px;
+    text-indent: 30px;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+#sdllogo {
+    background-image: url(CondensedBlack.png);
+    background-size: 70px;
+    width: 70px;
+    height: 18px;
+    border: 0;
+    display: block;
+}
+
+#bg_globalmap {
+    background-image: url(bg_globalmap.png);
+    background-size: 1400px;
+    width: 1300px;
+    height: 600px;
+    border: 0;
+    display: block;
+}
+#centeredText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#centeredMenu {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centerBlock {
+   margin-left:auto;
+   margin-right:auto;
+   display:block;
+}
+
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+}
+
+
+/*
+next button properties
+*/
+
+.round {
+    border-radius: 50%;
+}
+
+.next {
+    background-color: grey;
+    color: white;
+}
+
+#nextbutton {
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+#recbutton {
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+#nextbutton:hover {
+    background-color: orange;
+    color: orange;
+}
+
+
+img, a {border:none, outline: none;}

@@ -1,0 +1,556 @@
+
+/* ------------------------------------------------------------------
+General Styles
+------------------------------------------------------------------- */
+
+
+
+
+
+
+html {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: scrollbar;
+}
+
+body {
+    background: #fff;
+    /*font: 400 14px/1.8 "Open Sans", sans-serif;*/
+    color: #666;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Custom form, input */
+
+form { 
+    /*margin: 30 auto; */
+    width:250px;
+    /*display: inline-block;*/
+    margin-left: auto;
+    margin-right: auto;
+    /*text-align: justify-all;*/
+}
+
+input {
+    border: 0.5px solid transparent;
+    background-color: white; /*#f1f1f1;*/
+    padding: 10px;
+    font-size: 16px;
+}
+
+input.cs[type=text] {
+    font-size: 16px;
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+input.dd[type=text] {
+    font-size: 16px;
+    background-color: #f1f1f1;
+    width: 35%;
+}
+
+input.cbform[type=text] {
+    border: 0.5px solid;
+    font-size: 12px;
+    background-color: white;
+    width: 25%;
+    height: 12px;
+}
+
+input.pdform[type=text] {
+    border: 0.5px solid;
+    font-size: 12px;
+    background-color: white;
+    height: 12px;
+}
+
+input[type=submit] {
+    background-color: orangered;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+/*
+ * SVG and Charts 
+*/
+
+#chart {
+    width:80%;
+    height: 80%;
+    border: 8px dashed gray;
+    border-left: none;
+    border-top:none;
+    cursor:all-scroll;
+} 
+
+svg { 
+    margin: 0 auto; 
+    width:400px;
+}
+
+.grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+
+.d3-tip {
+  line-height: 0.8;
+/*  font-weight: bold;*/
+  padding: 2px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 1px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 2px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+
+/*
+Header 
+*/
+
+.masthead {
+    margin-bottom: 2rem;
+}
+
+.masthead-brand {
+    margin-bottom: 100;
+    color: orangered;
+}
+
+
+/* ------------------------------------------------------------------
+Navbar
+------------------------------------------------------------------- */
+
+.navbar-custom {
+    background-color: rgba(255, 255, 255, 0.99);
+    border: 0;
+    border-radius: 0;
+    z-index: 1000;
+    font-family: "Roboto Condensed", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    /*padding-top: 12px;*/
+    padding: 10px 10px;
+}
+
+.navbar-custom .dropdown-menu {
+    background: rgba(255, 255, 255, 0.99);
+    border-radius: 0;
+    border: 0;
+    padding: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.navbar-custom .navbar-brand {
+    letter-spacing: 4px;
+    font-weight: 400;
+    font-size: 22px;
+    color: #000000;
+    margin-top: -6px;
+}
+
+.navbar-custom .nav li > a {
+    position: relative;
+    color: rgba(0, 0, 0, .7);
+}
+
+.navbar-custom .dropdown-menu > li > a {
+    border-bottom: 1px solid rgba(73, 71, 71, 0.3) !important;
+    padding: 11px 15px;
+    letter-spacing: 2px;
+    font-size: 11px;
+    color: #000000;
+}
+
+.navbar-custom .dropdown-menu .dropdown-menu {
+    border-left: 1px solid rgba(73, 71, 71, 0.3);
+    left: 100%;
+    right: auto;
+    top: 0;
+    margin-top: 0;
+}
+
+.navbar-custom .dropdown-menu.left-side .dropdown-menu {
+    border: 0;
+    border-right: 1px solid rgba(73, 71, 71, 0.3);
+    right: 100%;
+    left: auto;
+}
+
+.navbar-custom .nav > li > a:focus,
+.navbar-custom .nav > li > a:hover,
+.navbar-custom .nav .open > a,
+.navbar-custom .nav .open > a:focus,
+.navbar-custom .nav .open > a:hover,
+.navbar-custom .dropdown-menu > li > a:focus,
+.navbar-custom .dropdown-menu > li > a:hover {
+    background: none;
+    color: #000000;
+}
+
+/*.navbar-custom .dropdown-menu > li > a:hover {
+    background: rgba(255, 255, 255, .1) !important;
+}*/
+
+.navbar-custom .dropdown-toggle:after {
+    position: absolute;
+    display: block;
+    right: 0;
+    top: 50%;
+    margin-top: -6px;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 9px;
+    content: "\f107";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+    background: #000000;
+}
+
+
+
+.home-section {
+    position: relative;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    z-index: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#cityNav {
+    color:orangered;
+}
+/* -------------------------------------------------------------------
+Sections
+------------------------------------------------------------------- */
+
+.navbar-custom + .main {
+    margin-top: 25px;
+    /*was 50px*/
+}
+
+.main {
+    position: relative;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.module,
+.module-small {
+    position: relative;
+    padding: 70px 0;
+    /* padding: 140px 0; */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.module-title-small {
+    position: relative;
+    letter-spacing: 2.5px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    /*color: #111;*/
+    margin: 0 20 0px;
+}
+
+.module-title {
+    position: relative;
+    letter-spacing: 4px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 30px;
+    /*color: #111;*/
+    margin: 0 0 20px;
+    /*was: margin: 0 0 70px; */
+}
+
+.module-title-large {
+    position: relative;
+    letter-spacing: 4px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 80px;
+    color: #111;
+    margin: 0 0 0px;
+    /*was: margin: 0 0 70px; */
+}
+
+.feature-title {
+    position: relative;
+    letter-spacing: 4px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 30px;
+    color: #111;
+    margin: 0 0 30px;
+    /*was: margin: 0 0 70px; */
+}
+
+.feature-subtitle {
+    position: relative;
+    letter-spacing: 4px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+    color: #111;
+    margin: 0 0 20px;
+    /*was: margin: 0 0 70px; */
+}
+
+.module-subtitle {
+    text-align: center;
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 40px;
+    /*was: margin: 0 0 70px; */
+}
+
+.module-subtitle-info {
+    list-style-type: none;
+    text-align: center;
+    font-size: 20px;
+    color: #111;
+    margin-top: 20px;
+    padding: 5px;
+    width:90%;
+}
+
+.module-icon {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.module-title + .module-subtitle {
+    margin-top: -15px;
+    /*was: margin-top: -35px; */
+}
+
+
+/* Sections dividers */
+
+.divider-w {
+    border-top: 1px solid #eaeaea;
+    margin: 40;
+}
+
+.divider-d {
+    border-top: 1px solid #202020;
+    margin: 0;
+}
+
+
+/* Radiation Map */
+
+#canvas{
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+#radScale{
+	padding-left: 0;
+    padding-right: 0;
+    padding-top: 10;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-image: url(../radmap/radscale.jpg);    
+    width: 430px;
+    height: 17px;
+}
+
+.centerBlock {
+   	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.circle{
+    width:55%;
+    height:80%;
+    overflow:hidden;
+    position:relative;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:100%;
+}
+
+.dl {
+    cursor:pointer;
+    color: grey;
+    font-size:14;
+}
+
+.dl:hover{
+    background-color: lightgray;
+    color:white;
+}
+
+/*Climabox*/
+#climabox{
+    /*padding-left: 0;
+    padding-right: 50;
+    padding-top: 10;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-image: url(../climaBox.png);  */  
+    width: 300;
+    /*height: 150;*/
+}
+#climabox img
+{
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  display: block;
+}
+
+
+.grid line {
+  stroke: white;
+  stroke-opacity: 1;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+
+.axis path {
+    fill:grey;
+    stroke: grey;
+}
+.axis line {
+    fill: none;
+    stroke: none;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    fill: grey;
+}
+
+.area {
+    fill: orangered;
+    opacity: 0.1;
+}
+
+.hide {
+    display: none;
+}
+
+/* Download button styles */
+/* Style buttons */
+.btn {
+  background-color: white;
+  border: none;
+  color: grey;
+  padding: 2px 0px;
+  cursor: pointer;
+  font-size: 2px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  /*background-color: Orange;*/
+  color:orange;
+} 
+
+
+/*tooltips, mainly used along with chart inputs
+tooltips for charts are included as functions in javascirpts for each chart.*/
+/*.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 110%
+  
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+/*this adds the small arrow on the side of the tooltip box
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}*/
+
+
+a:link {
+  color: grey;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+a:hover {
+  color: orangered;
+}
