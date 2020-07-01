@@ -37,7 +37,7 @@ function hoursToDate(hour) {
 
 
 
-function psychrometricChart() {
+function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11) {
 	var width,
 	height,
 	context,
@@ -50,8 +50,8 @@ function psychrometricChart() {
 	epwPre,
 	margin = {top: 20, right: 50, bottom: 170, left: 15},
 	// offset = offset = (($(window).width() <= 600) ? -10: 0),
-	hExtent = [7,17],
-	mExtent = [0, 11];
+	hExtent = [h1,h2],
+	mExtent = [m1, m2];
 
 	var monthAbb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -73,12 +73,6 @@ function psychrometricChart() {
 		.domain([0, 11]);
 		
 
-	var hBrush = d3.brushX()
-		.on("brush", hbrushMove);
-
-	var mBrush = d3.brushX()
-		.on("brush", mbrushMove);
-
 
 	// var w = new globe()
 	// 	.mapData("data/world-110m.json")
@@ -88,7 +82,7 @@ function psychrometricChart() {
 	//set up the axis for the main chart
 	var dbAxis = d3.axisBottom().scale(dbScale);
 	var hrAxis = d3.axisRight().scale(hrScale);
-	
+
 	function chart(selection) {
 		selection.each(function(data, i) {
 			//Set the context for the graph
@@ -102,8 +96,6 @@ function psychrometricChart() {
 			monthScale.range([0, (width - margin.left - margin.right)]);
 			// hBrush.x(hourScale).extent(hExtent);
 			// mBrush.x(monthScale).extent(mExtent)
-			hBrush.extent([[hourScale.range()[0], 0], [hourScale.range()[1], brushHeight]]);
-			mBrush.extent([[monthScale.range()[0],0], [monthScale.range()[1], brushHeight]]);
 
 			// // hBrush.extent(hourScale(hExtent[0]), hourScale(hExtent[1]));
 			// hBrush.extent([[0, hourScale.range()[0]], [hExtent, hourScale.range()[1]]]);
@@ -314,64 +306,9 @@ function psychrometricChart() {
 					return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]); });
 
 
+
 			//set up the sliders
-			var constraints = psychChart.append("g")
-				.attr("transform", "translate(0," + (height - margin.bottom + 60) + ")");
 
-			constraints.append("g")
-				.attr("class", "hourAxis")
-				.call(d3.axisBottom()
-					.scale(hourScale)
-					.tickFormat(function(d) { 
-						var suffix = ((d + 1) >= 12 && d != 23)? " PM": " AM";
-						return ((d + 12) % 12 + 1) + suffix;
-					})
-					.tickSize(0)
-					.tickPadding(12)
-					.tickValues([0, 5, 11, 17, 23]))
-				.select(".domain")
-				.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-					.attr("class", "halo");
-
-			var hBrushg = constraints.append("g")
-				.attr("class", "brush")
-				.call(hBrush);
-
-			hBrushg.selectAll(".resize").append("circle")
-				.attr("class", "handle")
-				.attr("r",((width < 600) ? 4: 6));
-
-			hBrushg.selectAll("rect")
-				.attr("height",6)
-				.attr("y", -3);
-
-
-			constraints.append("g")
-				.attr("class", "monthAxis")
-				.attr("transform", "translate(0," + ((width < 600) ? 45: 60) + ")")
-				.call(d3.axisBottom()
-					.scale(monthScale)
-					.tickFormat(function(d) { 
-						return monthAbb[d];
-					})
-					.tickSize(0)
-					.tickPadding(12))
-				.select(".domain")
-				.select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-					.attr("class", "halo");
-
-			var mBrushg = constraints.append("g")
-				.attr("transform", "translate(0," + ((width < 600) ? 45: 60) + ")")
-				.attr("class", "brush")
-				.call(mBrush);
-
-			mBrushg.selectAll(".resize").append("circle")
-				.attr("class", "handle")
-				.attr("r", ((width < 600) ? 4: 6));
-
-			mBrushg.selectAll("rect")
-				.attr("height",6)
-				.attr("y", -3);
 
 
 
@@ -449,7 +386,7 @@ function psychrometricChart() {
 			
 
 
-			
+
 		});
 	}
 
@@ -472,55 +409,6 @@ function psychrometricChart() {
   		reader.readAsBinaryString(file);
   		
 	}
-
-	function hbrushMove() {
-		var h = hBrush.extent();
-		console.log("testttingggg  ",h)
-		if (d3.event.mode === "move") {
-			var d0 = Math.round(h[0]),
-			d1 = d0 + Math.round(h[1] - h[0]);
-			hExtent = [d0, d1]
-		}
-
-		else {
-			// hExtent = h.map(Math.round);
-			hExtent = map.h(Math.round);
-
-			if (hExtent[0] >= hExtent[1]) {
-				hExtent[0] = Math.floor(h[0]);
-				hExtent[1] = Math.ceil(h[1]);
-			}
-		}
-
-		d3.select(this).call(hBrush.extent(hExtent));
-		d3.selectAll(".hours").classed("nir", function(d) { return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]); }); 
-
-	}
-
-	function mbrushMove() {
-		var m = mBrush.extent();
-
-		if (d3.event.mode === "move") {
-			var d0 = Math.round(m[0]),
-			d1 = d0 + Math.round(m[1] - m[0]);
-			mExtent = [d0, d1]
-		}
-
-		else {
-			mExtent = m.map(Math.round);
-
-			if (mExtent[0] >= mExtent[1]) {
-				mExtent[0] = Math.floor(m[0]);
-				mExtent[1] = Math.ceil(m[1]);
-			}
-		}
-
-		d3.select(this).call(mBrush.extent(mExtent));
-		d3.selectAll(".hours").classed("nir", function(d) { return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]); });
-
-	}
-
-
 
 	// chart.width = function(value) {
  //    	if (!arguments.length) return width;
@@ -735,7 +623,6 @@ function psychrometrics() {
 		return hrCoordinates;
 	}
 }
-
 
 
 
