@@ -189,10 +189,290 @@ path.water {
 	opacity: 0;
 }
 
+/* on and off slider
+input { opacity:0}
+input+label {
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: #bdc3c7;
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-out;
+  -o-transition: .25s ease-out;
+  transition: .25s ease-out;
+}
+
+input+label:before {
+  width: 22px;
+  height: 22px;
+  left: 4px;
+  top: 4px;
+  border-radius: 11px;
+  z-index: 2;
+  content: "ON OFF";
+  display: block;
+  position: absolute;
+  background: #7f8c9a;
+  font-size: 14.99px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-indent: -32px;
+  word-spacing: 40px;
+  color: #fff;
+  white-space: nowrap;
+  -webkit-transition: .25s ease-out;
+  -moz-transition: .25s ease-out;
+  -o-transition: .25s ease-out;
+  transition: .25s ease-out;
+}
+
+input:checked+label{
+  background-color: #2A3542;
+}
+
+input.mytoggle:focus {
+  outline: 0;
+}
+
+input:checked+label:before {
+  background-color: #41cac0;
+  color: #41cac0;
+  left: 54px;
+}
+*/
 
 
+/* Dynamic climabox
+-------------------------------------------*/
+/*:root{
+    --length: 300px;
+    --width: 200px;
+    --height: 100px;
+    --halflength: 150px;
+    --halfwidth: 100px;
+    --halfheight: 50px;
+    --hlratio: 50px;
+    --hlratiowhole: 250px;
+    --wlratio: 50px;
+    --wlratiowhole: 150px;
 
 
+}*/
+
+.wnorth{
+         display: block;
+        border: var(--wn) solid;
+  /*border-image: repeating-linear-gradient(45deg,#606dbc,#606dbc 10px,#465298 10px,#465298 20px) 60;*/
+    width: 100%;
+     height: 100%;
+    box-sizing: border-box;
+    }
+.wsouth{
+         display: block;
+        border: var(--ws) solid;
+  /*border-image: repeating-linear-gradient(45deg,#606dbc,#606dbc 10px,#465298 10px,#465298 20px) 60;*/
+    width: 100%;
+     height: 100%;
+    box-sizing: border-box;
+    }
+.weast{
+         display: block;
+        border: var(--we) solid;
+  /*border-image: repeating-linear-gradient(45deg,#606dbc,#606dbc 10px,#465298 10px,#465298 20px) 60;*/
+    width: 100%;
+     height: 100%;
+    box-sizing: border-box;
+    }
+.wwest{
+         display: block;
+        border: var(--ww) solid;
+  /*border-image: repeating-linear-gradient(45deg,#606dbc,#606dbc 10px,#465298 10px,#465298 20px) 60;*/
+    width: 100%;
+     height: 100%;
+    box-sizing: border-box;
+    }
+.square{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #CCC;
+}
+
+
+body { font-family: sans-serif; }
+
+.scene {
+  width: 300px;
+  height: var(--halfheight);
+  /*border: 1px solid #CCC;*/
+  margin: 80px;
+  perspective: 400px;
+  margin-left: -20%;
+}
+
+.bigbox {
+  width: 300px;
+  height: var(--halfheight);
+  transform-style: preserve-3d;
+  /*transform: translateZ(-50px);*/
+  transition: transform 1s;
+}
+
+.bigbox.show-right  { transform: translateZ( -50px) rotateY(   0deg); }
+.bigbox.show-left  { transform: translateZ( -50px) rotateY(180deg); }
+.bigbox.show-back  { transform: translateZ(-50px) rotateY( -90deg); }
+.bigbox.show-front   { transform: translateZ(-50px) rotateY(  90deg); }
+.bigbox.show-SW   { transform: translateZ(-150px) rotateY(  120deg) rotateZ(-15deg); }
+.bigbox.show-NE { transform: translateZ(-150px) rotateY( -60deg) rotateZ(20deg); }
+
+.box__face {
+  position: absolute;
+  border: 2px solid #CCC;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+}
+
+.box__face--front,
+.box__face--back {
+  width: var(--length);
+  height: var(--width);
+  line-height: var(--width);
+
+
+}
+
+.box__face--right,
+.box__face--left {
+  width: var(--height);
+  height: var(--width);
+  line-height: var(--width);
+}
+
+.box__face--top,
+.box__face--bottom {
+  width: var(--length);
+  height: var(--height);
+  line-height: var(--height);
+}
+
+    .box__face--front  { background: background: hsla( 60, 100%, 50%, 0.7);}
+    {repeating-linear-gradient(
+  45deg,
+  #606dbc,
+  #606dbc 5px,
+  #465298 5px,
+  #465298 10px
+); }
+.box__face--right  { background: hsla( 0, 0%, 0%, 0.0); }
+.box__face--back   { background: hsla( 0, 0%, 0%, 0.0); }
+.box__face--left   { background: hsla( 0, 0%, 0%, 0.0); }
+.box__face--top    { background: #CCC; }
+.box__face--bottom { background: #CCC; }
+
+.box__face--front  { transform: rotateY(  0deg) translateZ( var(--halfheight));
+                        transform-origin: center;}
+.box__face--back   { transform: rotateY(180deg) translateZ( var(--halfheight));
+                        transform-origin: center;}
+
+.box__face--right  { transform: rotateY( 90deg) translateZ(var(--hlratiowhole));
+                        transform-origin: center;}
+.box__face--left   { transform: rotateY(-90deg) translateZ(var(--hlratio));
+                    transform-origin: center;}
+
+.box__face--top    { transform: rotateX( 90deg) translateZ(var(--wlratio));
+                        transform-origin: center;}
+.box__face--bottom { transform: rotateX(-90deg) translateZ(var(--wlratiowhole));
+                    transform-origin: center;}
+
+label { margin-right: 10px; }
+
+
+.separator {
+  margin-top: 40px;
+}
+.botseparator {
+  height:25px;
+  position:relative;
+}
+
+
+/* radio button */
+/* The container */
+.cont {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+/* Hide the browser's default radio button */
+.container .but {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #ff4500;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 5px;
+	left: 5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: white;
+}
 
 
 

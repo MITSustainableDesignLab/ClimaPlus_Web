@@ -79,7 +79,84 @@
 
             <form action="{{ url_for('Climabox') }}"  method='post' id='climaboxSettings'>
                 <h2 class="module-title font-alt ttip" href="#" data-toggle="tooltip" data-placement="left" title="ClimaPlus includes a simple one zone thermal model to estimate the effect of key design parameters on indoor temperature and energy use for a given site. The model considers solar radiation onto different facades, one dimensional heat flow through walls, roof and windows, internal gains from solar radiation, equipment and occupants as well as thermal mass effects using a RC-based lag time constant.">Climabox Settings</h2>
-                <div  id="climabox"><img alt="Climabox" src="../static/img/climaBox_dim.jpg" /></div>
+
+                <!-- dynamic box -->
+                <div class="separator"></div>
+
+                <div class="scene">
+
+
+      <div class="bigbox">
+    <div class="box__face box__face--front"><div class="weast"><div class="square"></div></div></div>
+    <div class="box__face box__face--back"><div class="wwest"><div class="square"></div></div></div>
+    <div class="box__face box__face--right"><div class="wsouth"><div class="square"></div></div></div>
+    <div class="box__face box__face--left"><div class="wnorth"><div class="square"></div></div></div>
+    <div class="box__face box__face--top"></div>
+    <div class="box__face box__face--bottom"></div>
+  </div>
+</div>
+
+
+      <p class="radio-group">
+    <label class="cont">West
+      <input class="but" type="radio" name="radio" value="left">
+      <span class="checkmark"></span>
+    </label>
+    <label class="cont">North
+      <input class="but" type="radio" checked="checked" name="radio" value="front">
+      <span class="checkmark"></span>
+    </label>
+    <label class="cont">South
+      <input class="but" type="radio" name="radio" value="back">
+      <span class="checkmark"></span>
+    </label>
+    <label class="cont">East
+      <input class="but" type="radio" name="radio" value="right">
+      <span class="checkmark"></span>
+    </label>
+     <label class="cont">SW Perspective
+      <input class="but" type="radio" name="radio" value="SW">
+      <span class="checkmark"></span>
+    </label>
+     <label class="cont">NE Perspective
+      <input class="but" type="radio" name="radio" value="NE">
+      <span class="checkmark"></span>
+    </label>
+</p>
+
+
+
+<div class="botseparator"></div>
+<!-- <input class='cbform' style="width: 140px;" id="il" type="text" name="climaWidth"  placeholder="L (10 m)">
+<input class='cbform' style="width: 140px;" id='iw' type="text" name="climaWidth"  placeholder="W (10 m)">
+<input class='cbform' style="width: 140px;" id='ih' type="text" name="climaWidth"  placeholder="H (10 m)">
+<button type="button" onclick="getInputValue()">GO</button>
+<h1 id="w" style="color: aqua"></h1>
+<h1 id="l" style="color: black">hello</h1>
+<h1 id="h" style="color: crimson"></h1> -->
+
+<!--<p class="radio-group">
+  <label>
+    <input type="radio" name="rotate-cube-side" value="left"  /> West
+  </label>
+  <label>
+    <input type="radio" name="rotate-cube-side" value="front" checked /> North
+  </label>
+  <label>
+    <input type="radio" name="rotate-cube-side" value="back" /> South
+  </label>
+  <label>
+    <input type="radio" name="rotate-cube-side" value="right" /> East
+  </label>
+  <label>
+    <input type="radio" name="rotate-cube-side" value="SW" /> SW Perspective
+  </label>
+  <label>
+    <input type="radio" name="rotate-cube-side" value="NE" /> NE Perspective
+  </label>
+</p>-->
+
+
                 <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. Please note that the shown geometry is only shown for the default geometry and does not change.">Climabox dimensions</a>
                 <div class="container">
                 <div class="row">
@@ -311,12 +388,12 @@
 
                 <!-- <div style="padding:5px 0;">
                     <font>Conditioning system</font><br>
-                    <input type="checkbox" name="system" value="nv" id='nv' checked/> Operable windows <br>
+                    <input type="check" name="system" value="nv" id='nv' checked/> Operable windows <br>
                     <input type="checkbox" name="system" value="h" id='h'/> Heating furnace (COP 0.85), <a id = "sp_L"> 18 </a> deg C <br>
                     <input type="checkbox" name="system" value="c" id='c'/> AC for Cooling (COP 3), <a id = "sp_U"> 26 </a> deg C
                 </div> -->
 
-                <div style="padding:20px 0;"><input type="submit" value="Go" name="submit" id="climaboxSettingsForm"/></div>  <!-- onclick="history.go(-1);"  -->
+                <div style="padding:20px 0;"><input type="submit" value="Go" name="submit" onclick="getInputValue()" id="climaboxSettingsForm"/></div>  <!-- onclick="history.go(-1);"  -->
             </form>
             <!-- </div> -->
         
@@ -431,6 +508,8 @@
 {% block scripts %}
 
 <script type="text/javascript">
+
+
 
     var Tin = {{dataT["Tin"]}}
     var Tin_freq = {{dataT["Tin_freq"]}}
@@ -602,7 +681,66 @@
         $('input[name="climaHeight"]').val(H);
 
         // enabling all tooltips 
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-toggle="tooltip"]').tooltip();
+        //setting box default
+        var Width= (Math.log(W+18)-3)*100+200 //Box Width
+        var Height= 150*(1-Math.exp(-(H-1.5))) // Box Height
+        var Length= (Math.log(L+18)-3)*100+200 //Box length
+
+        minNS=Math.min(Height,Length)
+        minEW=Math.min(Height,Width)
+
+        //Window ratios
+        if(val == 0){
+        document.documentElement.style
+        .setProperty('--wn', (minNS/2.05).toString()+"px");}
+        else{
+        document.documentElement.style
+        .setProperty('--wn', ((1-val)*(minNS/2)).toString()+"px");}
+
+        if(val2 == 0){
+        document.documentElement.style
+        .setProperty('--ws', (minNS/2.05).toString()+"px");}
+        else{
+        document.documentElement.style
+        .setProperty('--ws', ((1-val2-.1)*(minNS/3)).toString()+"px");}
+
+        if(val3 == 0){
+        document.documentElement.style
+        .setProperty('--ww', (minEW/2.05).toString()+"px");}
+        else{
+        document.documentElement.style
+        .setProperty('--ww', ((1-val3)*(minEW/2)).toString()+"px");}
+
+        if(val4 == 0){
+        document.documentElement.style
+        .setProperty('--we', (minNS/2.05).toString()+"px");}
+        else{
+        document.documentElement.style
+        .setProperty('--we', ((1-val4)*(minEW/2)).toString()+"px");}
+
+
+        //box dimensions
+        document.documentElement.style
+        .setProperty('--width', Height.toString()+"px");
+        document.documentElement.style
+        .setProperty('--height', Length.toString()+"px");
+        document.documentElement.style
+        .setProperty('--length', Width.toString()+"px");
+        document.documentElement.style
+        .setProperty('--halfwidth', ((Height/2).toString())+"px");
+        document.documentElement.style
+        .setProperty('--halfheight', ((Length/2).toString())+"px");
+        document.documentElement.style
+        .setProperty('--halflength', ((Width/2).toString())+"px");
+        document.documentElement.style
+        .setProperty('--hlratio', (((Length/Width)*(Width/2)).toString())+"px");
+        document.documentElement.style
+        .setProperty('--hlratiowhole', ((Width-(Length/Width)*(Width/2)).toString())+"px");
+        document.documentElement.style
+        .setProperty('--wlratio', ((Length*.5).toString())+"px");
+        document.documentElement.style
+        .setProperty('--wlratiowhole', (Height - Length*.5).toString()+"px");
 
         // ref:https://stackoverflow.com/questions/21229979/remember-check-box-value-when-re-visited-the-same-page
         // This uses the jQuery cookie library.
@@ -645,5 +783,6 @@
 <script src= '/static/js/IndoorTemp.js'></script>
 <script src= '/static/js/Energy.js'></script>
 <script src= '/static/js/FileSaver.js'></script>
+<script src= '/static/js/Climabox.js'></script>
 <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
 {% endblock %}
