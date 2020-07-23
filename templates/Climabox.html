@@ -82,79 +82,29 @@
 
                 <!-- dynamic box -->
                 <div class="separator"></div>
+<div class="row">
 
-                <div class="scene">
+    <div class="column arrow">
+          <img src="/static/img/compass.png" class="compass">
 
+    </div>
 
+    <div class="column scene" id="element">
       <div class="bigbox">
-    <div class="box__face box__face--front"><div class="weast"><div class="square"></div></div></div>
-    <div class="box__face box__face--back"><div class="wwest"><div class="square"></div></div></div>
-    <div class="box__face box__face--right"><div class="wsouth"><div class="square"></div></div></div>
-    <div class="box__face box__face--left"><div class="wnorth"><div class="square"></div></div></div>
-    <div class="box__face box__face--top"></div>
-    <div class="box__face box__face--bottom"></div>
-  </div>
+            <div class="box__face box__face--front"><div class="wsouth"><div class="square"></div></div></div>
+            <div class="box__face box__face--back"><div class="wnorth"><div class="square"></div></div></div>
+            <div class="box__face box__face--right"><div class="weast"><div class="square"></div></div></div>
+            <div class="box__face box__face--left"><div class="wwest"><div class="square"></div></div></div>
+            <div class="box__face box__face--top"></div>
+            <div class="box__face box__face--bottom"></div>
+
+      </div>
+    </div>
+
 </div>
 
 
-      <p class="radio-group">
-    <label class="cont">West
-      <input class="but" type="radio" name="radio" value="left">
-      <span class="checkmark"></span>
-    </label>
-    <label class="cont">North
-      <input class="but" type="radio" checked="checked" name="radio" value="front">
-      <span class="checkmark"></span>
-    </label>
-    <label class="cont">South
-      <input class="but" type="radio" name="radio" value="back">
-      <span class="checkmark"></span>
-    </label>
-    <label class="cont">East
-      <input class="but" type="radio" name="radio" value="right">
-      <span class="checkmark"></span>
-    </label>
-     <label class="cont">SW Perspective
-      <input class="but" type="radio" name="radio" value="SW">
-      <span class="checkmark"></span>
-    </label>
-     <label class="cont">NE Perspective
-      <input class="but" type="radio" name="radio" value="NE">
-      <span class="checkmark"></span>
-    </label>
-</p>
-
-
-
 <div class="botseparator"></div>
-<!-- <input class='cbform' style="width: 140px;" id="il" type="text" name="climaWidth"  placeholder="L (10 m)">
-<input class='cbform' style="width: 140px;" id='iw' type="text" name="climaWidth"  placeholder="W (10 m)">
-<input class='cbform' style="width: 140px;" id='ih' type="text" name="climaWidth"  placeholder="H (10 m)">
-<button type="button" onclick="getInputValue()">GO</button>
-<h1 id="w" style="color: aqua"></h1>
-<h1 id="l" style="color: black">hello</h1>
-<h1 id="h" style="color: crimson"></h1> -->
-
-<!--<p class="radio-group">
-  <label>
-    <input type="radio" name="rotate-cube-side" value="left"  /> West
-  </label>
-  <label>
-    <input type="radio" name="rotate-cube-side" value="front" checked /> North
-  </label>
-  <label>
-    <input type="radio" name="rotate-cube-side" value="back" /> South
-  </label>
-  <label>
-    <input type="radio" name="rotate-cube-side" value="right" /> East
-  </label>
-  <label>
-    <input type="radio" name="rotate-cube-side" value="SW" /> SW Perspective
-  </label>
-  <label>
-    <input type="radio" name="rotate-cube-side" value="NE" /> NE Perspective
-  </label>
-</p>-->
 
 
                 <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. Please note that the shown geometry is only shown for the default geometry and does not change.">Climabox dimensions</a>
@@ -168,8 +118,9 @@
                 <div  style="padding:20px 0;">
                     <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="The window-to-wall ratio for each façade corresponds to the percentage of glazing area vis-à-vis the overall façade area adjacent to the space.">Window to wall ratio</a>
                     <div style="padding:5px 0;">
-                    <select name="wwrN" id="wnorth" style="width: 140px;">
-                        <option value=0>No window</option>
+                    <select name="wwrN" id="wnorth" style="width: 140px;" >
+                        <option value=0 >Adiabatic</option>
+                        <option value=0.001 >No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
                         <option value=0.3 selected>30%</option>
@@ -182,7 +133,8 @@
                     </div>
                     <div style="padding:5px 0;">
                     <select name="wwrS" id="wsouth" style="width: 140px;">
-                        <option value=0>No window</option>
+                        <option value=0>Adiabatic</option>
+                        <option value=0.001>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
                         <option value=0.3 selected>30%</option>
@@ -195,7 +147,8 @@
                     </div>
                     <div style="padding:5px 0;">
                     <select name="wwrW" id="wwest" style="width: 140px;">
-                        <option value=0>No window</option>
+                        <option value=0>Adiabatic</option>
+                        <option value=0.001>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
                         <option value=0.3 selected>30%</option>
@@ -208,7 +161,8 @@
                     </div>
                     <div style="padding:5px 0;">
                     <select name="wwrE" id="weast" style="width: 140px;">
-                        <option value=0>No window</option>
+                        <option value=0>Adiabatic</option>
+                        <option value=0.001>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
                         <option value=0.3 selected>30%</option>
@@ -226,6 +180,7 @@
                     <div style="padding:5px 0;">
                     <select name="Rroof" id="rroof" style="width: 140px;">
                         <!-- the values are the total U-factors -->
+                        <option value=0>Adiabatic</option>
                         <option value=4.5>Low (U-4.5)</option>
                         <option value=2.37 selected>Regular (U-2.37)</option>
                         <option value=0.33>Medium (U-0.33)</option>
@@ -240,6 +195,13 @@
                         <option value=0.34>Medium (U-0.34)</option>
                         <option value=0.13>Best (U-0.13)</option>
                     </select> <font>Wall</font> <br>
+                    </div>
+                    <div style="padding:5px 0;">
+                    <select name="Rfloor" id="rfloor" style="width: 140px;">
+                        <!-- the values are the total U-factors -->
+                        <option value=0>Adiabatic</option>
+                        <option value=0.4>Slab on grade</option>
+                    </select> <font>Floor</font> <br>
                     </div>
                     <div style="padding:5px 0;">
                     <select name="Uglazing" id="glaz" style="width: 140px;">
@@ -683,64 +645,224 @@
         // enabling all tooltips 
         $('[data-toggle="tooltip"]').tooltip();
         //setting box default
-        var Width= (Math.log(W+18)-3)*100+200 //Box Width
-        var Height= 150*(1-Math.exp(-(H-1.5))) // Box Height
-        var Length= (Math.log(L+18)-3)*100+200 //Box length
+        var Width= (Math.log(W+.5))*100; //Box Width
+        var Height= 150*(1-Math.exp(-(H-1.5))); // Box Height
+        var Length= (Math.log(L+.5))*100;   //Box length    (Math.log(L+18)-3)*100+200; (Old func)
 
         minNS=Math.min(Height,Length)
         minEW=Math.min(Height,Width)
+        function ResetBox() {
+            document.documentElement.style
+                .setProperty('--scene', scene.toString()+"px");
+                document.documentElement.style
+                .setProperty('--height', Height.toString()+"px");
+                document.documentElement.style
+                .setProperty('--width', Width.toString()+"px");
+                document.documentElement.style
+                .setProperty('--length', Length.toString()+"px");
+                document.documentElement.style
+                .setProperty('--halfhieght', ((Height/2).toString())+"px");
+                document.documentElement.style
+                .setProperty('--halfwidth', ((Width/2).toString())+"px");
+                document.documentElement.style
+                .setProperty('--halflength', ((Length/2).toString())+"px");
+                document.documentElement.style
+                .setProperty('--hlratio', (((Width/Length)*(Length/2)).toString())+"px");
+                document.documentElement.style
+                .setProperty('--hlratiowhole', ((Length-(Width/Length)*(Length/2)).toString())+"px");
+                document.documentElement.style
+                .setProperty('--wlratio', ((Width*.5).toString())+"px");
+                document.documentElement.style
+                .setProperty('--wlratiowhole', (Height - Width*.5).toString()+"px");
+                document.documentElement.style
+                .setProperty('--spacer', (Math.max(Height*1.5,Width*1.5,Length*1.5)).toString()+"px");
+                minEW=Math.min(Height,Width)
+                minNS=Math.min(Height,Length)
+                Windows()
+
+            }
+        //Auto updating box
+        //Width
+        $("#cb_w").keyup(function(){
+            // Getting the current value of input
+            W=parseInt($(this).val())
+            Width = (Math.log(W+.5))*100;
+            if ($(this).val() >0){
+            //resetting box
+                ResetBox();
+            }
+        });
+
+        $("#cb_h").keyup(function(){
+            // Getting the current value of input
+            H=parseInt($(this).val())
+            Height = (Math.log(H+.5))*100;
+            if ($(this).val() >0){
+            //resetting box
+                ResetBox();
+            }
+        });
+
+        $("#cb_l").keyup(function(){
+            // Getting the current value of input
+            L=parseInt($(this).val())
+            Length = (Math.log(L+.5))*100;
+            if ($(this).val() >0){
+            //resetting box
+                ResetBox();
+            }
+        });
+        var roofval = document.getElementById("rroof").value;
+        var floorval = document.getElementById("rfloor").value;
+        function Wnchange() {
+            val = document.getElementById("wnorth").value;
+            Windows()
+        }
+        function Wschange() {
+            val2 = document.getElementById("wsouth").value;
+            Windows()
+        }
+        function Wwchange() {
+            val3 = document.getElementById("wwest").value;
+            Windows()
+        }
+        function Wechange() {
+            val4 = document.getElementById("weast").value;
+            Windows()
+        }
+        function Roofchange() {
+            roofval = document.getElementById("rroof").value;
+            Windows()
+        }
+        function Floorchange() {
+            floorval = document.getElementById("rfloor").value;
+            Windows()
+        }
+        $("#wnorth").on("change", Wnchange);
+        $("#wsouth").on("change", Wschange);
+        $("#wwest").on("change", Wwchange);
+        $("#weast").on("change", Wechange);
+        $("#rroof").on("change", Roofchange);
+        $("#rfloor").on("change", Floorchange);
 
         //Window ratios
-        if(val == 0){
-        document.documentElement.style
-        .setProperty('--wn', (minNS/2.05).toString()+"px");}
-        else{
-        document.documentElement.style
-        .setProperty('--wn', ((1-val)*(minNS/2)).toString()+"px");}
+        function Windows() {
+            minEW=Math.min(Height,Width)
+            minNS=Math.min(Height,Length)
+            if(val == 0){
+                document.documentElement.style
+                .setProperty('--wn', (0).toString()+"px");
+                document.documentElement.style
+                        .setProperty('--ncolor', ("hsl(0,0%,50%,0.7)"));
+            }else if(val == 0.001){
+                document.documentElement.style
+                .setProperty('--wn', (0).toString()+"px");
+                document.documentElement.style
+                        .setProperty('--ncolor', ("#fff"));
+            }else{
+                if (minNS<90){
+                    document.documentElement.style
+                .setProperty('--wn', ((1-val)*(minNS/3)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--ncolor', ("hsla( 0, 0%, 0%, 0.0)"));
+                }else{
 
-        if(val2 == 0){
-        document.documentElement.style
-        .setProperty('--ws', (minNS/2.05).toString()+"px");}
-        else{
-        document.documentElement.style
-        .setProperty('--ws', ((1-val2-.1)*(minNS/3)).toString()+"px");}
+                document.documentElement.style
+                .setProperty('--wn', ((1-val)*(minNS/2)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--ncolor', ("hsla( 0, 0%, 0%, 0.0)"));
+            }}
 
-        if(val3 == 0){
-        document.documentElement.style
-        .setProperty('--ww', (minEW/2.05).toString()+"px");}
-        else{
-        document.documentElement.style
-        .setProperty('--ww', ((1-val3)*(minEW/2)).toString()+"px");}
+            if(val2 == 0){
+            document.documentElement.style
+                .setProperty('--ws', (0).toString()+"px");
+                document.documentElement.style
+                        .setProperty('--scolor', ("hsl(0,0%,50%,0.7)"));
+            }else if(val2 == 0.001){
+                document.documentElement.style
+                .setProperty('--ws', (0).toString()+"px");
+                document.documentElement.style
+                        .setProperty('--scolor', ("#fff"));
+            }else{
+            if (minNS<90){
+                    document.documentElement.style
+                .setProperty('--ws', ((1-val2)*(minNS/3)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--scolor', ("hsla( 0, 0%, 0%, 0.0)"));
+                }else{
+                document.documentElement.style
+                .setProperty('--ws', ((1-val2)*(minNS/2)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--scolor', ("hsla( 0, 0%, 0%, 0.0)"));
+            }}
 
-        if(val4 == 0){
-        document.documentElement.style
-        .setProperty('--we', (minNS/2.05).toString()+"px");}
-        else{
-        document.documentElement.style
-        .setProperty('--we', ((1-val4)*(minEW/2)).toString()+"px");}
+            if(val3 == 0){
+            document.documentElement.style
+                .setProperty('--ww', (0).toString()+"px");
+            document.documentElement.style
+                        .setProperty('--wcolor', ("hsl(0,0%,50%,0.7)"));
+            }else if(val3 == 0.001){
+                document.documentElement.style
+                .setProperty('--ww', (0).toString()+"px");
+                document.documentElement.style
+                        .setProperty('--wcolor', ("#fff"));
+            }else{
+            if (minEW<90){
+                    document.documentElement.style
+                .setProperty('--ww', ((1-val3)*(minEW/3)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--wcolor', ("hsla( 0, 0%, 0%, 0.0)"));
+                }else{
+                document.documentElement.style
+                .setProperty('--ww', ((1-val3)*(minEW/2)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--wcolor', ("hsla( 0, 0%, 0%, 0.0)"));
+           } }
 
+            if(val4 == 0){
+            document.documentElement.style
+                .setProperty('--we', (0).toString()+"px");
+            document.documentElement.style
+                        .setProperty('--ecolor', ("hsl(0,0%,50%,0.7)"));
+            }else if(val4 == 0.001){
+                document.documentElement.style
+                .setProperty('--we', (0).toString()+"px");
+                document.documentElement.style
+                        .setProperty('--ecolor', ("#fff"));
+            }else{
+            if (minEW<90){
+                    document.documentElement.style
+                .setProperty('--we', ((1-val4)*(minEW/3)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--ecolor', ("hsla( 0, 0%, 0%, 0.0)"));
+                }else{
+                document.documentElement.style
+                .setProperty('--we', ((1-val4)*(minEW/2)).toString()+"px");
+                document.documentElement.style
+                            .setProperty('--ecolor', ("hsla( 0, 0%, 0%, 0.0)"));
+            }}
 
-        //box dimensions
-        document.documentElement.style
-        .setProperty('--width', Height.toString()+"px");
-        document.documentElement.style
-        .setProperty('--height', Length.toString()+"px");
-        document.documentElement.style
-        .setProperty('--length', Width.toString()+"px");
-        document.documentElement.style
-        .setProperty('--halfwidth', ((Height/2).toString())+"px");
-        document.documentElement.style
-        .setProperty('--halfheight', ((Length/2).toString())+"px");
-        document.documentElement.style
-        .setProperty('--halflength', ((Width/2).toString())+"px");
-        document.documentElement.style
-        .setProperty('--hlratio', (((Length/Width)*(Width/2)).toString())+"px");
-        document.documentElement.style
-        .setProperty('--hlratiowhole', ((Width-(Length/Width)*(Width/2)).toString())+"px");
-        document.documentElement.style
-        .setProperty('--wlratio', ((Length*.5).toString())+"px");
-        document.documentElement.style
-        .setProperty('--wlratiowhole', (Height - Length*.5).toString()+"px");
+            if(roofval ==0){
+             document.documentElement.style
+                .setProperty('--rcolor', ('#CCC'));
+            }else{
+            document.documentElement.style
+                .setProperty('--rcolor', ('#fff'));
+            }
+
+            if(floorval ==0){
+             document.documentElement.style
+                .setProperty('--fcolor', ('#CCC'));
+            }else{
+            document.documentElement.style
+                .setProperty('--fcolor', ('#fff'));
+            }
+        }
+        Windows()
+
+        var scene= Math.max(Height, Width, Length)*1.05
+
+         ResetBox()
 
         // ref:https://stackoverflow.com/questions/21229979/remember-check-box-value-when-re-visited-the-same-page
         // This uses the jQuery cookie library.
