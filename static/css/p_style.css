@@ -231,27 +231,34 @@ path.water {
 
 body { font-family: sans-serif; }
 
+#turnbox {
+    position: absolute;
+    height: 20%;
+    width: 120%;
+    left: -20%;
+}
 .scene {
   position:relative;
-  width: 600px;
-  height: 400px;
+  width: 220%;
+  height: calc(50px + (max(var(--height),var(--length),var(--width))*2));
   border: 1px solid hsla(12, 100%, 50%, 0);
-  margin: 80px;
-  perspective: 400px;
+  margin-bottom: calc(var(--height)/3);
+  perspective: 800px;
   margin-left: -60%;
   cursor: pointer;
 }
 
 .bigbox {
-  margin-left:22%;
-  margin-top: 20%;
-  width: 300px;
-  height: var(--halfwidth);
+  margin-top: max(var(--height),var(--length),var(--width));
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--length);
+  height: calc(var(--height));
   transform-style: preserve-3d;
-  /*transform: translateZ(-50px);*/
+  transform-origin:center;
   transition: transform 1s;
   cursor: pointer;
-  transform: rotateX(-14deg) rotateY(50deg);
+  transform: rotateX(-14deg) rotateY(50deg) ;
 }
 
 .box__face {
@@ -321,15 +328,15 @@ label { margin-right: 10px; }
   margin-top: 40px;
 }
 .botseparator {
-  height:25px;
+  height:50px;
   position:relative;
 }
 
 /*climabox compass
 -------------------------------------------*/
 .arrow {
-  width: 100px;
-  height: 100px;
+  width: 10%;
+  height: 10%;
   position: absolute;
   perspective: 500px;
   transform-style: preserve-3d;
@@ -337,14 +344,13 @@ label { margin-right: 10px; }
 }
 
 .compass {
+  margin-top: calc(var(--height) + max(var(--height),var(--length),var(--width)));
+  /*top: calc(max(var(--height),var(--length),var(--width))*1.7/2); calc(var(--height));*/
   position: absolute;
   left: calc(-1.7 * (var(--halflength))) ;
-  top: calc(3 * (var(--height)));
-  width: 40% /*calc(var(--halflength)/2);*/
-  height: 40%/*calc(var(--halflength)/2);*/
-  transform-origin: 50% 0%;
+  /*top: var(--wlratiowhole)  calc(2.6*(var(--height)));*/
   transform-origin:center;
-  transform: rotateX(86deg) rotateZ(-50deg);
+  transform: rotateX(106deg) rotateZ(-50deg);
 }
 
 

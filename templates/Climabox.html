@@ -82,10 +82,10 @@
 
                 <!-- dynamic box -->
                 <div class="separator"></div>
-<div class="row">
+<div class="row" >
 
     <div class="column arrow">
-          <img src="/static/img/compass.png" class="compass">
+          <img src="/static/img/NorthArrow.png" class="compass">
 
     </div>
 
@@ -107,12 +107,12 @@
 <div class="botseparator"></div>
 
 
-                <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. Please note that the shown geometry is only shown for the default geometry and does not change.">Climabox dimensions</a>
+                <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. Please note that the shown geometry is only shown for the default geometry and does not change. ">Climabox dimensions</a>
                 <div class="container">
                 <div class="row">
-                    <div style="padding:5px 0;"><input class='cbform' style="width: 140px;" id='cb_w' type="text" name="climaWidth"  placeholder="W (10 m)"> W (m) </div>
-                    <div style="padding:5px 0;"><input class='cbform' style="width: 140px;" id='cb_l' type="text" name="climaLength" placeholder="L (10 m)"> L (m) </div>
-                    <div style="padding:5px 0;"><input class='cbform' style="width: 140px;" id='cb_h' type="text" name="climaHeight"  placeholder="H (3 m)"> H (m) </div>
+                    <div style="padding:5px 0; width:30%;" title="1M < Width < 30M" data-toggle="tooltip"><input class='cbform' style="width: 140px;" id='cb_w' type="text" name="climaWidth"  placeholder="W (10 m)"> W (m) </div>
+                    <div style="padding:5px 0;width:30%;" title="1M < Length < 30M" data-toggle="tooltip"><input class='cbform' style="width: 140px;" id='cb_l' type="text" name="climaLength" placeholder="L (10 m)"> L (m) </div>
+                    <div style="padding:5px 0;width:30%;" title="1M < Height < 10M" data-toggle="tooltip"><input class='cbform' style="width: 140px;" id='cb_h' type="text" name="climaHeight"  placeholder="H (3 m)"> H (m) </div>
                 </div></div>
         
                 <div  style="padding:20px 0;">
@@ -645,12 +645,13 @@
         // enabling all tooltips 
         $('[data-toggle="tooltip"]').tooltip();
         //setting box default
-        var Width= (Math.log(W+.5))*100; //Box Width
-        var Height= 150*(1-Math.exp(-(H-1.5))); // Box Height
+        var Width= (Math.log(W+.5))*100;; //Box Width
+        var Height= (Math.log(H+.5))*100;; // Box Height
         var Length= (Math.log(L+.5))*100;   //Box length    (Math.log(L+18)-3)*100+200; (Old func)
 
         minNS=Math.min(Height,Length)
         minEW=Math.min(Height,Width)
+
         function ResetBox() {
             document.documentElement.style
                 .setProperty('--scene', scene.toString()+"px");
@@ -685,31 +686,80 @@
         //Width
         $("#cb_w").keyup(function(){
             // Getting the current value of input
-            W=parseInt($(this).val())
-            Width = (Math.log(W+.5))*100;
-            if ($(this).val() >0){
-            //resetting box
-                ResetBox();
+            if( $(this).val() == "" )
+            {    Width = (Math.log(1+.5))*100;
+                 document.getElementById("cb_w").style.borderColor="red";
+                 document.getElementById("cb_w").style.backgroundColor="lightpink";
+            }else{
+                W=parseInt($(this).val())
+                Width = (Math.log(W+.5))*100;
+                let area = document.querySelector("#cb_w");
+                if ( (W>0) && (W<=30) ){
+                //resetting box
+
+                    ResetBox();
+                    document.getElementById("cb_w").style.borderColor="black";
+                    document.getElementById("cb_w").style.backgroundColor="white";
+                    area.setCustomValidity("");
+                }
+                else{
+                    Width = (Math.log(30+.5))*100;
+                    document.getElementById("cb_w").style.borderColor="red";
+                    document.getElementById("cb_w").style.backgroundColor="lightpink";
+                    area.setCustomValidity("Over the boundry!");
+
+
+                }
             }
         });
 
         $("#cb_h").keyup(function(){
             // Getting the current value of input
-            H=parseInt($(this).val())
-            Height = (Math.log(H+.5))*100;
-            if ($(this).val() >0){
-            //resetting box
-                ResetBox();
+            if( $(this).val() == "" )
+            { Height = (Math.log(1+.5))*100;
+              document.getElementById("cb_h").style.borderColor="red";
+              document.getElementById("cb_h").style.backgroundColor="lightpink";
+            }else{
+                H=parseInt($(this).val())
+                Height = (Math.log(H+.5))*100;
+                if ((H>0) && (H<=10) ){
+                //resetting box
+                    ResetBox();
+                    document.getElementById("cb_h").style.borderColor="black"
+                    document.getElementById("cb_h").style.backgroundColor="white";;
+                }
+                else{
+                    Height = (Math.log(10+.5))*100;
+                    document.getElementById("cb_h").style.borderColor="red";
+                    document.getElementById('cb_h').innerHTML="this is an invalid name"
+                    document.getElementById("cb_h").style.backgroundColor="lightpink";
+    ;
+                }
             }
         });
 
         $("#cb_l").keyup(function(){
             // Getting the current value of input
-            L=parseInt($(this).val())
-            Length = (Math.log(L+.5))*100;
-            if ($(this).val() >0){
-            //resetting box
-                ResetBox();
+            if( $(this).val() == "" )
+            {   Length = (Math.log(1+.5))*100;
+                document.getElementById("cb_l").style.borderColor="red";
+                document.getElementById("cb_l").style.backgroundColor="lightpink";}
+            else{
+                L=parseInt($(this).val())
+                Length = (Math.log(L+.5))*100;
+                if ((L>0) && (L<=30)){
+                //resetting box
+                    ResetBox();
+                    document.getElementById("cb_l").style.borderColor="black";
+                    document.getElementById("cb_l").style.backgroundColor="white";
+
+                }
+                else{
+                    Length = (Math.log(30+.5))*100;
+                    document.getElementById("cb_l").style.borderColor="red";
+                    document.getElementById("cb_l").style.backgroundColor="lightpink";
+                    document.getElementById('cb_l').innerHTML="this is an invalid name";
+                }
             }
         });
         var roofval = document.getElementById("rroof").value;

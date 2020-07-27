@@ -2,8 +2,15 @@
 
 //Cube rotation
 var isOnDiv = false;
-$('#element').mouseenter(function(){isOnDiv=true;});
-$('#element').mouseleave(function(){isOnDiv=false;});
+$( "#element" ).mousedown(function() {
+  isOnDiv=true;
+});
+$( "#element" ).mouseup(function() {
+  isOnDiv=false;
+});
+
+//$('#element').mouseenter(function(){isOnDiv=true;});
+//$('#element').mouseleave(function(){isOnDiv=false;});
 
 
 $(function(){
@@ -37,7 +44,7 @@ $(function(){
                     if(typeof coords.y === "number") this.y = coords.y;
                 }
 
-                this.el.style[transformProp] = "rotateX("+(viewport.x+100)+"deg) rotateZ("+-viewport.y+"deg)";
+                this.el.style[transformProp] = "rotateX("+(viewport.x+120)+"deg) rotateZ("+-viewport.y+"deg)";
             },
             reset: function() {
                 this.move({x: 0, y: 0});
@@ -120,7 +127,7 @@ $(function(){
               var eventLength = event.originalEvent.touches.length;
             }
             catch(err) {
-              eventLength = 0;
+              eventLength = 2;
             }
             if(isOnDiv && !touch || !(event.originalEvent && eventLength > 1)) {
                 event.preventDefault();
