@@ -3,8 +3,6 @@ from flask import render_template, request, url_for, redirect, make_response
 #from flask.ext.session import Session
 import csv, json
 import sys, os
-# import eplus as ep 
-# import data as cd
 import data_climates as ddc
 import CPlus_Climate as cc
 import climabox as cb
@@ -24,16 +22,14 @@ def index():
         ff = str(session['id'])  
     except KeyError:
         ff = '1234'
-        # print("id not known")
-
-    # if os.path.exists('static/'+ff+'.json'):
-    #     os.remove('static/'+ff+'.json')
-    #     session['location'] = ''
-    #     session['city'] = ''
     session['location'] = ''
     session['city'] = ''
     session['id'] = time.time()
     
+    return render_template("ClimateSelect.html")
+
+@app.route('/ClimateSelect', methods=['GET', 'POST'])
+def ClimateSelect():
     return render_template("ClimateSelect.html")
 
 @app.route('/ClimateInfo', methods=['GET', 'POST'])
@@ -46,36 +42,15 @@ def ClimateInfo():
             _loc = ddc.findEPWN(str(city))
             location = _loc.fileEPW
             session['locationJs'] = './static/json/'+_loc.fileEPW+'.json'
-            # print('************_loc vs location   ', _loc, session['locationJs'])
+            session['locationJsPsy'] = './static/json/'+_loc.fileEPW+'.json'
             
             session['location'] = location
             session['city'] = city
 
-        #     w = cc.wthImp('./static/epw/'+session['location']+'.epw')
-
-        #     wi = w.dataWth()
-        #     ww = cc.wrangleWth(wi)
-        #     wthdata = json.dumps(ww.WTH())
-
-        #     with open('static/'+ff+'.json','w') as f:
-        #         f.write(wthdata)
-            
-        # wthdata = request.get_json()
-        # if wthdata != None:
-        #     session['city'] = wthdata['city']
-        #     with open('static/'+ff+'.json','w') as f:
-        #         f.write(json.dumps(wthdata))
-
-    return render_template("ClimateInfo.html")#, wthdata=wthdata)
+    return render_template("ClimateInfo.html")
 
 @app.errorhandler(Exception)
 def handle_error(error):
-    return render_template("ClimateSelect.html")
-
-@app.route('/ClimateSelect', methods=['GET', 'POST'])
-def ClimateSelect():
-    # if request.method == 'POST':
-    #     data_ = request.form['js_data']
     return render_template("ClimateSelect.html")
 
 # a simple sunpath diagram
