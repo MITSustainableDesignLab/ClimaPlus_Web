@@ -7,32 +7,16 @@
 <link rel="stylesheet" href="../static/css/p_style.css">
 <!-- <link rel="stylesheet" href="../static/css/p_normaize.css"> -->
 <style>
+
 </style>
-
-<div class="container-fluid">
-    
-    <div class="row">
-        <div class="col-md-4" id="solar"><img alt="solar" src="../static/img/outdoor.png" /></div>
-        <div class="col-md-4" id="temp"><img alt="temperature" src="../static/img/outdoor.png" /></div>
-        <div class="col-md-4" id="wind"><img alt="wind" src="../static/img/outdoor.png" /></div>
-    </div>
-</div>
-
-<section class="module-small">
+<section class="module-small" id = "secTemp">
 <!-- Divider -->
 <hr class="divider-w mt-60 mb-60">
 <p></p>
 <!-- Divider -->
-<div class="container-fluid">
-
+<div class="container">
     <div class="row">
-        <div class="col-md-4" id="solar"><img alt="solar" src="../static/img/outdoor.png" /></div>
-        <div class="col-md-4" id="temp"><img alt="temperature" src="../static/img/outdoor.png" /></div>
-        <div class="col-md-4" id="wind"><img alt="wind" src="../static/img/outdoor.png" /></div>
-    </div>
-    <div class="row">
-        <!-- <div class="col-sm-6 col-sm-offset-3"> -->
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-sm-6 col-sm-offset-3">
            
             <h2 class="module-title font-alt">Outdoor Temperature</h2>
             <div class="module-subtitle font-serif">
@@ -64,7 +48,16 @@
                 <font size="2"> , Lower treshold limit, <font color="orangered" size="3" id = "tlowerdisplay"> (default is 18) </font> </font>  
             </div>  
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+</div></div>
+
+<section class="module-small" id = "secDD">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
            
             <h2 class="module-title font-alt">Degree Days</h2>
             <div class="module-subtitle font-serif">
@@ -95,13 +88,26 @@
                 <font size="2"> , CDD setpoint temperature: <font color="orangered" size="3" id = "cdddisplay"> (default is 10) </font> </font>  
             </div>  
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+</div></div>
+
+<section class="module-small" id = "secPSYCHRO">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container" id="pschro_main">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
            
             <h2 class="module-title font-alt">Psychrometric Chart</h2>
             <div class="module-subtitle font-serif">
                 Hourly air temperature and humidity <br>
                 <font size="2" color="gray">(Credit: Adopted from a responsive-d3 project by James Perakis)</font>
             </div>
+            <!-- <div class = "centerBlock">
+                <b><font size="2">HDD in the year - <font color="orange" size="3" id="hdd"> HDD  </font> </font></b>
+                <b><font size="2"> &nbsp;&nbsp; CDD in the year - <font color="orange" size="3" id="cdd"> CDD </font> </font></b>
+            </div> -->
 
             <div class="centerBlock">
                 <font class="dl" href="#" size='2' onclick="save_as_svg('svgpsychrochart','Psychrometric Chart.svg')">[download svg]</font>
@@ -114,41 +120,42 @@
             <!-- Sliders source code -->
 
             <script src="../static/js/d3-simple-slider.js"></script>
+
+
+
             <!-- Sliders -->
+
+            <!-- // on and off switch
+            <input type="checkbox" name="abc" id="abc" checked="checked"  style="" />
+            <label onclick="changecolor1();" for="abc" class="mytoggle"></label>
+            //just button
+            <button onClick="changecolor1()">changecolor</button> -->
+
                 <!-- hour slider -->
                 <div id="hslider-range" style="z-index:0; padding-left:11%"></div>
+
+
                 <!-- month slider -->
                 <div id="mslider-range" style=" padding-left:11%;"></div>
 
-        </div>
+
+
+            <!-- <form action="{{ url_for('TempRH') }}"  method='post'>
+                <div >
+                    <input class='dd' id='hdd_input' type="text" name="hddsp" default=18 placeholder="HDD&deg;">
+                    <input class='dd' id='cdd_input' type="text" name="cddsp" default=10 placeholder="CDD&deg;">
+                    <input type="submit" value="Go" name="submitDD">
+                </div>   
+            </form>
+            
+            <div class = "centerBlock">
+                <font size="2">HDD setpoint temperature, <font color="orange" size="3" id = "hdddisplay">(default is 18) </font> </font>
+               
+                <font size="2"> , CDD setpoint temperature, <font color="orange" size="3" id = "cdddisplay"> (default is 10) </font> </font>  
+            </div>  --> 
+        <!-- </div> -->
 </div></div>
 
-
-
-<section class="module-small" id = "secDD">
-<!-- Divider -->
-<hr class="divider-w mt-60 mb-60">
-<p></p>
-<!-- Divider -->
-<div class="container">
-    <div class="row">
-       
-
-
-    </div>
-</div>
-
-
-
-<section class="module-small" id = "secPSYCHRO">
-<hr class="divider-w mt-60 mb-60">
-<p></p>
-
-<div class="container" id="pschro_main">
-    <div class="row">
-        
-    </div>
-</div> -->
       
 {% endblock %}
 {% block scripts %}
@@ -274,7 +281,6 @@
     var CDDL = {{dd_data["CDDL"]}}
     var CITY = "{{session['city']}}" 
     var epwName = "{{session['location']}}"
-    // var jsFileLoc = "{{session['locationJs']}}"
     var jsFileLoc = "{{session['locationJs']}}"
     var wthjson = "{{session['id']}}"+".json"
     // console.log(wthjson)

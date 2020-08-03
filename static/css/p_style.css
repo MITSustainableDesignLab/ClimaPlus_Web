@@ -191,6 +191,173 @@ path.water {
 
 
 
+/* Dynamic climabox
+-------------------------------------------*/
+
+.wnorth{
+    display: block;
+    border: var(--wn) solid;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    }
+.wsouth{
+    display: block;
+    border: var(--ws) solid;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    }
+.weast{
+    display: block;
+    border: var(--we) solid;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    }
+.wwest{
+    display: block;
+    border: var(--ww) solid;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    }
+.square{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #CCC;
+}
+
+
+body { font-family: sans-serif; }
+
+#turnbox {
+    position: absolute;
+    height: 20%;
+    width: 120%;
+    left: -20%;
+}
+.scene {
+  position:relative;
+  width: 220%;
+  height: calc(50px + (max(var(--height),var(--length),var(--width))*2));
+  border: 1px solid hsla(12, 100%, 50%, 0);
+  margin-bottom: calc(var(--height)/3);
+  perspective: 800px;
+  margin-left: -60%;
+  cursor: pointer;
+}
+
+.bigbox {
+  margin-top: max(var(--height),var(--length),var(--width));
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--length);
+  height: calc(var(--height));
+  transform-style: preserve-3d;
+  transform-origin:center;
+  transition: transform 1s;
+  cursor: pointer;
+  transform: rotateX(-14deg) rotateY(50deg) ;
+}
+
+.box__face {
+  position: absolute;
+  border: 2px solid #CCC;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+}
+
+
+.box__face--front,
+.box__face--back {
+  width: var(--length);
+  height: var(--height);
+  line-height: var(--height);
+
+
+}
+
+.box__face--right,
+.box__face--left {
+  width: var(--width);
+  height: var(--height);
+  line-height: var(--height);
+}
+
+.box__face--top,
+.box__face--bottom {
+  width: var(--length);
+  height: var(--width);
+  line-height: var(--width);
+}
+
+.box__face--front  { background: var(--scolor)}
+.box__face--right  { background: var(--ecolor) }
+.box__face--back   { background: var(--ncolor) }
+.box__face--left   { background: var(--wcolor)}
+.box__face--top    { background: var(--rcolor) }
+.box__face--bottom { background: var(--fcolor) }
+
+.box__face--front  { transform: rotateY(  0deg) translateZ( var(--halfwidth));
+                        transform-origin: center;}
+.box__face--back   { transform: rotateY(180deg) translateZ( var(--halfwidth));
+                        transform-origin: center;}
+
+.box__face--right  { transform: rotateY( 90deg) translateZ(var(--hlratiowhole));
+                        transform-origin: center;}
+.box__face--left   { transform: rotateY(-90deg) translateZ(var(--hlratio));
+                    transform-origin: center;}
+
+.box__face--top    { transform: rotateX( 90deg) translateZ(var(--wlratio));
+                        transform-origin: center;}
+.box__face--bottom { transform: rotateX(-90deg) translateZ(var(--wlratiowhole));
+                    transform-origin: center;}
+
+label { margin-right: 10px; }
+
+
+.separator {
+  margin-top: 40px;
+}
+.botseparator {
+  height:50px;
+  position:relative;
+}
+
+/*climabox compass
+-------------------------------------------*/
+.arrow {
+  width: 10%;
+  height: 10%;
+  position: absolute;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.compass {
+  margin-top: calc(var(--height) + max(var(--height),var(--length),var(--width)));
+  /*top: calc(max(var(--height),var(--length),var(--width))*1.7/2); calc(var(--height));*/
+  position: absolute;
+  left: calc(-1.7 * (var(--halflength))) ;
+  /*top: var(--wlratiowhole)  calc(2.6*(var(--height)));*/
+  transform-origin:center;
+  transform: rotateX(106deg) rotateZ(-50deg);
+}
+
+
+
+
+
+
 
 
 
