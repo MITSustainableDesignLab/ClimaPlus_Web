@@ -10,8 +10,9 @@
 - Media Queries
 
 -------------------------------------------*/
-
-
+#2 {
+    text-decoration: underline;
+}
 
 /* General Content
 -------------------------------------------*/
@@ -118,10 +119,30 @@ textarea.emailForm {
 	font-size: 1em;
 }
 
-
-
-
-
+/* d3 globe
+-------------------------------------------*/
+.energySave{
+    background-color: orangered;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 2px;
+}
+.deleteGraph{
+    background-color: orangered;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    padding: 2px;
+    visibility: hidden;
+}
+.energyName{
+    border: 0.5px solid;
+    font-size: 12px;
+    background-color: white;
+    width: 25%;
+    height: 10px;
+}
 
 /* d3 globe
 -------------------------------------------*/

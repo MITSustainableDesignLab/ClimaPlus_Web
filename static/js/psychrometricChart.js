@@ -303,7 +303,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11) {
 				.attr("fill", "gray")
 				.attr("fill-opacity", .8)
 				.classed("nir", function(d) { 
-					return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]); });
+					return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]); });   ///Just chnage parameters to show night time
 
 
 

@@ -319,6 +319,7 @@
                         <option value="customOption">Custom</option>
                     </select><input name="CO2Elec" style="display:none; width: 140px; height: 12px; border: 0.5px solid;" disabled="disabled" onblur="if(this.value==''){toggleField(this,this.previousSibling);}"> <font> Electricity</font> <br>
                     </div>
+
                     <div style="padding:5px 0;">
                     <select name="CO2Gas" id="co2gas" style="width: 140px;" onchange="if(this.options[this.selectedIndex].value=='customOption'){toggleField(this,this.nextSibling); this.selectedIndex='0';}">
                         <option value=0.18001 selected>Boston(0.18 kgCO2e/kWh)</option>
@@ -424,8 +425,19 @@
             <div class="row" style="display:flex; flex-flow:row wrap;">
                 <div class="col-sm-4" x="20"; style="text-align:center;">
                     <h4 class="module-title-small font-alt">Energy<br><button class="btn" onclick="save_as_svg('svgenergy','Energy use intensity.svg')"><i class="fa fa-download"></i></button></h4>
-                    <div id="svgenergy"> </div> </div>
-                <div class="col-sm-4" x="50"; style="text-align:center;"> 
+                    <div id="svgenergy"> </div>
+                        <div style="padding:5px 0;">
+                        <select name="EGS" id="egs" style="width: 35px; margin-bottom: 5px; height: 20px;" onchange="if(this.options[this.selectedIndex].value=='customOption'){toggleField(this,this.nextSibling); this.selectedIndex='0';}">
+                            <option value=2 selected="selected">B</option>
+                            <option value=3>S1</option>
+                            <option value=4>S2</option>
+                            <option value=5>S3</option>
+                        </select>
+                           <input class='energyName' style="width: 70px;" id='energyN' type="text" name="SavedEName"  placeholder="Name">
+                            <br><button type="button" onclick="dataSave()" class="energySave">Save Graph</button>
+                        </div>
+                    </div>
+                <div class="col-sm-4" x="50"; style="text-align:center;">
                     <h2 class="module-title-small font-alt" style="text-align:center;">CO2e<br><button class="btn" onclick="save_as_svg('svgco2','Emisssion.svg')"><i class="fa fa-download"></i></button></h2>
                     <div id="svgco2"> </div> </div>
                 <div class="col-sm-4" x="400"; style="text-align:center;">
@@ -435,26 +447,62 @@
             <div style="padding:15px 0;">
             <div style="text-align:center;">
                 <font><strong>Energy use intensity in kWh/m2.yr </strong></font><br>
-                <font style="font-size: 12px; font-color: grey"> 
-                Total:<a id = "eui"> 0 </a>  
+                <font style="font-size: 12px; font-color: grey">
+                Total:<a id = "eui"> 0 </a>
                 , Equipment - <a id = "equip"> 0 </a>
                 , Lighting - <a id = "light"> 0 </a>
                 , Heating - <a id = "qheat"> 0 </a>
                 , Cooling - <a id = "qcool"> 0 </a> </font><br>
-                
+
                 <font><strong>Operational cost in $/m2.yr </strong></font><br>
-                <font style="font-size: 12px; font-color: grey"> 
-                Total:<a id = "cost_t"> 0 </a>  
+                <font style="font-size: 12px; font-color: grey">
+                Total:<a id = "cost_t"> 0 </a>
                 , Electricity - <a id = "cost_e"> 0 </a>
                 , Gas - <a id = "cost_g"> 0 </a></font><br>
 
                 <font><strong>Emissions in kgCO2e/m2.yr </strong></font><br>
-                <font style="font-size: 12px; font-color: grey"> 
-                Total:<a id = "co2e_t"> 0 </a>  
+                <font style="font-size: 12px; font-color: grey">
+                Total:<a id = "co2e_t"> 0 </a>
                 , Electricity - <a id = "co2e_e"> 0 </a>
                 , Gas - <a id = "co2e_g"> 0 </a></font>
             </div>
-            
+
+    </div>
+</div>
+
+</section >
+
+
+<section class="module-small" id = "SavedEnergyGraphs">
+
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <div class="row" style="display:flex; flex-flow:row wrap;">
+                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                    <h4 class="module-title-small font-alt" style="white-space:pre-wrap;" id="S2"></h4>
+                    <button type="button" onclick="deleteGraph(2)" class="deleteGraph" id="but2">Delete</button>
+                    <div id="svgenergy2" style="width: 50%; margin: auto;"> </div> </div>
+                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                    <h4 class="module-title-small font-alt" id="S3" style="white-space:pre-wrap;"></h4>
+                    <button type="button" onclick="deleteGraph(3)" class="deleteGraph" id="but3">Delete</button>
+                    <div id="svgenergy3" style="width: 50%; margin: auto;"> </div> </div>
+                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                    <h4 class="module-title-small font-alt" id="S4" style="white-space:pre-wrap;"></h4>
+                    <button type="button" onclick="deleteGraph(4)" class="deleteGraph" id="but4">Delete</button>
+                    <div id="svgenergy4" style="width: 50%; margin: auto;"> </div> </div>
+                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                    <h4 class="module-title-small font-alt" id="S5" style="white-space:pre-wrap;"></h4>
+                    <button type="button" onclick="deleteGraph(5)" class="deleteGraph" id="but5">Delete</button>
+                    <div id="svgenergy5" style="width: 50%; margin: auto;"> </div> </div>
+            </div>
+
     </div>
 </div>
 
@@ -476,10 +524,10 @@
     var Tin = {{dataT["Tin"]}}
     var Tin_freq = {{dataT["Tin_freq"]}}
     var Tout = {{dataT["Tout"]}}
-    var Qh_T = {{dataT["Qh_T"]}}
-    var Qc_T = {{dataT["Qc_T"]}}
-    var Ql_T = {{dataT["Ql_T"]}}
-    var Qe_T = {{dataT["Qe_T"]}}
+    var Qh_T = Math.abs({{dataT["Qh_T"]}})
+    var Qc_T = Math.abs({{dataT["Qc_T"]}})
+    var Ql_T = Math.abs({{dataT["Ql_T"]}})
+    var Qe_T = Math.abs({{dataT["Qe_T"]}})
     var EUI = {{dataT["EUI"]}}
     var Heating = {{dataT["Heating"]}}
     var Cooling = {{dataT["Cooling"]}}
@@ -498,6 +546,68 @@
     var SPL = {{climabox["sp_lower"]}}
     var SPU = {{climabox["sp_upper"]}}
     var CITY = "{{session["city"]}}"
+
+    cityL = CITY.split(' (')
+	cityN = cityL[0].split(" ").join("")
+<!--	console.log(cityN)-->
+
+    console.log({"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":EUI})
+    function deleteGraph(num) {
+        delete_cookie( cityN + num )
+        var svgid = "#svgenergy" + num;
+        var textid = "S"+ num;
+        var element = document.getElementById(textid);
+        element.innerHTML = "" ;
+
+        Graphs()
+
+
+    }
+
+    function dataSave() {
+        var e = document.getElementById("egs");
+        var value = e.options[e.selectedIndex].value;
+        var text = e.options[e.selectedIndex].text;
+
+        var svgid = "#svgenergy" + value;
+        var textid = "S"+value;
+        var element = document.getElementById(textid);
+        txtname = document.getElementById('energyN').value;
+        if (txtname.length < 8){
+            if (txtname.length == 0){
+                txtname = " "
+            }
+            name = "<span style='text-decoration: underline'>" + text + "</span> \n" + txtname;
+            element.innerHTML = name;
+
+            document.getElementById("but"+value).style.visibility= "visible";
+
+            scn = [{"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":(Qh_T+Qc_T+Qe_T+ Ql_T) , "name": name}];
+
+            document.cookie = cityN + value + "=" + JSON.stringify(scn[0]);
+
+            Graphs()
+        }
+    }
+
+    function getCookieValue(a) {
+        var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+        return b ? b.pop() : '';
+    }
+    function delete_cookie( name ) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+
+    $("#energyN").keyup(function(){
+        if (document.getElementById('energyN').value.length > 8){
+                 document.getElementById("energyN").style.borderColor="red";
+                 document.getElementById("energyN").style.backgroundColor="lightpink";
+        }
+        else{
+                 document.getElementById("energyN").style.borderColor="black";
+                 document.getElementById("energyN").style.backgroundColor="white";
+        }
+    });
 
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -957,4 +1067,55 @@
 <script src= '/static/js/FileSaver.js'></script>
 <script src= '/static/js/Climabox.js'></script>
 <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+<script>
+
+
+    function Graphs(){
+        var max =0;
+        for (i=2; i<6; i++) {
+                var svgid = "#svgenergy" + i;
+                var svg = d3.select(svgid);
+                svg.selectAll("*").remove();
+                document.getElementById("but"+i).style.visibility= "hidden";
+
+                try{
+                    var savedGraph = JSON.parse(getCookieValue(cityN+i));
+
+                    if (savedGraph["total"] > max){
+                        max = savedGraph["total"];
+                        console.log("max: "+max);
+                    }
+                }
+                catch(err) {
+                    console.log("no saved graphs" +first)
+                }
+
+            }
+
+        var CITY = "{{session["city"]}}"
+        cityL = CITY.split(' (')
+        cityN = cityL[0].split(" ").join("")
+        var first = 0;
+        for (i=2; i<6; i++) {
+            try{
+                var savedGraph = JSON.parse(getCookieValue(cityN+i));
+                var svgid = "#svgenergy" + i;
+                var textid = "S" + i;
+<!--                console.log(savedGraph)-->
+                var element = document.getElementById(textid);
+                first++;
+                element.innerHTML = savedGraph["name"];
+                delete savedGraph["name"]
+                newBase([savedGraph], svgid, first, max)
+
+                document.getElementById("but"+i).style.visibility= "visible"
+<!--                console.log("graph updated", first)-->
+            }
+            catch(err) {
+                console.log("no saved graphs" +first)
+            }
+        }
+    }
+    Graphs()
+</script>
 {% endblock %}

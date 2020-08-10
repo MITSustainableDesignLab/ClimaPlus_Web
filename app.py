@@ -33,7 +33,35 @@ def index():
     session['location'] = ''
     session['city'] = ''
     session['id'] = time.time()
-    
+    session['dragdrop'] = False
+
+    dstDir = './static/temp/' #RF removes after 5 hours json file
+    temps = os.listdir(dstDir)
+    for temp in temps:
+        if temp.endswith(".json"):
+            tempf = dstDir + "/" + temp
+            # print(time.time()-os.path.getmtime(tempf))
+            if ((time.time()-os.path.getmtime(tempf))>18000):
+                os.remove(tempf)  # RF
+
+    logf = "./static/dataLog.json"
+    with open(logf) as file:  #going to delete datalogged after a certain time
+        # print("open")
+        if os.stat(logf).st_size == 0 or file.read(2) == '[]':
+            # print("empty")
+            with open(logf,'w') as f:
+                json.dump({"temp":["temp"]}, f)
+                # print("written")
+        else:
+            with open("./static/dataLog.json") as file:
+                data = json.load(file)
+                if len(data) > 1:
+                    data.pop("temp")
+                    with open("./static/dataLog.json", 'w') as f:
+                        json.dump(data, f)
+
+
+
     return render_template("ClimateSelect.html")
 
 @app.route('/ClimateInfo', methods=['GET', 'POST'])
@@ -41,16 +69,67 @@ def ClimateInfo():
     if request.method == 'POST':
         ff = str(session['id'])
         wthdata = {}
+        # print("Selected")
         if 'selectEPW' in request.form:
+            # print("in")
+            session['dragdrop'] = False
             city = (request.form['city'])
             _loc = ddc.findEPWN(str(city))
             location = _loc.fileEPW
             session['locationJs'] = './static/json/'+_loc.fileEPW+'.json'
             # print('************_loc vs location   ', _loc, session['locationJs'])
-            
+
             session['location'] = location
             session['city'] = city
+            # print(city)
+            log = ddc.LogEPW(city, ff)
 
+        else:   #RF everything under
+
+            # print("out")
+
+            # with open(os.path.join(UPLOAD_DIRECTORY, ff), "wb") as fp:
+            #     fp.write(request.data)
+            # uploaded_file = request.form
+            # uploaded_file.save(os.path.join(UPLOAD_DIRECTORY, ff))
+            # file = request.form
+            # file.save(os.path.join(app.config["UPLOAD_FOLDER"], ff))
+            session['dragdrop'] = True
+            wthdata = (request.form["tdata"])
+            session['location'] = "picture"
+            session['city'] = request.form["city"]
+            # print("set")
+            lwthdata= wthdata
+            par1 = './static/temp/'
+
+            if lwthdata != None:
+                session['locationJs'] = par1 + ff + '.epw'
+                f = open('./static/temp/'+ff+'.epw', 'w')
+                # print("opened")
+                f.write(lwthdata)
+                f.close()
+                # print("uploaded file")
+
+                w = cc.wthImp(session['locationJs'])
+                wi = w.dataWth()
+                ww = cc.wrangleWth(wi)
+
+                wthdata = json.dumps(ww.WTH())
+
+
+                loc2 = par1 + ff +'.json'
+
+                with open(loc2, 'w') as f:
+                    f.write(wthdata)
+                    # print("writen json")
+
+                hello = ddc.runCumRad(ff).logData()
+                print("log written")
+
+                os.remove(session['locationJs'])
+                # print('deleted')
+                session['locationJs'] = loc2
+                session['location'] = ff #"AGO_BGU_Lobito.AP.663050_TMYx"
         #     w = cc.wthImp('./static/epw/'+session['location']+'.epw')
 
         #     wi = w.dataWth()
@@ -59,14 +138,15 @@ def ClimateInfo():
 
         #     with open('static/'+ff+'.json','w') as f:
         #         f.write(wthdata)
-            
+
         # wthdata = request.get_json()
         # if wthdata != None:
         #     session['city'] = wthdata['city']
-        #     with open('static/'+ff+'.json','w') as f:
+        #     with open('static/temp/'+ff+'.json','w') as f:
         #         f.write(json.dumps(wthdata))
 
     return render_template("ClimateInfo.html")#, wthdata=wthdata)
+
 
 @app.errorhandler(Exception)
 def handle_error(error):
@@ -82,13 +162,14 @@ def ClimateSelect():
 @app.route('/SolarP', methods=['GET','POST'])
 def SolarP():
     ff = str(session['id'])
-    # with open('static/'+ff+'.json') as wthj:
     with open(session['locationJs']) as wthj:
         wth = json.load(wthj)
-    # print ("+++++++++++++++test json",wth["psych_wth"])
+
+
+    #print ("+++++++++++++++test json",wth["psych_wth"])
     lat, lon, tz = round((float(wth['latitude'])),0), round((float(wth["longitude"]))*-1,0), round((float(wth["timezone"]))*-15,0)
+
     rf = cc.radFacade(lat,lon,wth['radn'], wth['radd'],wth['radg'])
-    
     ###Facade radiation
     session['HORRADM'] = rf.horradM
     session['RADMS'] = rf.radMS
@@ -96,7 +177,7 @@ def SolarP():
     session['RADMW'] = rf.radMW
     session['RADMN'] = rf.radMN
 
-    # print('++++++++++++++++',rf.radMN)
+    #print('++++++++++++++++',rf.radMN)
 
     ###Sunpath diagram
     sp = cc.sunPath(rf)
@@ -119,8 +200,17 @@ def SolarP():
     city__ = (session['city'])
     # city_ = city__.replace(" ","")
     cityL = city__.split(' (')
-    maxRad = ddc.findMaxRad(str(cityL[0]))
-    session['maxRad'] = maxRad.maxRad
+    # print(maxRad)
+    if session['dragdrop']:
+        ##activates if epw is uploaded
+        with open("./static/dataLog.json") as file:
+            data = json.load(file)
+            session['maxRad'] = data[ff][3]
+            print(session['maxRad'])
+    else:
+        ##activates when dropdown is used
+        maxRad = ddc.findMaxRad(str(cityL[0]))
+        session['maxRad'] = maxRad.maxRad
 
     # print('**********SOLAR******', session['location'], session['city'], maxRad.maxRad)
 
