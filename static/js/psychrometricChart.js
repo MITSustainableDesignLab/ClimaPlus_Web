@@ -35,9 +35,21 @@ function hoursToDate(hour) {
 	return new Date(date.setHours(h));
 }
 
+var rgbrad = ['#9F00BF', '#6800C2', '#2F00C6', '#000CCA', '#00CDD5', '#00DD61', '#24E500', '#CA0035', '#CE0700', '#D24600', '#D58800', '#D9CC00', '#F5E919']
+var rgbwind = ['#FFFFFF', '#EAE8FE', '#D5D1FD', '#C0BAFC', '#ABA3FC', '#968DFB', '#8176FA', '#6C5FFA', '#5748F9', '#4231F8', '#2E1BF8']
 
+function pickHex(rad) {
+    if (rad>1000){
+        rad=1000
+    }
 
-function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11) {
+    return rgbrad[parseInt(rad/83)];
+
+}
+var x=0;
+var colors=[]
+
+function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, invert = false, rad = 0, wv = 0) {
 	var width,
 	height,
 	context,
@@ -52,7 +64,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11) {
 	// offset = offset = (($(window).width() <= 600) ? -10: 0),
 	hExtent = [h1,h2],
 	mExtent = [m1, m2];
-
+    x++;
 	var monthAbb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 	//set up the scales and line function
@@ -292,7 +304,14 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11) {
 
 
 			//finally - plot the points
-			psychChart.selectAll(".hours")
+			if (rad!=0){
+			    if(x==1){
+			        console.log("firsttime")
+                    for (i=0; i<rad.length; i++){
+                        colors.push(pickHex(rad[i]))
+                    }
+                }
+                psychChart.selectAll(".hours")
 				.data(data.weather)
 				.enter()
 				.append("circle")
@@ -300,14 +319,35 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11) {
 				.attr("cx", function(d) { return dbScale(d.db); })
 				.attr("cy", function(d) { return hrScale(d.hr); })
 				.attr("r", (width < 600) ? 2: 3)
-				.attr("fill", "gray")
+				.attr("fill", function(d) { console.log(colors[d["hour"]]); return colors[d["hour"]]; })
 				.attr("fill-opacity", .8)
-				.classed("nir", function(d) { 
-					return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]); });   ///Just chnage parameters to show night time
+				.classed("nir", function(d) {
+				    if (invert){
+				        return (d.date.getHours() < hExtent[1] && d.date.getHours() > hExtent[0] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
+				    }else{
+					    return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
+					}});   ///Just change parameters to show night time
+
+            }else{
+                psychChart.selectAll(".hours")
+                    .data(data.weather)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "hours")
+                    .attr("cx", function(d) { return dbScale(d.db); })
+                    .attr("cy", function(d) { return hrScale(d.hr); })
+                    .attr("r", (width < 600) ? 2: 3)
+                    .attr("fill", "gray")
+                    .attr("fill-opacity", .8)
+                    .classed("nir", function(d) {
+                        if (invert){
+                            return (d.date.getHours() < hExtent[1] && d.date.getHours() > hExtent[0] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
+                        }else{
+                            return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
+                        }});   ///Just change parameters to show night time
+            }
 
 
-
-			//set up the sliders
 
 
 

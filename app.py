@@ -11,9 +11,10 @@ import climabox as cb
 import time
 import shutil
 
+
+
 app = Flask(__name__)
 app.secret_key = '3Z\x15\xfd"\x0e#\x1c}\x8er\xbc<\x16\xf1\xbe\xb6\x83/\x00]\tfP'
-
 # "db":self.Tdb, "dp":self.Tdp, "rh":self.RHout, "bp":self.BP, 
 # "radg":self.RadGlobal, "radn":self.RadNormal, 
 # "radd":self.RadDif, "wd":self.windDir, "wv":self.windVel
@@ -124,7 +125,7 @@ def ClimateInfo():
                     # print("writen json")
 
                 hello = ddc.runCumRad(ff).logData()
-                print("log written")
+                # print("log written")
 
                 os.remove(session['locationJs'])
                 # print('deleted')
@@ -206,7 +207,7 @@ def SolarP():
         with open("./static/dataLog.json") as file:
             data = json.load(file)
             session['maxRad'] = data[ff][3]
-            print(session['maxRad'])
+            print("MaxRad: "+session['maxRad'])
     else:
         ##activates when dropdown is used
         maxRad = ddc.findMaxRad(str(cityL[0]))
@@ -247,6 +248,8 @@ def TempRH():
 
     monthlyData = cc.monthlyData(wth['db'])
     data = {'mean': monthlyData.hourlyMean, 'min': monthlyData.hourlyMin, 'max': monthlyData.hourlyMax}
+    rad = wth['radg']
+    wv = wth['wv']
     data_ = {'db':wth['db'], 'rh':wth['rh'], 'bp':wth['bp']}
     sp = {'tupper':24, 'tlower':18, 'setHDD':18, 'setCDD':10}
     dd_data = {'HDD':int(dd.HDD), 'CDD':int(dd.CDD), 'HDDL':dd.HDDL, 'CDDL':dd.CDDL}
@@ -287,7 +290,7 @@ def TempRH():
 
         # return redirect(request.referrer)
 
-    return render_template("TempRH.html", data= data, sp=sp, dd_data=dd_data)
+    return render_template("TempRH.html", data= data, sp=sp, dd_data=dd_data, rad=rad, wv=wv)
 
 
 # wind distribution and energy production
