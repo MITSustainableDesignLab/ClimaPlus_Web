@@ -130,6 +130,7 @@ var initSavedBarChart = {
     title = config.title,
     color = config.color,
     first = config.first,
+    last = config.last,
     max = config.max,
     margin = {top: 20, right: 20, bottom: 50, left: 50},
     parseDate = d3.timeParse("%m/%Y"),
@@ -204,7 +205,7 @@ var initSavedBarChart = {
         .attr("y", -30)
         .style("text-anchor", "end")
         .text(title);
-
+        }
     //   svg.append("g")
     //   .attr("class", "y axis")
     //   .call(xAxis)
@@ -215,34 +216,36 @@ var initSavedBarChart = {
     //   .style("text-anchor", "end")
     //   .text(title);
 
-      // draw legend
-      var legend = svg.selectAll(".legend")
-          .data(stackKey)
-        .enter().append("g")
-          .attr("class", "legend")
-          .attr("transform", function(d, i) { return "translate(0," + i * 15 + ")"; });
+    if (last){
+          // draw legend
+          var legend = svg.selectAll(".legend")
+              .data(stackKey)
+            .enter().append("g")
+              .attr("class", "legend")
+              .attr("transform", function(d, i) { return "translate(50," + (i * 15 -62)  + ")"; });
 
-      // draw legend colored rectangles
-      legend.append("rect")
-          .attr("x", 0) //.attr("x", width - 18)
-          .attr("y", height+8)
-          .attr("width", 12) //.attr("width", 12)
-          .attr("height", 8)
-          .style("fill", color);
+          // draw legend colored rectangles
+          legend.append("rect")
+              .attr("x", 0) //.attr("x", width - 18)
+              .attr("y", height+8)
+              .attr("width", 12) //.attr("width", 12)
+              .attr("height", 8)
+              .style("fill", color);
 
-      // draw legend text
-      legend.append("text")
-          .attr("x", 15)
-          .attr("y", height+13)
-          .attr("dy", ".15em")
-          // .style("text-anchor", "end")
-          .style("font-size","9.5px")
-          .style("font-color","grey")
-          .text(function(d) { return d;})
-    }
-   }
+          // draw legend text
+          legend.append("text")
+              .attr("x", 15)
+              .attr("y", height+13)
+              .attr("dy", ".15em")
+              // .style("text-anchor", "end")
+              .style("font-size","9.5px")
+              .style("font-color","grey")
+              .text(function(d) { return d;})
+          }
 
   }
+
+}
 
 var data = [
 {"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":EUI}
@@ -265,7 +268,7 @@ colorL = {"Equipment": "black", "Lighting": "yellow","Cooling":"#62749e","Heatin
 colorL_ = {"Electricity":"darkgrey","Gas":"orange"}
 
 
-function newBase(cookiedata, svgid, first, max){
+function newBase(cookiedata, svgid, first, max, last){
     var svg = d3.select(svgid);
     svg.selectAll("*").remove();
 //    if (first == 1){
@@ -289,7 +292,8 @@ function newBase(cookiedata, svgid, first, max){
           title:"Energy Use (kWh/m2)",
           color: colorL,
           max: max,
-          first: first
+          first: first,
+          last: last
         });
 //    }
 }

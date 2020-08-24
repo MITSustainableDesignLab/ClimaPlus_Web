@@ -114,8 +114,12 @@
             </div>
 
             <!-- Graph -->
+
             <div style="text-align:center; height: 350; z-index:-1;"  id="svgpsychrochart"> </div>
 
+            <div class="vertical-center" style="padding:20px;">
+                <p1 id="minlim" style="position:absolute;margin-left:-390px; margin-top:-5px">0 Wh/m^2</p1><img id="scale" src="/static/radmap/radscale.jpg" style="margin-top:-60px"><p1 id="maxlim" style="margin-top:-10px;margin-left: -73px;">1000 Wh/m^2</p1>
+            </div>
 
             <!-- Sliders source code -->
 
@@ -126,25 +130,33 @@
             <!-- Sliders -->
 
 
-<!--            //just button-->
-<!--            <button onClick="changecolor1()">changecolor</button>-->
 
-                <!-- hour slider -->
-<!--            <div class="vertical-center">-->
-<!--                <button id="rad" class="hswitch" onclick="updateSldr()">Switch</button>-->
-<!--                <button if="wv" class="hswitch" onclick="updateSldr()">Switch</button>-->
-<!--            </div>-->
+            <div class="vertical-center" style="padding:20px;">
+                <button class="col selected" id="rad" class="hswitch" style="z-index:2;">Rad</button>
+                <button class="col" id="wind" class="hswitch" style="z-index:2;">Wind</button>
+            </div>
 
-            <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" onclick="updateSldr()" checked>
+            <div class="vertical-center">
+            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" onclick="updatehSldr()" checked>
                     <label class="onoffswitch-label" for="myonoffswitch"></label>
                 </div>
-            <div id="hslider-range" style="z-index:0; padding-left:11%; margin-top: -9%;"></div>
-                <!-- month slider -->
-            <div id="mslider-range" style=" padding-left:11%;margin-top:-9%;"></div>
 
-
-
+            <!-- hours slider -->
+            <div  id="hslider-range" ></div>
+            </div>
+            <!-- month slider -->
+<!--            <div class="onoffswitch2" style="z-index:2;">-->
+<!--                    <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" tabindex="0" onclick="updateSldr()" checked>-->
+<!--                    <label class="onoffswitch2-label" for="myonoffswitch2"></label>-->
+<!--                </div>-->
+            <div class="vertical-center">
+            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" tabindex="0" onclick="updatemSldr()" checked>
+                    <label class="onoffswitch-label" for="myonoffswitch2"></label>
+                </div>
+            <div id="mslider-range" ></div>
+            </div>
             <!-- <form action="{{ url_for('TempRH') }}"  method='post'>
                 <div >
                     <input class='dd' id='hdd_input' type="text" name="hddsp" default=18 placeholder="HDD&deg;">
@@ -171,31 +183,63 @@
       var sldrs = [0, 23, 0, 11];
       var fcolor1 = '#ff4501';
       var bcolor1 = '#eee';
-      var rad = {{rad}};
-      var wv = {{wv}};
+      var rad = {{pschdata['rad']}};
+      var maxrad = {{pschdata['maxrad']}};
+      var wv = {{pschdata['wv']}};
+      var maxwv = {{pschdata['maxwv']}};
+      var gcolor = "rad";
+      var state1 = false;
+      var state2 = false;
+      hourSlider(state1, state2)
 
-      var state = false;
-      hourSlider(state)
-      var rgb = ['#A200BF', '#8600C1', '#6800C3', '#4A00C5', '#2C00C7', '#0C00C9', '#0033CD', '#0054CF', '#0076D1', '#0098D3', '#00BBD5', '#00D7CE','#00D9AE','#00DB8D','#00DF49','#00E126','#00E303','#89DF00','#CCDB00','#D9C400','#D7A100','#D57E00','#D35B0','#D13900','#CF1800','#CD0008'];
-      console.log(rgb.length)
-      function updateSldr() {
+      document.getElementById('maxlim').innerHTML = maxrad+" Wh/m^2"
+
+      $('.col').on('click', function(){
+          if ($(this).attr("id") != gcolor){
+
+                    gcolor = $(this).attr("id");
+                    console.log(gcolor)
+                    console.log(state1+":h and m:"+state2)
+                    changeTime(sldrs, state1, state2);
+                    $('.col').removeClass('selected');
+                    $(this).addClass('selected');
+                    if(gcolor=="rad"){
+                        document.getElementById('minlim').innerHTML = "0 Wh/m^2";
+                        document.getElementById('minlim').style.marginLeft = '-390px';
+                        console.log("radScale")
+                        document.getElementById('scale').src='/static/radmap/radscale.jpg';
+                        console.log("radScale")
+                        document.getElementById('maxlim').innerHTML = maxrad+" Wh/m^2";
+                        document.getElementById('maxlim').style.marginLeft = '-73px';
+                    }else{
+                        document.getElementById('minlim').innerHTML = "0 m/s";
+                        document.getElementById('minlim').style.marginLeft = '-407px';
+                        document.getElementById('scale').src='/static/img/windscale.jpg';
+                        document.getElementById('maxlim').innerHTML = maxwv+" m/s";
+                        document.getElementById('maxlim').style.marginLeft = '-50px';
+                    }
+                }
+
+        });
+
+      function updatehSldr() {
         var svg = d3.select('#hslider-range');
         svg.selectAll("*").remove();
-        state = document.getElementById("myonoffswitch").checked;
-<!--        if (state == false) {-->
-<!--              changeTime(sldrs, state);-->
-<!--&lt;!&ndash;              state = true;&ndash;&gt;-->
-<!--        }else{-->
-<!--            changeTime(sldrs, state);-->
-<!--&lt;!&ndash;            state = false;&ndash;&gt;-->
-<!--        }-->
-        changeTime(sldrs, !state);
-        hourSlider(!state)
+        state1 = !(document.getElementById("myonoffswitch").checked);
+        changeTime(sldrs, state1, state2);
+        hourSlider(state1, state2)
       }
 
+      function updatemSldr() {
+        var svg = d3.select('#mslider-range');
+        svg.selectAll("*").remove();
+        state2 = !(document.getElementById("myonoffswitch2").checked);
+        changeTime(sldrs, state1, state2);
+        monthSlider(state1, state2)
+      }
 
-      function hourSlider(invert) {
-          if (invert == false) {
+      function hourSlider(state1, state2) {
+          if (state1 == false) {
               var fcolor1 = '#ff4501';
               var bcolor1 = '#eee';
         }else{
@@ -221,7 +265,7 @@
             .on('onchange', val => {
                 sldrs[0] = val[0]
                 sldrs[1] = val[1]
-                var update= changeTime(sldrs, invert);
+                var update= changeTime(sldrs, state1, state2);
             });
 
           var hgRange = d3
@@ -236,48 +280,56 @@
           hgRange.call(hsliderRange);
       }
 
-
       //Month slider
-      mdata = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ,10, 11]
-      var monthAbb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       var fcolor2 = '#ff4501';
       var bcolor2 = '#eee';
 
-      var msliderRange = d3
-        .sliderBottom()
-        .min(d3.min(mdata))
-        .max(d3.max(mdata))
-        .width(350)
-        .tickValues([0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ,10, 11])
-        .tickFormat(function(d) {
-                return monthAbb[d];
-            })
-        .ticks(5)
-        .step(1)
-        .default([0, 23])
-        .fill(fcolor2)
-        .background(bcolor2)
-        .on('onchange', val => {
-            sldrs[2] = val[0]
-            sldrs[3] = val[1]
-            var update= changeTime(sldrs);
-        });
+      monthSlider(state1, state2)
+      function monthSlider(state1, state2) {
+          if (state2 == false) {
+              var fcolor2 = '#ff4501';
+              var bcolor2 = '#eee';
+            }else{
+                var fcolor2 = '#eee';
+                var bcolor2 = '#ff4501';
+            }
+           var mdata = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ,10, 11]
+           var monthAbb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          var msliderRange = d3
+            .sliderBottom()
+            .min(d3.min(mdata))
+            .max(d3.max(mdata))
+            .width(350)
+            .tickValues([0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ,10, 11])
+            .tickFormat(function(d) {
+                    return monthAbb[d];
+                })
+            .ticks(5)
+            .step(1)
+            .default([sldrs[2], sldrs[3]])
+            .fill(fcolor2)
+            .background(bcolor2)
+            .on('onchange', val => {
+                sldrs[2] = val[0]
+                sldrs[3] = val[1]
+                var update= changeTime(sldrs, state1, state2);
+            });
 
-      var mgRange = d3
-        .select('div#mslider-range')
-        .append('svg')
-        .attr('width', 500)
-        .attr('height', 100)
-        .append('g')
-        .attr('transform', 'translate(30,30)');
+          var mgRange = d3
+            .select('div#mslider-range')
+            .append('svg')
+            .attr('width', 500)
+            .attr('height', 100)
+            .append('g')
+            .attr('transform', 'translate(30,30)');
 
 
-      mgRange.call(msliderRange);
-
+          mgRange.call(msliderRange);
+      }
 
     //Reload graph
-     function changeTime(val, invert=false){
-         chart = new psychrometricChart(parseInt(val[0]), parseInt(val[1]), parseInt(val[2]), parseInt(val[3]), invert, rad);
+     function changeTime(val, inverth=false, invertm=false){
+        chart = new psychrometricChart(parseInt(val[0]), parseInt(val[1]), parseInt(val[2]), parseInt(val[3]), inverth, invertm, gcolor);
          $.getJSON(jsFileLoc, function(jd) {
 
                 var psychw_ =(jd.psych_wth);//this part of the function works if epw is loaded manually.
@@ -346,7 +398,7 @@
         // var container = $('#pschro_main').addClass('container main');
         // $('div.main').append($('<div/>').addClass('row').attr('id', 'chart'));
         // d3.select('#chart').append('svg').attr("id", "psychChart").style({'width': '100%', 'height': '100%'});
-        var chart = new psychrometricChart(0, 23, 0 , 11, false, rad);
+        var chart = new psychrometricChart(0, 23, 0 , 11, false, false, "rad", rad, maxrad, wv, maxwv);
         // var data = d3.csv.parse(d3.select("#epw").text());
         // console.log(data);
         // var epwfile = "/static/epw/"+epwName+".epw"

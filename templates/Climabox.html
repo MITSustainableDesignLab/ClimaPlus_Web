@@ -484,25 +484,29 @@
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
 
-            <div class="row" style="display:flex; flex-flow:row wrap;">
-                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                    <h4 class="module-title-small font-alt" style="white-space:pre-wrap;" id="S2"></h4>
-                    <button type="button" onclick="deleteGraph(2)" class="deleteGraph" id="but2">Delete</button>
-                    <div id="svgenergy2" style="width: 50%; margin: auto;"> </div> </div>
-                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                    <h4 class="module-title-small font-alt" id="S3" style="white-space:pre-wrap;"></h4>
-                    <button type="button" onclick="deleteGraph(3)" class="deleteGraph" id="but3">Delete</button>
-                    <div id="svgenergy3" style="width: 50%; margin: auto;"> </div> </div>
-                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                    <h4 class="module-title-small font-alt" id="S4" style="white-space:pre-wrap;"></h4>
-                    <button type="button" onclick="deleteGraph(4)" class="deleteGraph" id="but4">Delete</button>
-                    <div id="svgenergy4" style="width: 50%; margin: auto;"> </div> </div>
-                <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                    <h4 class="module-title-small font-alt" id="S5" style="white-space:pre-wrap;"></h4>
-                    <button type="button" onclick="deleteGraph(5)" class="deleteGraph" id="but5">Delete</button>
-                    <div id="svgenergy5" style="width: 50%; margin: auto;"> </div> </div>
-            </div>
-
+                <div class="row" style="display:flex; flex-flow:row wrap;">
+                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                        <h4 class="module-title-small font-alt" style="white-space:pre-wrap;" id="S2"></h4>
+<!--                        <button type="button" onclick="deleteGraph(2)" class="deleteGraph" id="but2">Delete</button>-->
+                        <div id="svgenergy2" style="width: 50%; margin: auto;"> </div>
+                        <button type="button" onclick="deleteGraph(2)" class="deleteGraph" id="but2" style="margin-top: -50px;">Delete</button></div>
+                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                        <h4 class="module-title-small font-alt" id="S3" style="white-space:pre-wrap;"></h4>
+<!--                        <button type="button" onclick="deleteGraph(3)" class="deleteGraph" id="but3">Delete</button>-->
+                        <div id="svgenergy3" style="width: 50%; margin: auto;"> </div>
+                        <button type="button" onclick="deleteGraph(3)" class="deleteGraph" id="but3" style="margin-top: -50px;">Delete</button></div>
+                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                        <h4 class="module-title-small font-alt" id="S4" style="white-space:pre-wrap;"></h4>
+<!--                        <button type="button" onclick="deleteGraph(4)" class="deleteGraph" id="but4">Delete</button>-->
+                        <div id="svgenergy4" style="width: 50%; margin: auto;"> </div>
+                        <button type="button" onclick="deleteGraph(4)" class="deleteGraph" id="but4" style="margin-top: -50px;">Delete</button></div>
+                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
+                        <h4 class="module-title-small font-alt" id="S5" style="white-space:pre-wrap;"></h4>
+<!--                        <button type="button" onclick="deleteGraph(5)" class="deleteGraph" id="but5">Delete</button>-->
+                        <div id="svgenergy5" style="width: 50%; margin: auto;"> </div>
+                        <button type="button" onclick="deleteGraph(5)" class="deleteGraph" id="but5" style="margin-top: -50px;">Delete</button></div>
+                </div>
+            <div id="lowline" style="border-top: 1px solid #8a8a8a;margin-top: -72px;margin-left: 20px;margin-right: 38%;"></div>
     </div>
 </div>
 
@@ -549,9 +553,8 @@
 
     cityL = CITY.split(' (')
 	cityN = cityL[0].split(" ").join("")
-<!--	console.log(cityN)-->
 
-    console.log({"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":EUI})
+<!--    console.log({"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":EUI})-->
     function deleteGraph(num) {
         delete_cookie( cityN + num )
         var svgid = "#svgenergy" + num;
@@ -1072,6 +1075,8 @@
 
     function Graphs(){
         var max =0;
+        var l=0;
+        document.getElementById("lowline").style.visibility= "hidden";
         for (i=2; i<6; i++) {
                 var svgid = "#svgenergy" + i;
                 var svg = d3.select(svgid);
@@ -1085,6 +1090,9 @@
                         max = savedGraph["total"];
                         console.log("max: "+max);
                     }
+                    if(i>l){
+                        l =i;
+                    }
                 }
                 catch(err) {
                     console.log("no saved graphs" +first)
@@ -1096,20 +1104,35 @@
         cityL = CITY.split(' (')
         cityN = cityL[0].split(" ").join("")
         var first = 0;
+        var last = false;
+        var rightmargin = ["100%", "78%", "60%", "40%"];
+        var leftmargin = ["20px", "25%", "40%", "100%"]
         for (i=2; i<6; i++) {
             try{
                 var savedGraph = JSON.parse(getCookieValue(cityN+i));
                 var svgid = "#svgenergy" + i;
                 var textid = "S" + i;
-<!--                console.log(savedGraph)-->
                 var element = document.getElementById(textid);
                 first++;
                 element.innerHTML = savedGraph["name"];
                 delete savedGraph["name"]
-                newBase([savedGraph], svgid, first, max)
+                if(i==l){
+                        last = true;
+                    }
+                newBase([savedGraph], svgid, first, max, last)
 
                 document.getElementById("but"+i).style.visibility= "visible"
-<!--                console.log("graph updated", first)-->
+                if(i==2){
+                        document.getElementById("lowline").style.visibility= "visible"
+                        document.getElementById("lowline").style.marginRight = "100%";
+                    }
+
+                document.getElementById("lowline").style.marginRight = rightmargin[i-2];
+                if(first==1){
+                    document.getElementById("lowline").style.marginLeft = leftmargin[i-2];
+                }
+
+<!--                console.log("graph updated", first, last)-->
             }
             catch(err) {
                 console.log("no saved graphs" +first)

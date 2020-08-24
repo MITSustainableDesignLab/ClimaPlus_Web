@@ -11,13 +11,18 @@
 
 on off switch
 -------------------------------------------*/
-.vertical-center {
-  width:50%;
-  margin-left: auto;
-  padding-left:-30%;
-  position: relative;
+.col.selected{
+  color:red;
+}
+.vertical-center{
+    position: relative;
+    margin-top: -5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
+
 #2 {
     text-decoration: underline;
 }

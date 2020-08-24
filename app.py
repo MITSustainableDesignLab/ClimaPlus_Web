@@ -249,7 +249,11 @@ def TempRH():
     monthlyData = cc.monthlyData(wth['db'])
     data = {'mean': monthlyData.hourlyMean, 'min': monthlyData.hourlyMin, 'max': monthlyData.hourlyMax}
     rad = wth['radg']
+    maxradg = max(rad)
     wv = wth['wv']
+    maxwv= max(wv)
+    pschdata = {'rad': rad, 'maxrad': maxradg, 'wv': wv, 'maxwv': maxwv}
+
     data_ = {'db':wth['db'], 'rh':wth['rh'], 'bp':wth['bp']}
     sp = {'tupper':24, 'tlower':18, 'setHDD':18, 'setCDD':10}
     dd_data = {'HDD':int(dd.HDD), 'CDD':int(dd.CDD), 'HDDL':dd.HDDL, 'CDDL':dd.CDDL}
@@ -290,7 +294,7 @@ def TempRH():
 
         # return redirect(request.referrer)
 
-    return render_template("TempRH.html", data= data, sp=sp, dd_data=dd_data, rad=rad, wv=wv)
+    return render_template("TempRH.html", data= data, sp=sp, dd_data=dd_data, pschdata=pschdata)
 
 
 # wind distribution and energy production

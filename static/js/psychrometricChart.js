@@ -35,21 +35,27 @@ function hoursToDate(hour) {
 	return new Date(date.setHours(h));
 }
 
-var rgbrad = ['#9F00BF', '#6800C2', '#2F00C6', '#000CCA', '#00CDD5', '#00DD61', '#24E500', '#CA0035', '#CE0700', '#D24600', '#D58800', '#D9CC00', '#F5E919']
-var rgbwind = ['#FFFFFF', '#EAE8FE', '#D5D1FD', '#C0BAFC', '#ABA3FC', '#968DFB', '#8176FA', '#6C5FFA', '#5748F9', '#4231F8', '#2E1BF8']
+var rgbrad = ['#9F00BF', '#6800C2', '#2F00C6', '#000CCA', '#00CDD5', '#00DD61', '#24E500', '#CA0035', '#CE0700', '#D24600', '#D58800', '#D9CC00', '#F5E919'];
+var rgbwind = ['#C2FBFF', '#A8E5F1', '#90CCE4', '#7AB2D7', '#6696CA', '#537ABD', '#425EB0', '#3342A2', '#252795', '#251988', '#270F7B', '#29066E', '#2C0060']
+function pickHex(num, max, color) {
+    if (color=="rad"){
+//        console.log("if "+color)
+        var dom = max/12;
 
-function pickHex(rad) {
-    if (rad>1000){
-        rad=1000
+        return rgbrad[parseInt(num/dom)];
+    }else{
+//        console.log("else"+color+max)
+        var dom = max/12;
+        return rgbwind[parseInt(num/dom)];
     }
-
-    return rgbrad[parseInt(rad/83)];
-
 }
-var x=0;
-var colors=[]
 
-function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, invert = false, rad = 0, wv = 0) {
+var x=0;
+var colorsr=[];
+var colorsw=[];
+
+function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, invertm = false, color= "none", rad = 0, maxrad=0, wv=0, maxwv=0,) {
+//    console.log(color+"psych chart")
 	var width,
 	height,
 	context,
@@ -304,49 +310,45 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, invert = false, r
 
 
 			//finally - plot the points
-			if (rad!=0){
-			    if(x==1){
-			        console.log("firsttime")
-                    for (i=0; i<rad.length; i++){
-                        colors.push(pickHex(rad[i]))
-                    }
+//			if (nums!=0){
+
+            if(x==1){
+                console.log("firsttime rad")
+                for (i=0; i<rad.length; i++){
+                    colorsr.push(pickHex(rad[i],maxrad,"rad"))
                 }
-                psychChart.selectAll(".hours")
-				.data(data.weather)
-				.enter()
-				.append("circle")
-				.attr("class", "hours")
-				.attr("cx", function(d) { return dbScale(d.db); })
-				.attr("cy", function(d) { return hrScale(d.hr); })
-				.attr("r", (width < 600) ? 2: 3)
-				.attr("fill", function(d) { console.log(colors[d["hour"]]); return colors[d["hour"]]; })
-				.attr("fill-opacity", .8)
-				.classed("nir", function(d) {
-				    if (invert){
-				        return (d.date.getHours() < hExtent[1] && d.date.getHours() > hExtent[0] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
-				    }else{
-					    return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
-					}});   ///Just change parameters to show night time
-
-            }else{
-                psychChart.selectAll(".hours")
-                    .data(data.weather)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "hours")
-                    .attr("cx", function(d) { return dbScale(d.db); })
-                    .attr("cy", function(d) { return hrScale(d.hr); })
-                    .attr("r", (width < 600) ? 2: 3)
-                    .attr("fill", "gray")
-                    .attr("fill-opacity", .8)
-                    .classed("nir", function(d) {
-                        if (invert){
-                            return (d.date.getHours() < hExtent[1] && d.date.getHours() > hExtent[0] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
-                        }else{
-                            return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
-                        }});   ///Just change parameters to show night time
             }
+            psychChart.selectAll(".hours")
+            .data(data.weather)
+            .enter()
+            .append("circle")
+            .attr("class", "hours")
+            .attr("cx", function(d) { return dbScale(d.db); })
+            .attr("cy", function(d) { return hrScale(d.hr); })
+            .attr("r", (width < 600) ? 1.5: 2)
+            .attr("fill", function(d) { if(color=="rad"){return colorsr[d["hour"]];}else{return colorsw[d["hour"]];} })
+            .attr("fill-opacity", .5)
+            .classed("nir", function(d) {
+                if (inverth){
+                    if (invertm){
+                        return (d.date.getHours() < hExtent[1] && d.date.getHours() > hExtent[0] || d.date.getMonth() < mExtent[1] && d.date.getMonth() > mExtent[0]);
+                    }else{
+                        return (d.date.getHours() < hExtent[1] && d.date.getHours() > hExtent[0] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
+                    }
+                }else{
+                    if (invertm){
+                        return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[1] && d.date.getMonth() > mExtent[0]);
+                    }else{
+                        return (d.date.getHours() < hExtent[0] || d.date.getHours() > hExtent[1] || d.date.getMonth() < mExtent[0] || d.date.getMonth() > mExtent[1]);
+                    }
+                }});   ///Just change parameters to show night time
 
+            if(x==1){
+                console.log("firsttime wind")
+                for (i=0; i<rad.length; i++){
+                    colorsw.push(pickHex(wv[i],maxwv,"wind"))
+                }
+            }
 
 
 
