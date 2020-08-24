@@ -2,6 +2,7 @@ import os
 import CPlus_Climate as cc
 import json
 import csv
+import time
 
 
 ##########PART 1 -- FOR EXISTING LOCATION IN CLIMAPLUS
@@ -29,6 +30,28 @@ class findEPWN():
 				self.fileEPW=city[0]
 				break
 
+class LogEPW():
+	def __init__(self,city_code, ff,logf):
+		cityL = city_code.split(' (')
+		cityN = cityL[0]
+		# print(cityN)
+		self.fileEPW = ''
+		for city in mainWTH_RADLIST_Full:
+			if cityN == city[1]:
+				# print(city)
+				localtime = str(time.ctime(time.time()))
+				# print(city[6])
+				a_dict = [city[0], city[1], city[2], city[3], city[4], city[5], city[6], localtime]
+				# print(a_dict)
+				with open(logf) as file:
+					# print("opened")
+					data = json.load(file)
+					data['dropdown_'+ff] = a_dict
+					with open(logf, 'w') as f:
+						json.dump(data, f)
+						# print("saved")
+				break
+
 class findMaxRad():
 	def __init__(self,cityN):
 		self.maxRad = 0
@@ -40,17 +63,22 @@ class findMaxRad():
 
 ##########PART 2 -- CLOUD SIMULATION FUNCTION; Generate all radiation maps using epw files. Runs only on the cloud., TO UPDATE NEW LOCATION IN CLIMAPLUS
 ##########
-dstDirEpw = 'static/epw_requested' #epw_africa'
-jsDir = 'static/json'
+# dstDirEpw = 'static/epw_requested' #epw_africa'
+# jsDir = 'static/json'
+dstDirEpw = './static/temp' #epw_africa'
+jsDir = './static/temp'
 class runCumRad():
-	def __init__(self, ff):
+	def __init__(self, ff, dstDirEpw):
+		self.ff = ff
 		epwMainList, self.repeated = [],[]
 		epws = os.listdir(dstDirEpw)
 		for epw in epws:
-			if epw.endswith(".epw"):
-				filename = epw.replace(".epw","")
+			# if epw.endswith(".epw"):
+			if (epw == ff+".epw"):
+				# filename = epw.replace(".epw","")
+				filename = ff
 				epwf = dstDirEpw + "/"+epw
-				jsonf = jsDir + "/"+filename+'.json'
+				self.jsonf = dstDirEpw + "/"+filename+'.json'
 				
 				#first check if the radiation map aleady exists
 				# found = 0
@@ -60,31 +88,63 @@ class runCumRad():
 				# # if found > 0:
 				# # 	self.repeated.append((filename,found))
 
-				#if no matching map is found, proceed with simulation		
+				#if no matching map is found, proceed with simulation
 				# if found == 0:
 
-				with open(jsonf) as wthj: 
+				with open(self.jsonf) as wthj:
 					wth = json.load(wthj)
 					lat, lon, tz = round((float(wth['latitude'])),0), round((float(wth["longitude"]))*-1,0), round((float(wth["timezone"]))*-15,0)
 					kl = list(wth.keys())
 					c, r, ct = wth[kl[2]] , wth[kl[1]], wth[kl[0]] # city, region, country are the keys
-				maxRad = 1700
-				
-				os.system('cp '+epwf+' '+ff+'/climate_file.epw')
-				os.system('./'+ff+'/CreateRadiationMap.sh ' + ff + ' ' + str(lat) + ' ' + str(lon) + ' ' + str(tz)) # takes 'climate_file.epw'
-				os.system('./'+ff+'/CreateRadiationMap_t.sh '+ ff + ' ' + filename)
 
-				_radMaxF = "static/radmap/"+filename+".txt"
-				with open(_radMaxF, "r") as lf:
-					maxRad = lf.read(10)
-				os.remove(_radMaxF)
-				epwMainList.append((filename, c , r, ct, maxRad, lat, lon, tz))
+					self.maxRad = 1700
+				# print(c, r, ct, maxRad, lat, lon, tz)
 
-		with open ("static/radmap/maxRadVals_temp.txt",'w') as fl:
-			fl.write(json.dumps(epwMainList))
+				# UNCOMMENT BELLOW WHEN UPLOADING TO SERVER
+				## os.system('cp '+epwf+' '+ff+'/climate_file.epw')
+				## os.system('./'+ff+'/CreateRadiationMap.sh ' + ff + ' ' + str(lat) + ' ' + str(lon) + ' ' + str(tz)) # takes 'climate_file.epw'
+				# CHANGE THE FILENAME into change how the jpg is saved
+				## os.system('./'+ff+'/CreateRadiationMap_t.sh '+ ff + ' ' + filename)
+				##
+				## _radMaxF = "static/radmap/"+filename+".txt"
+				## with open(_radMaxF, "r") as lf:
+				## 	maxRad = lf.read(10)
+				## os.remove(_radMaxF)
+				## epwMainList.append((filename, c , r, ct, maxRad, lat, lon, tz))
+				# Uncomment the file ABOVE
 
-# simRad = runCumRad("radsim_")
+	def logData(self,logf):
+		print("inside")
+		localtime = str(time.ctime(time.time()))
+		with open(self.jsonf) as wthj:
+			wth = json.load(wthj)
+			lat, lon, tz = round((float(wth['latitude'])), 0), round((float(wth["longitude"])) * -1,
+																	 0), round(
+				(float(wth["timezone"])) * -15, 0)
+			kl = list(wth.keys())
+			c, r, ct = wth[kl[2]], wth[kl[1]], wth[kl[0]]  # city, region, country are the keys
+
+		a_dict = [c, r, ct, self.maxRad, lat, lon, tz, localtime]
+		# print("dict made")
+		# print(a_dict)
+
+		with open(logf) as file:
+			# print("opened")
+			data = json.load(file)
+			data[self.ff] = a_dict
+			with open(logf, 'w') as f:
+				json.dump(data, f)
+				# print("written")
+
+		# UNCOMMMENT THE BELLOW
+		### with open ("static/radmap/maxRadVals_temp.txt",'w') as fl:
+		### 	fl.write(json.dumps(epwMainList))
+
+# simRad = runCumRad("2")
 # print (simRad.repeated)
+#
+# with open("./static/dataLog.json",'w') as f:
+# 	json.dump({2:["populate"]}, f)
 
 #once the main list with radiation map inforamation is generated, this creates the list for html climate selection.
 def htmlList():
@@ -106,6 +166,8 @@ zipDir = 'D:/ClimateOneBuildingOrg/zipped/' #This is the folder where the new we
 # dstDirJ = 'D:/ClimateOneBuildingOrg/largeAfricanCitiesJSON' #'D:/ClimateOneBuildingOrg/jsonWth'
 # dstDirJ = 'B:/ClimateOneBuildingOrg/json' ## Local, laptop EC2 AWS
 # dstDirJ = 'static/json_requested02'
+dstDir = './static/temp'
+dstDirJ = './static/temp'
 
 class extractEpw():
 	def __init__(self):

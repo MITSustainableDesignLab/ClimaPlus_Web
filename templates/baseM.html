@@ -6,6 +6,7 @@
     <meta name="author" content="">
 
     <title>__dbox clima beta</title>
+   <!-- <title>climaplus beta</title> -->
     <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
 
     <!-- CSS -->
@@ -37,7 +38,7 @@
                 <!-- <li><a href="/">Home</a></li> -->
                 <li><a id = "cityNav">City</a></li>
                 <li class="dropdown"><a href="/ClimateInfo">&#63;</a></li>
-                <li class="dropdown"><a href="/TempRH">Outdoor climate</a></li>
+                <li class="dropdown"><a href="/OUTDOOR">Outdoor climate</a></li>
                 <li class="dropdown"><a href="/Climabox">Climabox</a></li>
                 <li class="dropdown"><a href="/ClimateInfo">About</a></li>
 
@@ -149,7 +150,7 @@
     <script type="text/javascript">
 	    var CITY = "{{session['city']}}"
 	    $(document).ready(function(){
-	        console.log(CITY, '/////////////',"{{session['city']}}");
+	        console.log(CITY, '++++++++/////////////',"{{session['city']}}");
 	        $("#cityNav").text(CITY);
 	        });
 	</script>

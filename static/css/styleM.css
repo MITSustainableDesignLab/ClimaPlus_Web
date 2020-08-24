@@ -296,6 +296,17 @@ Sections
 
 .module-title {
     position: relative;
+    letter-spacing: 2px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 25px;
+    /*color: #111;*/
+    margin: 0 0 20px;
+    /*was: margin: 0 0 70px; */
+}
+
+.module-title-main {
+    position: relative;
     letter-spacing: 4px;
     text-align: center;
     font-weight: 400;
