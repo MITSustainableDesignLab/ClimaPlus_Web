@@ -39,26 +39,25 @@ var rgbrad = ['#9F00BF', '#6800C2', '#2F00C6', '#000CCA', '#00CDD5', '#00DD61', 
 var rgbwind = ['#C2FBFF', '#A8E5F1', '#90CCE4', '#7AB2D7', '#6696CA', '#537ABD', '#425EB0', '#3342A2', '#252795', '#251988', '#270F7B', '#29066E', '#2C0060']
 function pickHex(num, max, color) {
     if (color=="rad"){
-		console.log("if "+color)
+		// console.log("if "+color)
 		var dom = max/12;
 
         return rgbrad[parseInt(num/dom)];
     }else{
-//        console.log("else"+color+max)
+		// console.log("else"+color+max)
         var dom = max/12;
         return rgbwind[parseInt(num/dom)];
     }
 }
 
-var dom = 1500/12;
-console.log(rgbwind[parseInt(num/dom)], '44444444444444444');
+// var num = pickHex(rad[1],1200,'rad') 
+// console.log(num, '445555444444++++eee', maxrad);
 
-var x=0;
+var c_psy=0;
 var colorsr=[];
 var colorsw=[];
 
 function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, invertm = false, color= "none", rad = 0, maxrad=0, wv=0, maxwv=0,) {
-//    console.log(color+"psych chart")
 	var width,
 	height,
 	context,
@@ -73,7 +72,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
 	// offset = offset = (($(window).width() <= 600) ? -10: 0),
 	hExtent = [h1,h2],
 	mExtent = [m1, m2];
-    x++;
+    c_psy++;
 	var monthAbb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 	//set up the scales and line function
@@ -313,12 +312,11 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
 
 
 			//finally - plot the points
-//			if (nums!=0){
-
-            if(x==1){
+            if(c_psy==1){
                 console.log("firsttime rad")
                 for (i=0; i<rad.length; i++){
                     colorsr.push(pickHex(rad[i],maxrad,"rad"))
+                    // console.log('loading color for rad')
                 }
             }
             psychChart.selectAll(".hours")
@@ -346,7 +344,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
                     }
                 }});   ///Just change parameters to show night time
 
-            if(x==1){
+            if(c_psy==1){
                 console.log("firsttime wind")
                 for (i=0; i<rad.length; i++){
                     colorsw.push(pickHex(wv[i],maxwv,"wind"))
@@ -483,7 +481,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
 
 }
 
-
+// console.log(colorsr, '9999999999999')
 
 function psychrometrics() {
 	var barPress = 101300;

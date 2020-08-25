@@ -12,9 +12,15 @@
 -------------------------------------------*/
 
 /*on off switch*/
+.col{
+  color:grey; opacity: 0.9;
+  border:black;
+}
 
 .col.selected{
-  color:red;
+  color:black;
+  border:black;
+  background: grey;
 }
 .vertical-center{
     position: relative;
@@ -22,6 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 
 }
 
@@ -30,8 +37,9 @@
     text-decoration: underline;
 }
 .onoffswitch {
-    position: relative; width: 40px;
+    position: relative; width: 40px; height:10px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    transform: scale(0.7);
 }
 .onoffswitch-checkbox {
     position: absolute;
@@ -64,7 +72,7 @@
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
     right: 5px;
-    background-color: #FF5500;
+    background-color:  #3b3939; opacity: 0.9;
     box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
 }
 

@@ -208,8 +208,8 @@ var svg = d3.select("#svgwindrose")
       
 WINDA_ = WINDA.slice(WC_START,WC_END)
 WINDV_ = WINDV.slice(WC_START,WC_END)
-console.log(WC_START)
-console.log(WC_END)
+// console.log(WC_START)
+// console.log(WC_END)
 data = wrangleWind(WINDA_,WINDV_);
 processData(data)
 // console.log(data.columns)
