@@ -2,10 +2,7 @@
 {% extends "baseM.html" %}
 {% block main %}
 
-<!DOCTYPE html>
-<html>
-
-<style type="text/css">
+<style>
 .nobull {
     display: block;
     text-align: center;
@@ -27,11 +24,6 @@ a:hover {
   text-decoration: none;
 }
 
-.collapse {
-  color: black;
-  opacity: 0.7;
-  text-decoration: none;
-}
 
 .collapse:link {
   color: black;
@@ -41,12 +33,6 @@ a:hover {
 .collapse:hover {
   text-decoration: none;
 }
-
-/*.collapse:active vi {
-  text-decoration: none;
-  color:black;
-  opacity: 0.7;
-}*/
 
 .collapsing {
   text-decoration: none;
@@ -68,53 +54,32 @@ a:hover {
   opacity: 0.7;
 }
 
-/*#moreBtn {
-  color: black;
-  background-color: transparent;
-  cursor: pointer;
-  font-weight: 700;
-}*/
-
-/*.moreC {
-  display:none;
-  color: grey;
-}*/
 
 </style>
 
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>     
-<body>
-<div class="main">
-
-
-  <!-- Divider -->
-  <hr class="divider-w mt-60 mb-60">
-  <p></p>
-  <!-- Divider -->
-
-  <!--  -->
-  <section class="module-small">
-      <div class="container">
-        <div class="row">
+<section class="module-small" id = "secTemp">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container-fluid">
+      <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
             <h2 class="module-title font-alt" id='city'>CLIMATE</h2>
-            <div class="module-subtitle font-serif">
+            <!-- <div class="module-subtitle font-serif">
               Choose a chart to explore more!
-            </div>
+            </div> -->
           </div>
         </div>
-  </div>
-  </section>
-  
-  <section class="module-small">
-    <div class="container">
       <div class="row">
+       <!--  <div class="col-sm-6 col-sm-offset-5">
+              <a class="module-subtitle font-serif">SOLAR</a>
+            </div> -->
         <div class="col-sm-6 col-sm-offset-3">
           <a class="module-subtitle-info nobull">SOLAR</a>
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/sunpath.jpg" alt="Trulli" width="200" height=""></div>
+
             <div class="col-xs-7 col-sm-6 col-lg-8">
               <a href="/SolarP#secSunpath" class="hover">Sun path diagram </a></br>
               A sun path diagram is a 2-dimensional representation of the position of the sun with respect to given site over the course of the year. The figure can be used for outdoor direct shading studies or to predict the occurrence of glare indoors.
@@ -161,7 +126,7 @@ a:hover {
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/dd.jpg" alt="Trulli" width="200" height=""></div>
             <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/SolarP#secFacadeRad" class="hover">Degree Days</a></br>
+              <a href="/TempRH#secDD" class="hover">Degree Days</a></br>
               This graph shows monthly heating and cooling degree days for adjustable set point temperatures. 
               <a data-toggle="collapse" data-target="#dd_" class='more'> More>> </a><br>
               <a id="dd_" class="collapse">
@@ -235,13 +200,12 @@ a:hover {
 
 <script type="text/javascript">
 
-    var CITY = "{{session['city']}}";
-    console.log('testing city', CITY)
-    if (CITY == "") CITY = "First select a climate";
+    var CITY_body = CITY;
+    console.log('testing city', CITY_body)
+    if (CITY == "") CITY_body = "First select a climate";
     $(document).ready(function(){
-        $("#city").text(CITY);
+        $("#city").text(CITY_body);
         });
-
 
     function myFunction() {
       var dots = document.getElementById("dots");
@@ -261,7 +225,5 @@ a:hover {
     }
 
 </script>
-
-</body>
 
 {% endblock %}

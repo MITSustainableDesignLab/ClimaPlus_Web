@@ -37,30 +37,26 @@ class wrangleWth:
         self.windVel=[] #epw at column[21]
         del (self.wth[0:8])
         self.len= len(self.wth)
+
         for i in self.wth:
-            if len(i) == 35:
-                self.month.append(i[1])
-                self.day.append(i[2])
-                self.hour.append(int(i[3]))
-                self.Tdb.append(float(i[6]))
-                self.Tdp.append(float(i[7]))
-                self.RHout.append(float(i[8]))
-                self.BP.append(float(i[9]))
-                self.RadGlobal.append(float(i[13]))
-                self.RadNormal.append(float(i[14]))
-                self.RadDif.append(float(i[15]))
-                self.windDir.append(float(i[20]))
-                self.windVel.append(float(i[21])) 
+            self.month.append(i[1])
+            self.day.append(i[2])
+            self.hour.append(int(i[3]))
+            self.Tdb.append(float(i[6]))
+            self.Tdp.append(float(i[7]))
+            self.RHout.append(float(i[8]))
+            self.BP.append(float(i[9]))
+            self.RadGlobal.append(float(i[13]))
+            self.RadNormal.append(float(i[14]))
+            self.RadDif.append(float(i[15]))
+            self.windDir.append(float(i[20]))
+            self.windVel.append(float(i[21])) 
 
     def WTH(self):
-        # return {"latitude":self.latitude, "longitude":self.longitude, "timezone":self.timezone,
-        #     "db":self.Tdb, "dp":self.Tdp, "rh":self.RHout, "bp":self.BP,
-        #     "radg":self.RadGlobal, "radn":self.RadNormal, "radd":self.RadDif,
-        #     "wd":self.windDir, "wv":self.windVel}
-        return {"country": self.country, "region": self.region, "city": self.city, "latitude": self.latitude, "longitude": self.longitude, "timezone": self.timezone,
-                "db": self.Tdb, "dp": self.Tdp, "rh": self.RHout, "bp": self.BP,
-                "radg": self.RadGlobal, "radn": self.RadNormal, "radd": self.RadDif,
-                "wd": self.windDir, "wv": self.windVel}
+        return {"latitude":self.latitude, "longitude":self.longitude, "timezone":self.timezone,
+            "db":self.Tdb, "dp":self.Tdp, "rh":self.RHout, "bp":self.BP, 
+            "radg":self.RadGlobal, "radn":self.RadNormal, "radd":self.RadDif, 
+            "wd":self.windDir, "wv":self.windVel}
 
 class sunPath: 
     def __init__(self,radfacade):
@@ -237,7 +233,7 @@ class radFacade:
     def __init__(self,lat,lon,radn,radd,radg):
 
         # Important input info: lon is -1*longitude of wth data and tz is -15*timezone of wth data
-        # print (lon, lat)
+        print (lon, lat)
         a, b, c = 0.017453292, 57.29577951, 0.261799387
         d, e, f, g  = 0.03369, 0.0666666, 0.017699113, 0.017073873
         skyfacS, skyfacN, skyfacW, skyfacE = 50,50,50,50

@@ -3,18 +3,15 @@ from flask import render_template, request, url_for, redirect, make_response
 #from flask.ext.session import Session
 import csv, json
 import sys, os
-# import eplus as ep 
-# import data as cd
 import data_climates as ddc
 import CPlus_Climate as cc
 import climabox as cb
 import time
 import shutil
 
-
-
 app = Flask(__name__)
 app.secret_key = '3Z\x15\xfd"\x0e#\x1c}\x8er\xbc<\x16\xf1\xbe\xb6\x83/\x00]\tfP'
+
 # "db":self.Tdb, "dp":self.Tdp, "rh":self.RHout, "bp":self.BP, 
 # "radg":self.RadGlobal, "radn":self.RadNormal, 
 # "radd":self.RadDif, "wd":self.windDir, "wv":self.windVel
@@ -25,172 +22,53 @@ def index():
         ff = str(session['id'])  
     except KeyError:
         ff = '1234'
-        # print("id not known")
-
-    # if os.path.exists('static/'+ff+'.json'):
-    #     os.remove('static/'+ff+'.json')
-    #     session['location'] = ''
-    #     session['city'] = ''
     session['location'] = ''
     session['city'] = ''
     session['id'] = time.time()
-    session['dragdrop'] = False
+    
+    # return render_template("ClimateSelect.html")
 
-    # dstDir = './static/temp/' #RF removes after 5 hours json file ##for local machine
-    print (os.getcwd())
-    # dstDirHome = '/home/ec2-user/' ##for beta version on AWS
-     
-    if "ClimaPlus_Web" not in os.getcwd(): 
-        dstDirHome_ = os.getcwd() + '/ClimaPlus_Web' ##for beta version on AWS
-    else: dstDirHome_ = os.getcwd()
-    dstDirHome = dstDirHome_.replace('\\','/')
-    dstDirTemp = dstDirHome+'/static/temp/' ##for beta version on AWS
-    session['homedir'] = dstDirHome 
-    session['dstDirTemp'] = dstDirTemp
-    temps = os.listdir(dstDirTemp)
-    for temp in temps:
-        if temp.endswith(".json"):
-            tempf = os.path.join(dstDirTemp,temp)
-            # print(time.time()-os.path.getmtime(tempf),  "   ", tempf)
-            if ((time.time()-os.path.getmtime(tempf))>18000):
-                os.chmod(tempf, 0o777)
-                os.remove(tempf)  # RF
-                # shutil.rmtree(tempf)
+    resp = make_response(render_template('ClimateSelect.html'))
+    resp.set_cookie('cookie', ff)
 
-    # logf = "./static/dataLog.json" ##for local machine
-    logf = dstDirHome+"/static/dataLog.json"  ##for beta version on AWS
-    session['logf'] = logf
-    with open(logf) as file:  #going to delete datalogged after a certain time
-        print("open")
-        if os.stat(logf).st_size == 0 or file.read(2) == '[]':
-            print("empty")
-            with open(logf,'w') as f:
-                json.dump({"temp":["temp"]}, f)
-                print("written")
-        else:
-            with open(logf) as file:
-                data = json.load(file)
-                if len(data) > 1:
-                    # data.pop("temp")
-                    with open(logf, 'w') as f:
-                        json.dump(data, f)
+    return resp
 
+@app.route('/ClimateSelect', methods=['GET', 'POST'])
+def ClimateSelect():
     return render_template("ClimateSelect.html")
 
 @app.route('/ClimateInfo', methods=['GET', 'POST'])
 def ClimateInfo():
- 
-    return render_template("ClimateInfo.html")#, wthdata=wthdata)
-
-
-# @app.errorhandler(Exception)
-# def handle_error(error):
-#     return render_template("ClimateSelect.html")
-
-
-@app.route('/AnalysisSelect', methods=['GET', 'POST'])
-def AnalysisSelect():
     if request.method == 'POST':
         ff = str(session['id'])
         wthdata = {}
-        # print("Selected")
         if 'selectEPW' in request.form:
-            # print("in")
-            session['dragdrop'] = False
             city = (request.form['city'])
             _loc = ddc.findEPWN(str(city))
             location = _loc.fileEPW
-            session['locationJs'] = session['homedir']+'/static/json/'+_loc.fileEPW+'.json'
-            session['locationJs_psych'] = './static/json/'+_loc.fileEPW+'.json'
-            print('************_loc vs location   ', _loc.fileEPW, session['locationJs'])
-
+            session['locationJs'] = './static/json/'+_loc.fileEPW+'.json'
+            session['locationJsPsy'] = './static/json/'+_loc.fileEPW+'.json'
+            
             session['location'] = location
             session['city'] = city
-            # print(city)
-            log = ddc.LogEPW(city, ff, session['logf'])
 
-        else:   #RF everything under
+    return render_template("ClimateInfo.html")
 
-            # print("out")
-
-            # with open(os.path.join(UPLOAD_DIRECTORY, ff), "wb") as fp:
-            #     fp.write(request.data)
-            # uploaded_file = request.form
-            # uploaded_file.save(os.path.join(UPLOAD_DIRECTORY, ff))
-            # file = request.form
-            # file.save(os.path.join(app.config["UPLOAD_FOLDER"], ff))
-            session['dragdrop'] = True
-            wthdata = (request.form["tdata"])
-            session['location'] = "picture"
-            session['city'] = request.form["city"]
-            # print("set")
-            lwthdata= wthdata
-            # par1 = './static/temp/'
-
-            if lwthdata != None:
-                session['locationJs'] = session['dstDirTemp'] + ff + '.epw'
-                f = open(session['dstDirTemp']+ff+'.epw', 'w')
-                # print("opened l l l l ll   ", lwthdata[0:8])
-                f.write(lwthdata)
-                f.close()
-                # print("uploaded file")
-
-                w = cc.wthImp(session['locationJs'])
-                wi = w.dataWth()
-                ww = cc.wrangleWth(wi)
-
-                wthdata = json.dumps(ww.WTH())
-
-
-                loc2 = session['dstDirTemp'] + ff +'.json'
-
-                with open(loc2, 'w') as f:
-                    f.write(wthdata)
-                    # print("writen json")
-
-                hello = ddc.runCumRad(ff,session['dstDirTemp']).logData(session['logf'])
-                # print("log written")
-
-                os.remove(session['locationJs'])
-                # print('deleted')
-                session['locationJs'] = loc2
-                session['location'] = ff #"AGO_BGU_Lobito.AP.663050_TMYx"
-        #     w = cc.wthImp('./static/epw/'+session['location']+'.epw')
-
-        #     wi = w.dataWth()
-        #     ww = cc.wrangleWth(wi)
-        #     wthdata = json.dumps(ww.WTH())
-
-        #     with open('static/'+ff+'.json','w') as f:
-        #         f.write(wthdata)
-
-        # wthdata = request.get_json()
-        # if wthdata != None:
-        #     session['city'] = wthdata['city']
-        #     with open('static/temp/'+ff+'.json','w') as f:
-        #         f.write(json.dumps(wthdata))
-    return render_template("AnalysisSelect.html")
-
-
-@app.route('/ClimateSelect', methods=['GET', 'POST'])
-def ClimateSelect():
-    # if request.method == 'POST':
-    #     data_ = request.form['js_data']
+@app.errorhandler(Exception)
+def handle_error(error):
     return render_template("ClimateSelect.html")
 
-
-
-@app.route('/OUTDOOR', methods=['GET','POST'])
-def OUTDOOR():
+# a simple sunpath diagram
+@app.route('/SolarP', methods=['GET','POST'])
+def SolarP():
     ff = str(session['id'])
+    # with open('static/'+ff+'.json') as wthj:
     with open(session['locationJs']) as wthj:
         wth = json.load(wthj)
-
-
-    #SOLAR: SUNPATH, VERTICAL RAD, CUM RAD
+    # print ("+++++++++++++++test json",wth["psych_wth"])
     lat, lon, tz = round((float(wth['latitude'])),0), round((float(wth["longitude"]))*-1,0), round((float(wth["timezone"]))*-15,0)
-
     rf = cc.radFacade(lat,lon,wth['radn'], wth['radd'],wth['radg'])
+    
     ###Facade radiation
     session['HORRADM'] = rf.horradM
     session['RADMS'] = rf.radMS
@@ -198,7 +76,7 @@ def OUTDOOR():
     session['RADMW'] = rf.radMW
     session['RADMN'] = rf.radMN
 
-    #print('++++++++++++++++',rf.radMN)
+    # print('++++++++++++++++',rf.radMN)
 
     ###Sunpath diagram
     sp = cc.sunPath(rf)
@@ -221,20 +99,37 @@ def OUTDOOR():
     city__ = (session['city'])
     # city_ = city__.replace(" ","")
     cityL = city__.split(' (')
-    # print(maxRad)
-    if session['dragdrop']:
-        ##activates if epw is uploaded
-        with open(session['logf']) as file:
-            data = json.load(file)
-            session['maxRad'] = data[ff][3]
-            print("MaxRad: "+str(session['maxRad']))
-    else:
-        ##activates when dropdown is used
-        maxRad = ddc.findMaxRad(str(cityL[0]))
-        session['maxRad'] = maxRad.maxRad
+    maxRad = ddc.findMaxRad(str(cityL[0]))
+    session['maxRad'] = maxRad.maxRad
 
-    
-    #THEMP: AVE TEMP, DEGREE DAYS, PYSYCHROS
+    # print('**********SOLAR******', session['location'], session['city'], maxRad.maxRad)
+
+    return render_template("SolarP.html", analemma = analemma, monthLines = monthLines, monthLines_ = monthLines_)
+
+# this is just to run radiation map simulations with a unique html link. can't be 
+# accessed directly from climaplus
+@app.route('/runRADSim', methods=['GET','POST'])
+def runRADSim():
+    tempRad = str(session['id'])
+    os.system('mkdir '+tempRad)
+    ###Cummulative radiation, runs the radmap script
+    radLib = ['CreateRadiationMap.sh','CreateRadiationMap_t.sh','gencumulativesky','oconv','Alpha_gcsky.rad','Alpha.rad','rpict','rayinit.cal','falsecolor2.py','helvet.fnt','ra_tiff']
+    for lib in radLib:
+        shutil.copy('RadSim_Main/'+lib,tempRad)
+    ddc.runCumRad(tempRad)
+    shutil.rmtree(tempRad)
+
+    return render_template("runRADSim.html")
+
+# Monthly avertage temperature
+@app.route('/TempRH', methods=['GET', 'POST'])
+def TempRH():
+
+    ff = str(session['id'])
+    # with open('static/'+ff+'.json') as wthj:
+    with open(session['locationJs']) as wthj:
+        wth = json.load(wthj)
+
     dd = cc.degreeDays(wth['db'],18,10) 
     cz_ = cc.CZdef(dd)
     cz = cz_.CZ[2]
@@ -242,11 +137,6 @@ def OUTDOOR():
 
     monthlyData = cc.monthlyData(wth['db'])
     data = {'mean': monthlyData.hourlyMean, 'min': monthlyData.hourlyMin, 'max': monthlyData.hourlyMax}
-    rad = wth['radg']
-    maxradg = max(rad)
-    wv = wth['wv']
-    maxwv= max(wv)
-    pschdata = {'rad': rad, 'maxrad': maxradg, 'wv': wv, 'maxwv': maxwv}
     data_ = {'db':wth['db'], 'rh':wth['rh'], 'bp':wth['bp']}
     sp = {'tupper':24, 'tlower':18, 'setHDD':18, 'setCDD':10}
     dd_data = {'HDD':int(dd.HDD), 'CDD':int(dd.CDD), 'HDDL':dd.HDDL, 'CDDL':dd.CDDL}
@@ -262,6 +152,8 @@ def OUTDOOR():
             else: tupper = sp['tupper']
             if tlower != "": sp['tlower'] = tlower 
             else: tlower = sp['tlower']
+
+            # print ("tupper", tupper, tlower, sp['tupper'], sp['tlower'])
 
         elif 'submitDD' in request.form:
             ### Heating and cooling degree days
@@ -283,11 +175,22 @@ def OUTDOOR():
             dd_data['CDDL'] = dd.CDDL
             sp['setHDD'], sp['setCDD'] = HDDsp, CDDsp
 
+        # return redirect(request.referrer)
+
+    return render_template("TempRH.html", data= data, sp=sp, dd_data=dd_data)
 
 
-    #WIND: FREQUENCY, WIND ENERGY
+# wind distribution and energy production
+@app.route('/Wind', methods=['GET', 'POST'])
+def Wind():
+
+    # print('**********WindEnergy******', session['location'], session['city'])
+    ff = str(session['id'])
+    # with open('static/'+ff+'.json') as wthj:
+    with open(session['locationJs']) as wthj:
+        wth = json.load(wthj)
     session['wchartstart_hr'] = 0
-    session['wchartend_hr'] = 8760
+    session['wchartend_hr'] = 8670
     session["TURBD"] = 3 
     session["TURBH"] = 100
     if request.method == "GET":
@@ -314,53 +217,9 @@ def OUTDOOR():
             if wchartstart_hr != None and wchartstart_hr != "" : session['wchartstart_hr'] = wchartstart_hr
             if wchartend_hr != None and wchartend_hr != "" :session['wchartend_hr'] = wchartend_hr
 
-    return render_template("OUTDOOR.html", analemma = analemma, monthLines = monthLines, monthLines_ = monthLines_,data= data, sp=sp, dd_data=dd_data, pschdata=pschdata, dataW = dataW)
+            # print ('000000', session['wchartstart_hr'] , session['wchartend_hr']  )
 
-
-
-# a simple sunpath diagram
-# @app.route('/SolarP', methods=['GET','POST'])
-# def SolarP():
- 
-    ###CummRad multiple process
-    ###Cummulative radiation, runs the radmap script
-    # ff = str(session['id'])
-    # os.system('mkdir '+ff)
-
-    # radLib = ['CreateRadiationMap.sh','CreateRadiationMap_t.sh','gencumulativesky','oconv','Alpha_gcsky.rad','Alpha.rad','rpict','rayinit.cal','falsecolor2.py','helvet.fnt','ra_tiff']
-    # for lib in radLib:
-    #     shutil.copy('RadSim_Main/'+lib,ff)
-    # print(ff)
-    # ddc.runCumRad(ff)
-    # shutil.rmtree('ff')
-
-    # return render_template("SolarP.html")
-
-# this is just to run radiation map simulations with a unique html link. can't be 
-# accessed directly from climaplus
-@app.route('/runRADSim', methods=['GET','POST'])
-def runRADSim():
-    tempRad = str(session['id'])
-    os.system('mkdir '+tempRad)
-    ###Cummulative radiation, runs the radmap script
-    radLib = ['CreateRadiationMap.sh','CreateRadiationMap_t.sh','gencumulativesky','oconv','Alpha_gcsky.rad','Alpha.rad','rpict','rayinit.cal','falsecolor2.py','helvet.fnt','ra_tiff']
-    for lib in radLib:
-        shutil.copy('RadSim_Main/'+lib,tempRad)
-    ddc.runCumRad(tempRad)
-    shutil.rmtree(tempRad)
-
-    return render_template("runRADSim.html")
-
-# Monthly avertage temperature
-@app.route('/TempRH', methods=['GET', 'POST'])
-def TempRH():
-    return render_template("TempRH.html")
-
-
-# wind distribution and energy production
-@app.route('/Wind', methods=['GET', 'POST'])
-def Wind():
-    return render_template("Wind.html")
+    return render_template("Wind.html", dataW = dataW)
 
 
 # @app.route('/cookie/')

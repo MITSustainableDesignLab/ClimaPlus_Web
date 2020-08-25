@@ -27,7 +27,7 @@ var bins = d3.histogram()
     .thresholds(xScale.ticks(binsize))
   (data)
 // console.log("+++++",bins)
-console.log("+++++",WINDV)
+// console.log("+++++",WINDV)
 
 // y scale function
 //var yScale = d3.scaleLinear().domain([-18,700]).range([height, 0]);

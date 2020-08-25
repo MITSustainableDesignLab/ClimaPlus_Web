@@ -1,5 +1,4 @@
-{% extends "baseM.html" %}
-{% block main %}
+
 
 <link rel="stylesheet" href="../static/css/p_style.css">
 
@@ -32,7 +31,7 @@
                 <font class="dl" href="#" size='2' onclick="save_as_svg('svgwindrose','Wind Rose.svg')">[download svg]</font>
             </div>
 
-            <form action="{{ url_for('Wind') }}"  method='post'>
+            <form action="{{ url_for('OUTDOOR') }}"  method='post'>
                 <div >
                     <input class='dd' id='starthr_input' type="text" name="start_hr" default=0 placeholder="Start (hr)">
                     <input class='dd' id='endhr_input' type="text" name="end_hr" default=8760 placeholder="End (hr)">
@@ -43,11 +42,11 @@
             <div class = "centerBlock">
                 <font size="2">Displayed data is for the hours between  <font color="orangered" size="3" id = "wcstartdisplay">  1   </font> </font>
                
-                <font size="2">   --  <font color="orangered" size="3" id = "wcenddisplay">  8670 </font>
-                , from the total 8670 hours in a year</font>  
+                <font size="2">   --  <font color="orangered" size="3" id = "wcenddisplay">  8760 </font>
+                , from the total 8760 hours in a year</font>  
             </div>  
         </div>
-</div></div>
+</div></div></section>
 
 
 
@@ -80,7 +79,7 @@
                 <font class="dl" href="#" onclick="save_as_svg('svgwindenergy','Wind Power.svg')">[download svg]</font>
             </div>
 
-            <form action="{{ url_for('Wind') }}"  method='post'>
+            <form action="{{ url_for('OUTDOOR') }}"  method='post'>
                 <div >
                     <input class='dd' id='turbd_input' type="text" name="turb_d" default=3 placeholder="D (m)">
                     <input class='dd' id='turbh_input' type="text" name="turb_h" default=100 placeholder="H (m)">
@@ -94,12 +93,10 @@
                 <font size="2"> , Wind turbine height (H) in m, <font color="orangered" size="3" id = "turbhdisplay"> 100 </font> </font>  
             </div>  
         </div>
-</div></div>
+</div></div></section>
 
 
 
-{% endblock %}
-{% block scripts %}
 <script type="text/javascript">
     
     var WINDV = {{dataW['windv']}}
@@ -132,4 +129,3 @@
 <script src= '/static/js/WindChart.js'></script>
 <script src= '/static/js/FileSaver.js'></script>
 
-{% endblock %}

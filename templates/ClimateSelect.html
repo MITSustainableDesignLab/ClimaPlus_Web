@@ -84,6 +84,22 @@ body {
   opacity: 1;
 }
 
+
+.navbar-collapse {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+
+/*class to hide climateselect go button if no climate is selected*/
+.hide{
+display:none;
+}
+
+
 </style>
 </head>     
 <body>
@@ -99,10 +115,13 @@ body {
     <div class="container">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-          <h2 class="module-title font-alt">What is CLIMAPLUS <br>[beta]?</h2>
+
+          <h2 class="module-title-main font-alt">What is CLIMAPLUS?</h2>
+
           <div class="module-subtitle font-serif">
               Climate responsive design from your desktop. Choose a location to see for yourself!
           </div>
+          <div style="text-align:center;color:grey">  <a href=http://52.36.175.216:81/ target="_blank"> GO TO <b> BETA </b> VERSION <a> </div>
         </div>
       </div>
     </div>
@@ -113,16 +132,14 @@ body {
     <div class="container">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-          <a href="/ClimateInfo"><h3 class="module-title font-alt" id='city'>CLIMATE</h3></a>
-          <!--Make sure the form has the autocomplete function switched off:  action="/action_page.php"--> 
-          <!-- <form autocomplete="off" id="locForm"  action="{{ url_for('ClimateSelect') }}"  method='post'> -->
-          <form autocomplete="off" id="locForm"  action="{{ url_for('ClimateInfo') }}"  method='post'>
+          <form autocomplete="off" id="locForm"  action="{{ url_for('AnalysisSelect') }}"  method='post'>
             <div class="autocomplete" style="width:200px;">
               <input class='cs' id="myInput" type="text" name="city" placeholder="Type Location">
             </div>
-              <input class='cs' name='selectEPW' type="submit" value=">>">
+              <input class='cs' id='climateGo' name='selectEPW' type="submit" value=">>">
           </form>
           <!-- <div id="dragdropA" href="#" onClick="refreshPage()">Or <br> drag and drop an epw <br> click here to refresh -->
+          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw <br> click here to refresh</div>
           <div style="text-align:center;color:grey">Works best with Google Chrome and Firefox</div>
           <div style="text-align:center;color:grey;font-size:smaller;"><font small> Use diffent browers to open multiple climates at the same time </font></div>
           </div>
@@ -142,6 +159,16 @@ body {
 
 <script type="text/javascript">
 
+
+///blure input if no climate is selected
+$('#climateGo').blur(function() 
+{
+  if( $(this).val().length === 0 ) {
+        $(this).parents('.submit-btn').addClass('hide');
+    }
+});
+
+
 function readTextFile(file) {
   var reader = new FileReader();
   
@@ -151,17 +178,27 @@ function readTextFile(file) {
 
       //set the csv file as the new data
       
-      data = formatEpwM(content)
-      console.log(data['city'], data['latitude'], data['longitude'], data['code'])
+      // data = formatEpwM(content)
+      // console.log(data['city'], data['latitude'], data['longitude'], data['code'])
+      cdata = formatEpwM(content);
+      tcity = cdata['city']
+      data = content;
+      console.log(tcity, cdata['latitude'], cdata['longitude'], cdata['code']);
+
+      console.log("test");
            
       $.ajax({
         type: "POST",
-        contentType: "application/json;charset=utf-8",
-        url: "ClimateInfo",
-        traditional: "true",
-        data: JSON.stringify(data),
-        dataType: "json"
-        })
+        // contentType: "application/json;charset=utf-8",
+        url: "AnalysisSelect",
+        // traditional: "true",
+        // data: JSON.stringify(data),
+        // dataType: "json"
+        data: {city : tcity, tdata: (data)}, //{city: cdata['city'], tdata: data} {city: data['city'], test: "test", tdata: (JSON.stringify(data))}, RF parant was orig
+        success: function(response){
+            window.location.href = "AnalysisSelect";//"ClimateInfo";
+        }
+        });
       
       data_psy = formatEpw(content)
     }

@@ -1,0 +1,114 @@
+
+{% extends "baseM.html" %}
+{% block main %}
+
+<style>
+.nobull {
+    display: block;
+    text-align: center;
+    list-style-type: none;
+    padding: 5px;
+    width:35%;
+}
+
+/*a:link {
+  color: orangered;
+}
+
+a:visited {
+  color: orangered;
+}
+*/
+/*a:hover {
+  color: black;
+  text-decoration: none;
+}*/
+
+
+/*.collapse:link {
+  color: black;
+  text-decoration: none;
+}
+
+.collapse:hover {
+  text-decoration: none;
+}
+
+.collapsing {
+  text-decoration: none;
+  color:black;
+  opacity: 0.7;
+}
+
+.more {
+  color: black;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+.more:hover {
+  text-decoration: none;
+  color:black;
+  opacity: 0.7;
+}*/
+
+
+</style>
+
+<section class="module-small" id = "secTemp">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+<div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <h2 class="module-title font-alt" id='city'>CLIMATE</h2>
+          </div>
+      </div>
+      <div style="padding:100px 0;">
+      <div class="col-sm-3 col-sm-offset-3">
+        <div style="justify-content: center; display: flex;">
+          <img src="static/img/outdoor.png" alt="outdoor" width="40" height=""> </div>
+        <div style="text-align: center;">
+          <a href="/OUTDOOR">OUTDOOR</a></br>
+          <!-- <a href="/SolarP" class="hover">Outdoor climate analysis </a></br> -->
+          <p>The outdoor climate analysis includes solar, temperature and wind charts. </p>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div style="justify-content: center; display: flex;">
+          <img src="static/img/indoor.png" alt="indoor" width="40" height=""> </div>
+        <div style="text-align: center;">
+          <a href="/Climabox">CLIMABOX</a></br>
+          <!-- <a href="/SolarP" class="hover">Outdoor climate analysis </a></br> -->
+          <p>The indoor climate analysis allows to explore various building properties such as size of a building, window-to-wall ratio, wall and glazing construction, and thermal mass using a ClimaBox.  </p>
+        </div>
+      </div>
+</div>
+</section>
+
+  
+
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
+
+{% endblock %}
+{% block scripts %}
+
+<script type="text/javascript">
+
+    var CITY_body = CITY;
+    console.log('testing city', CITY_body)
+    if (CITY == "") CITY_body = "First select a climate";
+    $(document).ready(function(){
+        $("#city").text(CITY_body);
+        });
+
+</script>
+
+{% endblock %}
