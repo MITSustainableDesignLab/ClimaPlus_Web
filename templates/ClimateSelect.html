@@ -57,7 +57,7 @@ body {
   color: grey;
   letter-spacing: 2px;
   font-size: 15px;
-  opacity: 0.5;
+  /*opacity: 0.7;*/
   /*display: block;*/
   margin-left: auto;
   margin-right: auto;
@@ -71,6 +71,7 @@ body {
 #dragdropA:hover{
     /*background-color: lightgray;*/
     color:orange;
+    text-decoration: none;
 }
 
 #myInput {
@@ -92,6 +93,34 @@ body {
   pointer-events: none;
   text-decoration: none;
 }
+
+#downloadclimate {
+  color:grey;
+  text-align:center;
+
+}
+
+#downloadclimate:link {
+  color:grey;
+}
+
+a {
+  color: grey;
+}
+
+a:link {
+  color: grey;
+}
+
+a:visited {
+  color: grey;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
 
 
 /*class to hide climateselect go button if no climate is selected*/
@@ -118,10 +147,10 @@ display:none;
 
           <h2 class="module-title-main font-alt">What is CLIMAPLUS?</h2>
 
-          <div class="module-subtitle font-serif">
+          <div style="text-align:center;color:#111">
               Climate responsive design from your desktop. Choose a location to see for yourself!
           </div>
-          <div style="text-align:center;color:grey">  <a href=http://52.36.175.216:81/ target="_blank"> GO TO <b> BETA </b> VERSION <a> </div>
+          <div style="text-align:center;color:grey;padding:20">  <a href=http://52.36.175.216:81/ target="_blank"> GO TO <b> BETA </b> VERSION <a> </div>
         </div>
       </div>
     </div>
@@ -139,14 +168,14 @@ display:none;
               <input class='cs' id='climateGo' name='selectEPW' type="submit" value=">>">
           </form>
           <!-- <div id="dragdropA" href="#" onClick="refreshPage()">Or <br> drag and drop an epw <br> click here to refresh -->
-          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw <br> click here to refresh</div>
+          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw here</div>
+
+          <div id='downloadclimate' ><a> Climate files can be downloaded from</a><br> <a href="http://climate.onebuilding.org"/>climate.onebuilding.org</a></div>
+          <div style="padding: 10px">
           <div style="text-align:center;color:grey">Works best with Google Chrome and Firefox</div>
-          <div style="text-align:center;color:grey;font-size:smaller;"><font small> Use diffent browers to open multiple climates at the same time </font></div>
+          <div style="text-align:center;color:grey;font-size:smaller;">Use diffent browers to open multiple climates at the same time </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <!-- .container -->
+      </div></div>
   </section>
   
   <!-- Divider -->
@@ -375,7 +404,7 @@ autocomplete(document.getElementById("myInput"), countries);
 
   function refreshPage(){
     window.location.reload();
-    window.location.href='ClimateInfo';
+    window.location.href='AnalysisSelect';
   } 
 
 </script>

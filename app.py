@@ -79,9 +79,11 @@ def index():
 
 @app.route('/ClimateInfo', methods=['GET', 'POST'])
 def ClimateInfo():
- 
     return render_template("ClimateInfo.html")#, wthdata=wthdata)
 
+@app.route('/About', methods=['GET', 'POST'])
+def About():
+    return render_template("About.html")
 
 # @app.errorhandler(Exception)
 # def handle_error(error):

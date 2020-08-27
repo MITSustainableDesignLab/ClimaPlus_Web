@@ -11,12 +11,30 @@
     width:35%;
 }
 
-a:link {
+
+.hover:link {
   color: orangered;
 }
 
-a:visited {
+.hover:visited {
   color: orangered;
+}
+
+.hover:hover {
+  color: black;
+  text-decoration: none;
+}
+
+a {
+  color: grey;
+}
+
+a:link {
+  color: grey;
+}
+
+a:visited {
+  color: grey;
 }
 
 a:hover {
@@ -57,31 +75,46 @@ a:hover {
 
 </style>
 
-<section class="module-small" id = "secTemp">
-<!-- Divider -->
-<hr class="divider-w mt-60 mb-60">
-<p></p>
-<!-- Divider -->
-<div class="container-fluid">
+{% include 'infoNav.html' %}
+
+
+<section class="module-small" id = "secGettingStarted">
+  <div style="padding: 50px"></div>
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
       <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt" id='city'>CLIMATE</h2>
-            <!-- <div class="module-subtitle font-serif">
-              Choose a chart to explore more!
-            </div> -->
+            <p class="module-about-center"> ClimaPlus is an early-design web-tool, developed to promote the design of naturally ventilated and hybrid/mixed-mode buildings that are energy-efficient and low-carbon. The tool is being used for teaching in a residential course at MIT, as well as in a Massive Open Online Course (MOOC) on Sustainable Building Design that is created in collaboration with MIT Energy Initiative.  </p>
+            <div style="padding: 20px"></div>
+            <h2 class="module-title-small"><a href="/ClimateSelect">Selecting or loading a climate file</a></h2></br>
+            <div class="module-about-center"> Two options are provided to select the location of your project. <br>
+              Select using the dropdown menu where 2,500 locations are listed.<br>
+              OR<br>
+              Download an EPW climate file from<br> <a href="http://climate.onebuilding.org"/>climate.onebuilding.org</a></div>
           </div>
-        </div>
+      </div>
+</section>
+
+<section class="module-small" id = "secOutdoorInfo">
+<div style="padding: 50px"></div>
       <div class="row">
        <!--  <div class="col-sm-6 col-sm-offset-5">
               <a class="module-subtitle font-serif">SOLAR</a>
             </div> -->
         <div class="col-sm-6 col-sm-offset-3">
-          <a class="module-subtitle-info nobull">SOLAR</a>
+          <!-- Divider -->
+          <hr class="divider-w mt-60 mb-60">
+          <p></p>
+          <!-- Divider -->
+          <!-- <a class="module-title-info">SOLAR</a> -->
+          <a class="module-title-info">OUTDOOR</a>
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/sunpath.jpg" alt="Trulli" width="200" height=""></div>
 
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/SolarP#secSunpath" class="hover">Sun path diagram </a></br>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/OUTDOOR#secSunpath" class="hover">Sun path diagram </a></br>
               A sun path diagram is a 2-dimensional representation of the position of the sun with respect to given site over the course of the year. The figure can be used for outdoor direct shading studies or to predict the occurrence of glare indoors.
               <!-- <span id="dots">...</span>
               <span onclick="myFunction(this.id)" class="moreBtnC" id="moreBtn"> More >> </span> <br> 
@@ -94,8 +127,8 @@ a:hover {
           <div style="padding:10px 0;">
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/facaderad.jpg" alt="Trulli" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/SolarP#secFacadeRad" class="hover">Monthly Façade Radiation</a></br>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/OUTDOOR#secFacadeRad" class="hover">Monthly Façade Radiation</a></br>
               This graph shows the monthly solar radiation falling onto different surface orientations over the course of the year for a given site. It can be used for early massing studies.
               <a data-toggle="collapse" data-target="#facaderadiation_" class='more'> More>> </a><br>
               <span id="facaderadiation_" class="collapse">
@@ -104,78 +137,125 @@ a:hover {
           <div style="padding:10px 0;">
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/annualsolar.jpg" alt="Trulli" width="175" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/SolarP#secAnnualRad" class="hover">Annual Solar Radiation Map</a></br>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/OUTDOOR#secAnnualRad" class="hover">Annual Solar Radiation Map</a></br>
               This graph shows the annual solar radiation falling onto any surface orientation from a given site. The graph can be used to position and size an unshaded PV system. 
               <a data-toggle="collapse" data-target="#annualsolar_" class='more'> More>> </a><br>
               <span id="annualsolar_" class="collapse">
                 The figure shows a false color map that corresponds to the range of annual solar radiation possible at a given site. The center of the color map corresponds to an upward facing surface whose surface normal forms a 90° angle with the horizon. Top, left, right and bottom values correspond to façade orientations for North, West, East and South. In the example figure the maximum solar radiation (around 1700kWh/m2) occurs for a South facing surface with a tilt angle around 40°. If you hover your mouse over the figure, the solar radiation for the corresponding surface orientation is displayed below.  For more information refer to MIT OCW Environmental Technologies in Buildings, <a href="http://ocw2.mit.edu/courses/architecture/4-401-environmental-technologies-in-buildings-fall-2018/lecture-slides-1/MIT4_401F18_lec3.pdf"> Understanding Climate Solar Radiation</a> or <a href="http://ocw2.mit.edu/courses/architecture/4-401-environmental-technologies-in-buildings-fall-2018/lecture-slides-1/MIT4_401F18_lec6.pdf">Active Solar</a> as well as the Daylighting Handbook I chapter 3 and Daylighting Handbook II chapter 9.  </span> 
           </div></div>
-
-          <a class="module-subtitle-info nobull">TEMP/RH</a>
+          <!-- <div style="padding:20px 0;"></div> -->
+          <!-- Divider -->
+          <hr class="divider-w mt-60 mb-60">
+          <p></p>
+          <!-- Divider -->
+          <!-- <a class="module-title-info">TEMP/RH</a> -->
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/temperature.jpg" alt="Trulli" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/TempRH#secTemp" class="hover">Outdoor Temperature </a></br>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/OUTDOOR#secTemp" class="hover">Outdoor Temperature </a></br>
               This graph shows typical daily temperature profiles for every month for a given site. The information can be used to initially gage the potential for natural ventilation and thermal mass as well as how hot or cold the climate is. 
-              <a data-toggle="collapse" data-target="#temperature_" class='more'> More>> </a><br>
-              <span id="temperature_" class="collapse">
+              <!-- <a data-toggle="collapse" data-target="#temperature_" class='more'> More>> </a><br>
+              <span id="temperature_" class="collapse"> -->
                 The figure shows twelve graphs, one for each month, that are pasted together. For each month the maximum (orange, average (black) and minimum (grey) temperatures over the course of the day are shown. For example, the figure shows that temperatures in January vary for this site between around 5°C at night and 10°C during the day with extremes ranging from around freezing to 10°C. The two horizontal solid gray lines show the upper and lower temperature thresholds and can be adjusted. </span> 
           </div></div>
           <div><p> </p></div>
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/dd.jpg" alt="Trulli" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/TempRH#secDD" class="hover">Degree Days</a></br>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/OUTDOOR#secDD" class="hover">Degree Days</a></br>
               This graph shows monthly heating and cooling degree days for adjustable set point temperatures. 
-              <a data-toggle="collapse" data-target="#dd_" class='more'> More>> </a><br>
-              <a id="dd_" class="collapse">
+              <!-- <a data-toggle="collapse" data-target="#dd_" class='more'> More>> </a><br>
+              <a id="dd_" class="collapse"> -->
                 A heating/cooling degree day corresponds to the difference between the mean daily temperature and the heating/cooling set point temperature. For example, if the mean daily temperature is 12°C and the heating /cooling set point temperatures are 18°C/ 10°C, the heating/cooling degree days for that day are 6DD and 2DD, respectively. If set point temperatures correspond to the balance point temperature of a building, heating degree days are a good predictor as to when a building is in heating or cooling mode.    </a> 
           </div></div>
-          <!-- <div class="row">
-            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/annualsolar.jpg" alt="Trulli" width="175" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              <a href="/TempRH#secPSYCHRO" class="hover">Psychrometric</a></br>
-               
-              <a data-toggle="collapse" data-target="#demo"> More>> </a>
-              <a id="demo" class="collapse">
-                  </a> 
-          </div></div> -->
+          <div><p> </p></div>
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/psychrometric.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/OUTDOOR#secPSYCHRO" class="hover">Psychrometric chart</a></br>
+              This graph shows temperature and humidity for all or select hours in the year for a given site, representing physical and thermal properties of moist air in a graphical form. (Credit: Adopted from a responsive-d3 project by James Perakis)<br>
+              <!-- <a data-toggle="collapse" data-target="#psych_" class='more'> More>> </a><br>
+              <a id="psych_" class="collapse"> -->
+                Using the selection button, the graph provides additional information on wind speed and horizontal global radiation for all displayed hours with falsecolor. In the example figure hours between 8 am and 6 pm are selected for summer months. The maximum hourly radiation in the selected hours is 1002 Wh/m2, with temperature ranging between 10°C and 35°C.    </a> 
+          </div></div>
 
-          <a class="module-subtitle-info nobull">WIND</a>
+
+          
+          <!-- <div style="padding:20px 0;"></div>
+          <a class="module-title-info">WIND</a> -->
+          <!-- Divider -->
+          <hr class="divider-w mt-60 mb-60">
+          <p></p>
+          <!-- Divider -->
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/wind.jpg" alt="Trulli" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
               
-              <a href="/Wind#secWindRose" class="hover">Wind Chart </a></br>
+              <a href="/OUTDOOR#secWindRose" class="hover">Wind Chart </a></br>
               This figure summarizes wind direction and velocity frequency distributions for all or select hours in the year for a given site. 
-              <a data-toggle="collapse" data-target="#wind_" class='more'> More>> </a><br>
-              <a id="wind_" class="collapse">
+              <!-- <a data-toggle="collapse" data-target="#wind_" class='more'> More>> </a><br>
+              <a id="wind_" class="collapse"> -->
                 The figure shows a wind rose with hourly wind data binned into 16 different direction. For each direction the outer radius of the color chart indicates the percentage of time when the wind is blowing from that direction. The color columns indicate the frequency distribution of the wind speed coming from that direction. For example, the wind in the example figure is most prevalent from WNW (around 11% of the year). 4% of the year the wind form that direction has a wind speed above 7m/s (red).  </a> 
           </div></div>
           <div><p> </p></div>
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/windenergy.jpg" alt="Trulli" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
               <p></p>
-              <a href="/Wind#secWindEnergy" class="hover">Wind Energy </a></br>
+              <a href="/OUTDOOR#secWindEnergy" class="hover">Wind Energy </a></br>
               This chart estimates the annual electricity yield of a generic 1000kWwind turbine.  
-              <a data-toggle="collapse" data-target="#windenergy_" class='more'> More>> </a><br>
-              <a id="windenergy_" class="collapse">
+              <!-- <a data-toggle="collapse" data-target="#windenergy_" class='more'> More>> </a><br>
+              <a id="windenergy_" class="collapse"> -->
                 The figure shows the frequency distribution of wind velocity along with the efficiency curve of a wind turbine as well as the resulting annual electricity yield for a given wind speed.  The underlying model estimates the wind speed at a given height and rotor height and diameter.  </a> 
           </div></div>
+        </div></div></div></div>
+</section>
 
-          <a class="module-subtitle-info nobull">INDOOR TEMPERATURE</a>
+
+
+<section  id = "secClimaboxInfo"">
+  <div style="padding:90px 0;"></div>
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
+  <!-- <div style="padding: 30px"></div> -->
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <a class="module-title-info">CLIMABOX</a>
+          <div style="padding:10px 0;"></div>
           <div class="row">
-            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/indoorhourly.jpg" alt="Trulli" width="200" height=""><img src="static/img/indoorfrequency.jpg" alt="Trulli" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8">
-              
-              <a href="/Climabox#parameters" class="hover">Indoor Temperature </a></br>
-              The figure shows hourly indoor and outdoor temperatures over the course of the year. This data can be viewed in two ways. Hourly shows time series of all 8760 hours in the year. The frequency version of this graph shows the hours in the year when the indoor and outdoor temperatures are within a given temperature interval.  
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/climaBox_dynamic.jpg" alt="CLIMABOX" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <a href="/Climabox#parameters" class="hover">CLIMABOX </a></br>
+              ClimaPlus includes a simple one zone thermal model to estimate the effect of key design parameters on indoor temperature and energy use for a given site. The model considers solar radiation onto different facades, one dimensional heat flow through walls, roof and windows, internal gains from solar radiation, equipment and occupants as well as thermal mass effects using a RC-based lag time constant.
+
+              A ClimaBox is used as an abstraction of a building to predict comfort, energy performance, CO2 emissions, and cost for a naturally ventilated, hybrid or fully conditioned building.   
               
           </div></div>
           <div><p> </p></div>
-          <a class="module-subtitle-info nobull">ENERGY</a>
+          <!-- Divider -->
+          <hr class="divider-w mt-60 mb-60">
+          <p></p>
+          <!-- Divider -->
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/indoorhourly.jpg" alt="Trulli" width="200" height=""><img src="static/img/indoorfrequency.jpg" alt="Trulli" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              
+              <a href="/Climabox#parameters" class="hover">Indoor Temperature </a></br>
+              The figure shows hourly indoor and outdoor temperatures over the course of the year. This data can be viewed in two ways. Hourly shows time series of all 8760 hours in the year. 
+              <div style="padding:50px 0;"></div>
+              The frequency version of this graph shows the hours in the year when the indoor and outdoor temperatures are within a given temperature interval.  
+              
+            </div></div>
+          <div><p> </p></div>
+          <!-- <div style="padding:20px 0;"></div>
+          <a class="module-title-info">ENERGY</a> -->
+          <!-- Divider -->
+          <hr class="divider-w mt-60 mb-60">
+          <p></p>
+          <!-- Divider -->
           <div class="row">
             <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/energycarboncost.jpg" alt="Trulli" width="200" height=""><!-- <img src="static/img/carbon.jpg" alt="Trulli" width="82" height=""> --></div>
             <div class="col-xs-7 col-sm-6 col-lg-8">
@@ -184,10 +264,22 @@ a:hover {
               The first figure shows the energy use intensity for the given ClimaBox design for cooling, heating, electric lighting and equipment. The energy use intensity corresponds to the sum of the different energy uses of the building divided by the conditioned floor area.  The second figure shows CO2e emissions from gas and electricity and the last figure shows the cost of energy.
           </div></div>
 
-        </div>
-      </div>
-    </div>
-  </section>
+          <!-- Divider -->
+          <hr class="divider-w mt-60 mb-60">
+          <p></p>
+          <!-- Divider -->
+          <div class="row">
+            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/savedScenarios.jpg" alt="Trulli" width="200" height=""><!-- <img src="static/img/carbon.jpg" alt="Trulli" width="82" height=""> --></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8">
+              <p></p>
+              <a href="/Climabox#SavedEnergyGraphs" class="hover">Saved Scenarios</a></br>
+              This chart shows four different upgrade scenarios that are saved after running the energy calculations of the climabox. Starting from a base case, the selected building updagrades can be saved as scenarios 1, 2 or 3, with an additional custom name.
+          </div></div>
+
+    </div></div></section>
+
+    
+
   
 
   <!-- Divider -->

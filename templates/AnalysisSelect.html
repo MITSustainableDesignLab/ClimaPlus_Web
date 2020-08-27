@@ -65,7 +65,7 @@ a:visited {
 <div class="container-fluid">
       <div class="row">
           <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt" id='city'>CLIMATE</h2>
+            <h2 class="module-title font-alt" id='city' href="/ClimateSelect">CLIMATE</h2>
           </div>
       </div>
       <div style="padding:100px 0;">
@@ -73,18 +73,18 @@ a:visited {
         <div style="justify-content: center; display: flex;">
           <img src="static/img/outdoor.png" alt="outdoor" width="40" height=""> </div>
         <div style="text-align: center;">
-          <a href="/OUTDOOR">OUTDOOR</a></br>
+          <a class="module-title-about" href="/OUTDOOR">OUTDOOR</a></br>
           <!-- <a href="/SolarP" class="hover">Outdoor climate analysis </a></br> -->
-          <p>The outdoor climate analysis includes solar, temperature and wind charts. </p>
+          <p class="module-about-center">The outdoor climate analysis includes solar, temperature and wind charts. </p>
         </div>
       </div>
       <div class="col-sm-3">
         <div style="justify-content: center; display: flex;">
           <img src="static/img/indoor.png" alt="indoor" width="40" height=""> </div>
         <div style="text-align: center;">
-          <a href="/Climabox">CLIMABOX</a></br>
+          <a class="module-title-about" href="/Climabox">CLIMABOX</a></br>
           <!-- <a href="/SolarP" class="hover">Outdoor climate analysis </a></br> -->
-          <p>The indoor climate analysis allows to explore various building properties such as size of a building, window-to-wall ratio, wall and glazing construction, and thermal mass using a ClimaBox.  </p>
+          <p class="module-about-center">A climabox is used for indoor analysis, and outputs include temperature, energy and CO2 emissions.  </p>
         </div>
       </div>
 </div>
@@ -104,7 +104,7 @@ a:visited {
 
     var CITY_body = CITY;
     console.log('testing city', CITY_body)
-    if (CITY == "") CITY_body = "First select a climate";
+    if (CITY == "") CITY_body = "First select or load a climate";
     $(document).ready(function(){
         $("#city").text(CITY_body);
         });
