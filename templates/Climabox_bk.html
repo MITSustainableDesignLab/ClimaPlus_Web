@@ -61,75 +61,38 @@
 
 </style>
 
-<!-- <section class="module-small" id = "parameters"> -->
+<section class="module-small" id = "parameters">
 
 <!-- Divider -->
-<!-- <hr class="divider-w mt-60 mb-60"> -->
-<!-- <p></p> -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
 <!-- Divider -->
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 col-sm-offset-3">
             <!-- <button class="collapsible"> -->
             
             <!-- <h2 class="module-title font-alt">Climabox Settings</h2> -->
             <!-- <button class="collapsible"> <h3 class="module-title font-alt">Climabox Settings</h3> </button> --> <!-- ***Turn on to reverse collapsible -->
             <!-- <div class="content" style="width:500px" > --> <!-- ***Turn on to reverse collapsible -->
 
-            <!-- dynamic box -->
-            <!-- <div class="separator"></div> -->
-            <!-- <div class="row" > -->
-            
-
-            <div class="col-xs-3 scene" id="element">
-                <div class="bigbox">
-                    <div class="box__face box__face--front"><div class="wsouth"><div class="square"></div></div></div>
-                    <div class="box__face box__face--back"><div class="wnorth"><div class="square"></div></div></div>
-                    <div class="box__face box__face--right"><div class="weast"><div class="square"></div></div></div>
-                    <div class="box__face box__face--left"><div class="wwest"><div class="square"></div></div></div>
-                    <div class="box__face box__face--top"></div>
-                    <div class="box__face box__face--bottom"></div>
-                </div>
-            </div>
-            <div class="col-xs-1 arrow">
-                  <img src="/static/img/NorthArrow.png" class="compass">
-            </div>
-        </div>
-    </div>
-</div>
-<!-- </section> -->
-
-
-<!-- <section class="module-small" id = "indoorTempGraph"> -->
-<!-- Divider -->
-<!-- <hr class="divider-w mt-60 mb-60">
-<p></p> -->
-<!-- Divider -->
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-3 col-sm-offset-1">
             <form action="{{ url_for('Climabox') }}"  method='post' id='climaboxSettings'>
-
-                <h2 class="module-title font-alt ttip" href="#" data-toggle="tooltip" data-placement="left" title="ClimaPlus includes a simple one zone thermal model to estimate the effect of key design parameters on indoor temperature and energy use for a given site. The model considers solar radiation onto different facades, one dimensional heat flow through walls, roof and windows, internal gains from solar radiation, equipment and occupants as well as thermal mass effects using a RC-based lag time constant.">Settings</h2>
-
-                <div class="botseparator"></div>
-
-                <div class="container" style="padding-left: 30px;">
-                <div style="padding:0px 0;">
-                <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. Please note that the shown geometry is only shown for the default geometry and does not change. ">Climabox dimensions</a>
-                    <div style="padding:5px 0; width:30%;" title="1M < Width < 30M" data-toggle="tooltip"><input class='cbform' style="width: 140px;" id='cb_w' type="text" name="climaWidth"  placeholder="W (10 m)"> W (m) </div>
-                    <div style="padding:5px 0;width:30%;" title="1M < Length < 30M" data-toggle="tooltip"><input class='cbform' style="width: 140px;" id='cb_l' type="text" name="climaLength" placeholder="L (10 m)"> L (m) </div>
-                    <div style="padding:5px 0;width:30%;" title="1M < Height < 10M" data-toggle="tooltip"><input class='cbform' style="width: 140px;" id='cb_h' type="text" name="climaHeight"  placeholder="H (3 m)"> H (m) </div>
-                </div>
+                <h2 class="module-title font-alt ttip" href="#" data-toggle="tooltip" data-placement="left" title="ClimaPlus includes a simple one zone thermal model to estimate the effect of key design parameters on indoor temperature and energy use for a given site. The model considers solar radiation onto different facades, one dimensional heat flow through walls, roof and windows, internal gains from solar radiation, equipment and occupants as well as thermal mass effects using a RC-based lag time constant.">Climabox Settings</h2>
+                <div  id="climabox"><img alt="Climabox" src="../static/img/climaBox_dim.jpg" /></div>
+                <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. Please note that the shown geometry is only shown for the default geometry and does not change.">Climabox dimensions</a>
+                <div class="container">
+                <div class="row">
+                    <div style="padding:5px 0;"><input class='cbform' style="width: 140px;" id='cb_w' type="text" name="climaWidth"  placeholder="W (10 m)"> W (m) </div>
+                    <div style="padding:5px 0;"><input class='cbform' style="width: 140px;" id='cb_l' type="text" name="climaLength" placeholder="L (10 m)"> L (m) </div>
+                    <div style="padding:5px 0;"><input class='cbform' style="width: 140px;" id='cb_h' type="text" name="climaHeight"  placeholder="H (3 m)"> H (m) </div>
+                </div></div>
         
                 <div  style="padding:20px 0;">
                     <a class="ttip" href="#" data-toggle="tooltip" data-placement="left" title="The window-to-wall ratio for each façade corresponds to the percentage of glazing area vis-à-vis the overall façade area adjacent to the space.">Window to wall ratio</a>
                     <div style="padding:5px 0;">
-                    <select name="wwrN" id="wnorth" style="width: 140px;" >
-                        <option value=0.001 >Adiabatic</option>
-                        <option value=0 >No window</option>
+                    <select name="wwrN" id="wnorth" style="width: 140px;">
+                        <option value=0>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
                         <option value=0.3 selected>30%</option>
@@ -142,7 +105,6 @@
                     </div>
                     <div style="padding:5px 0;">
                     <select name="wwrS" id="wsouth" style="width: 140px;">
-                        <option value=0.001>Adiabatic</option>
                         <option value=0>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
@@ -156,7 +118,6 @@
                     </div>
                     <div style="padding:5px 0;">
                     <select name="wwrW" id="wwest" style="width: 140px;">
-                        <option value=0.001>Adiabatic</option>
                         <option value=0>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
@@ -170,7 +131,6 @@
                     </div>
                     <div style="padding:5px 0;">
                     <select name="wwrE" id="weast" style="width: 140px;">
-                        <option value=0.001>Adiabatic</option>
                         <option value=0>No window</option>
                         <option value=0.1>10%</option>
                         <option value=0.2>20%</option>
@@ -189,7 +149,6 @@
                     <div style="padding:5px 0;">
                     <select name="Rroof" id="rroof" style="width: 140px;">
                         <!-- the values are the total U-factors -->
-                        <option value=0>Adiabatic</option>
                         <option value=4.5>Low (U-4.5)</option>
                         <option value=2.37 selected>Regular (U-2.37)</option>
                         <option value=0.33>Medium (U-0.33)</option>
@@ -206,13 +165,6 @@
                     </select> <font>Wall</font> <br>
                     </div>
                     <div style="padding:5px 0;">
-                    <select name="Rfloor" id="rfloor" style="width: 140px;">
-                        <!-- the values are the total U-factors -->
-                        <option value=0>Adiabatic</option>
-                        <option value=0.4>Slab on grade</option>
-                    </select> <font>Floor</font> <br>
-                    </div>
-                    <div style="padding:5px 0;">
                     <select name="Uglazing" id="glaz" style="width: 140px;">
                         <option value="7.1|0.82">Single (U-7.1, SHGC 0.82)</option> <!-- source: ASHRAE Energy Standard -->
                         <option value="3.4|0.59" selected>Double (U-3.4, SHGC 0.59)</option> <!-- source: ASHRAE Energy Standard -->
@@ -222,8 +174,6 @@
                         <!-- <option value="0.24|0.26">Double Low-E Low-Solar-Gain (U-0.24, SHGC 0.26)</option> -->
                     </select> <font>Glazing</font> <br>
                     </div>
-                </div>
-
                 <div  style="padding:20px 0;">
                     <a class="ttip hover" href="#" data-toggle="tooltip" data-placement="left" title="The use can specify the amount of active thermal mass within the space. The exposed thermal mass corresponds to a 40mm thick concrete layer with a volumetric heat capacity of 2016kJ/m3 K.">Exposed thermal mass</a>
                     <div style="padding:5px 0;">
@@ -233,8 +183,7 @@
                         <option value=2>High (floor and ceiling)</option>
                         <!-- <option value="custom">Custom</option> -->
                     </select>
-                    </div> 
-                </div>   
+                </div>    
                 <div  style="padding:5px 0;">
                     <a class="ttip hover" href="#" data-toggle="tooltip" data-placement="left" title="The infiltration rate in Air Change per Hour (ACH) corresponds to volume of fresh air that enters the space through accidentals leaks in the building envelope.">Infiltration</a>
                     <div style="padding:5px 0;">
@@ -247,7 +196,6 @@
                         <option value=20>Fan II (20 ach)</option> -->
                         <!-- <option value="custom">Custom</option> -->
                     </select>
-                    </div>
                 </div>
                
                 <div  style="padding:20px 0;">
@@ -319,8 +267,8 @@
                         <option value="3.93">Ground source heat pump cooling</option>
                         <option value="customOption">Custom</option>
                     </select> <input name="systemC" style="display:none; width: 140px; height: 12px; border: 0.5px solid;" disabled="disabled" onblur="if(this.value==''){toggleField(this,this.previousSibling);}"><font>Cooling</font> <br>
-                    </div>-->
-                </div> 
+                    </div>
+                </div> -->
 
                 <div style="padding:20px 0;">
                     <a class="ttip hover" href="#" data-toggle="tooltip" data-placement="left" title="Carbon emissions from gas and electricity used for heating, cooling, lighting and equipment are calculated using the emission factors given in kgCO2e/kWh. Representative emission factors for some cities are given in the dropdown. And the ‘custom’ entry field allows to enter new values. ">Emissions</a>
@@ -341,7 +289,6 @@
                     </select><input name="CO2Gas" style="display:none; width: 140px; height: 12px; border: 0.5px solid;" disabled="disabled" onblur="if(this.value==''){toggleField(this,this.previousSibling);}"><font> Gas</font> <br>
                     </div>
                 </div>
-
                 <div style="padding:5px 0;">
                     <a class="ttip hover" href="#" data-toggle="tooltip" data-placement="left" title="Operation energy costs for gas and electricity are calculated using the cost of energy per kWh selected from the dropdown. Custom cost factors can be specified using the ‘custom’ option. ">Cost</a>
                     <div style="padding:5px 0;">
@@ -364,16 +311,30 @@
 
                 <!-- <div style="padding:5px 0;">
                     <font>Conditioning system</font><br>
-                    <input type="check" name="system" value="nv" id='nv' checked/> Operable windows <br>
+                    <input type="checkbox" name="system" value="nv" id='nv' checked/> Operable windows <br>
                     <input type="checkbox" name="system" value="h" id='h'/> Heating furnace (COP 0.85), <a id = "sp_L"> 18 </a> deg C <br>
                     <input type="checkbox" name="system" value="c" id='c'/> AC for Cooling (COP 3), <a id = "sp_U"> 26 </a> deg C
                 </div> -->
 
-                <div style="padding:20px 0;"><input type="submit" value="Go" name="submit" onclick="getInputValue()" id="climaboxSettingsForm"/></div>  <!-- onclick="history.go(-1);"  -->
-            </div></form>
+                <div style="padding:20px 0;"><input type="submit" value="Go" name="submit" id="climaboxSettingsForm"/></div>  <!-- onclick="history.go(-1);"  -->
+            </form>
+            <!-- </div> -->
+        
         </div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-6">
+    </div>
+</div>
+</section>
+
+<section class="module-small" id = "indoorTempGraph">
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+	       
             <h2 class="module-title font-alt">Indoor temperature</h2>
             <div style="text-align:center;" >
                 <font>Discomfort hours during occupancy <br> due to high temperature - <a id = "disHrhot"> 0 </a> hrs </font><br>
@@ -387,49 +348,47 @@
                     <a data-page="frequency" class="dl" href="#"> FREQUENCY </a><button class="btn" onclick="save_as_svg('svgclimafrequency','Indoor temperature frequency.svg')"><i class="fa fa-download"></i></button> 
                 </ul>
             </div>
-        
-            <div id="pages">
-                <div id="hourly" class="page" data-page="hourly">
-                    <div  style="text-align:center;" id="svgindoortemp"> </div>
-                </div>
-                <div id="frequency" class="page hide" data-page="frequency">
-                    <div  style="text-align:center;" id="svgclimafrequency"> </div>
-                </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<div id="pages">
+    <div id="hourly" class="page" data-page="hourly">
+        <div class="row">
+            <div class="columns large-6">
+                <div  style="text-align:center;" id="svgindoortemp"> </div>
             </div>
-        
+        </div>
+    </div>
+    <div id="frequency" class="page hide" data-page="frequency">
+        <div class="row">
+            <div class="columns large-6">
+                <div  style="text-align:center;" id="svgclimafrequency"> </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- </section> -->
 
-<!-- <section class="module-small" id = "energyGraph"> -->
-<div style="padding:60px 0;">
+<section class="module-small" id = "energyGraph">
+
 <!-- Divider -->
 <hr class="divider-w mt-60 mb-60">
 <p></p>
 <!-- Divider -->
-</div>
-<!-- <div class="container"> -->
-    <!-- <div class="row"> -->
-        <!-- <div class="col-sm-6 col-sm-offset-3"> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
 
             <div class="row" style="display:flex; flex-flow:row wrap;">
                 <div class="col-sm-4" x="20"; style="text-align:center;">
                     <h4 class="module-title-small font-alt">Energy<br><button class="btn" onclick="save_as_svg('svgenergy','Energy use intensity.svg')"><i class="fa fa-download"></i></button></h4>
-                    <div id="svgenergy"> </div> 
-
-                </div>
+                    <div id="svgenergy"> </div> </div>
                 <div class="col-sm-4" x="50"; style="text-align:center;"> 
                     <h2 class="module-title-small font-alt" style="text-align:center;">CO2e<br><button class="btn" onclick="save_as_svg('svgco2','Emisssion.svg')"><i class="fa fa-download"></i></button></h2>
-                    <div id="svgco2"> </div>
-                        <div style="padding:5px 0;">
-                        <select name="EGS" id="egs" style="width: 50px; margin-bottom: 5px; height: 20px;" onchange="if(this.options[this.selectedIndex].value=='customOption'){toggleField(this,this.nextSibling); this.selectedIndex='0';}">
-                            <option value=2 selected="selected">Base</option>
-                            <option value=3>Scenario1</option>
-                            <option value=4>Scenario2</option>
-                            <option value=5>Scenario3</option>
-                        </select>
-                           <input class='energyName' style="width: 80px;" id='energyN' type="text" name="SavedEName"  placeholder="Name">
-                            <br><button type="button" onclick="dataSave()" class="energySave">Save Graph</button>
-                        </div></div>
+                    <div id="svgco2"> </div> </div>
                 <div class="col-sm-4" x="400"; style="text-align:center;">
                     <h2 class="module-title-small font-alt">Cost<br><button class="btn" onclick="save_as_svg('svgcost','Cost.svg')"><i class="fa fa-download"></i></button></h2>
                     <div style="text-align:center;" id="svgcost"> </div></div>
@@ -456,67 +415,30 @@
                 , Electricity - <a id = "co2e_e"> 0 </a>
                 , Gas - <a id = "co2e_g"> 0 </a></font>
             </div>
-            </div>
-        </div>
-    </div></div>
-
-
-<section class="module-small" id = "SavedEnergyGraphs">
-
-<!-- Divider -->
-<hr class="divider-w mt-60 mb-60">
-<p></p>
-<!-- Divider -->
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <h2 class="module-title font-alt">Saved Scenarios</h2>
-                <div class="row" style="display:flex; flex-flow:row wrap;">
-                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                        <div id="svgenergy2" style="width: 50%; margin: auto;"> </div>
-                        <button type="button" onclick="deleteGraph(2)" class="deleteGraph" id="but2" style="margin-top: -50px;">Delete</button>
-                        <h4 style="white-space:pre-wrap;font-size: 12px;margin-top: -20px;" id="S2"></h4>
-                    </div>
-                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                        <div id="svgenergy3" style="width: 50%; margin: auto;"> </div>
-                        <button type="button" onclick="deleteGraph(3)" class="deleteGraph" id="but3" style="margin-top: -50px;">Delete</button>
-                        <h4 id="S3" style="white-space:pre-wrap;font-size: 12px;margin-top: -20px;"></h4>
-                    </div>
-                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                        <div id="svgenergy4" style="width: 50%; margin: auto;"> </div>
-                        <button type="button" onclick="deleteGraph(4)" class="deleteGraph" id="but4" style="margin-top: -50px;">Delete</button>
-                        <h4 id="S4" style="white-space:pre-wrap;font-size: 12px;margin-top: -20px;"></h4>
-                    </div>
-                    <div class="col-sm-4" x="20"; style="text-align:center;width:17%">
-                        <div id="svgenergy5" style="width: 50%; margin: auto;"> </div>
-                        <button type="button" onclick="deleteGraph(5)" class="deleteGraph" id="but5" style="margin-top: -50px;">Delete</button>
-                        <h4 id="S5" style="white-space:pre-wrap;font-size: 12px;margin-top: -20px;"></h4>
-                    </div>
-                </div>
-            <div id="lowline" style="border-top: 1px solid #8a8a8a;margin-top: -88px;margin-left: 20px;margin-right: 38%;"></div>
+            
     </div>
 </div>
 
 </section >
 
 
+<!-- Divider -->
+<hr class="divider-w mt-60 mb-60">
+<p></p>
+<!-- Divider -->
 
 {% endblock %}
 {% block scripts %}
 
 <script type="text/javascript">
 
-
-
     var Tin = {{dataT["Tin"]}}
     var Tin_freq = {{dataT["Tin_freq"]}}
     var Tout = {{dataT["Tout"]}}
-    var Qh_T = Math.abs({{dataT["Qh_T"]}})
-    var Qc_T = Math.abs({{dataT["Qc_T"]}})
-    var Ql_T = Math.abs({{dataT["Ql_T"]}})
-    var Qe_T = Math.abs({{dataT["Qe_T"]}})
+    var Qh_T = {{dataT["Qh_T"]}}
+    var Qc_T = {{dataT["Qc_T"]}}
+    var Ql_T = {{dataT["Ql_T"]}}
+    var Qe_T = {{dataT["Qe_T"]}}
     var EUI = {{dataT["EUI"]}}
     var Heating = {{dataT["Heating"]}}
     var Cooling = {{dataT["Cooling"]}}
@@ -536,72 +458,6 @@
     var SPU = {{climabox["sp_upper"]}}
     var CITY = "{{session["city"]}}"
 
-
-    cityL = CITY.split(' (')
-    cityN = cityL[0].split(" ").join("")
-    //console.log(cityN)
-
-    console.log({"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":EUI})
-    function deleteGraph(num) {
-        delete_cookie( cityN + num )
-        var svgid = "#svgenergy" + num;
-        var textid = "S"+ num;
-        var element = document.getElementById(textid);
-        element.innerHTML = "" ;
-
-        Graphs()
-
-
-    }
-
-    function dataSave() {
-        var e = document.getElementById("egs");
-        var value = e.options[e.selectedIndex].value;
-        var text = e.options[e.selectedIndex].text;
-
-        var svgid = "#svgenergy" + value;
-        var textid = "S"+value;
-        var element = document.getElementById(textid);
-        txtname = document.getElementById('energyN').value;
-        if (txtname.length < 8){
-            if (txtname.length == 0){
-                txtname = " "
-            }
-            name = "<span style='text-decoration: underline'>" + text + "</span> \n" + txtname;
-            element.innerHTML = name;
-
-            document.getElementById("but"+value).style.visibility= "visible";
-
-            scn = [{"Heating":Qh_T, "Cooling":Qc_T, "Equipment":Qe_T, "Lighting":Ql_T,"total":(Qh_T+Qc_T+Qe_T+ Ql_T) , "name": name}];
-
-            document.cookie = cityN + value + "=" + JSON.stringify(scn[0]);
-
-            Graphs()
-        }
-    }
-
-    function getCookieValue(a) {
-        var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-        return b ? b.pop() : '';
-    }
-    function delete_cookie( name ) {
-      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
-
-    $("#energyN").keyup(function(){
-        if (!(document.getElementById('energyN').value.length < 8)){
-                 document.getElementById("energyN").style.borderColor="red";
-                 document.getElementById("energyN").style.backgroundColor="lightpink";
-        }
-        else{
-                 document.getElementById("energyN").style.borderColor="black";
-                 document.getElementById("energyN").style.backgroundColor="white";
-        }
-    });
-
-
-////////
-///////
     var coll = document.getElementsByClassName("collapsible");
     var i;
     for (i = 0; i < coll.length; i++) {
@@ -627,27 +483,22 @@
     mySel.addEventListener("change",function() {localStorage.setItem("selValue",this.value);});
     let val = localStorage.getItem("selValue");
     if (val) mySel.value=val;
-    else val=0.3
-    console.log('tttessttt wwr north ', val)
+    // localStorage.removeItem("selValue");
 
     const mySel2 = document.getElementById(ids[1]);
     mySel2.addEventListener("change",function() {localStorage.setItem("selValue2",this.value);});
     let val2 = localStorage.getItem("selValue2");
     if (val2) mySel2.value=val2;
-    else val2=0.3
-    console.log('tttessttt wwr south  ', val2)
 
     const mySel3 = document.getElementById(ids[2]);
     mySel3.addEventListener("change",function() {localStorage.setItem("selValue3",this.value);});
     let val3 = localStorage.getItem("selValue3");
     if (val3) mySel3.value=val3;
-    else val3=0.3
 
     const mySel4 = document.getElementById(ids[3]);
     mySel4.addEventListener("change",function() {localStorage.setItem("selValue4",this.value);});
     let val4 = localStorage.getItem("selValue4");
     if (val4) mySel4.value=val4;
-    else val4=0.3
 
     const mySel5 = document.getElementById(ids[4]);
     mySel5.addEventListener("change",function() {localStorage.setItem("selValue5",this.value);});
@@ -751,278 +602,7 @@
         $('input[name="climaHeight"]').val(H);
 
         // enabling all tooltips 
-        $('[data-toggle="tooltip"]').tooltip();
-        //setting box default
-        var Width= (Math.log(W+.5))*100;; //Box Width
-        var Height= (Math.log(H+.5))*100;; // Box Height
-        var Length= (Math.log(L+.5))*100;   //Box length    (Math.log(L+18)-3)*100+200; (Old func)
-
-        minNS=Math.min(Height,Length)
-        minEW=Math.min(Height,Width)
-
-        function ResetBox() {
-            document.documentElement.style
-                .setProperty('--scene', scene.toString()+"px");
-                document.documentElement.style
-                .setProperty('--height', Height.toString()+"px");
-                document.documentElement.style
-                .setProperty('--width', Width.toString()+"px");
-                document.documentElement.style
-                .setProperty('--length', Length.toString()+"px");
-                document.documentElement.style
-                .setProperty('--halfhieght', ((Height/2).toString())+"px");
-                document.documentElement.style
-                .setProperty('--halfwidth', ((Width/2).toString())+"px");
-                document.documentElement.style
-                .setProperty('--halflength', ((Length/2).toString())+"px");
-                document.documentElement.style
-                .setProperty('--hlratio', (((Width/Length)*(Length/2)).toString())+"px");
-                document.documentElement.style
-                .setProperty('--hlratiowhole', ((Length-(Width/Length)*(Length/2)).toString())+"px");
-                document.documentElement.style
-                .setProperty('--wlratio', ((Width*.5).toString())+"px");
-                document.documentElement.style
-                .setProperty('--wlratiowhole', (Height - Width*.5).toString()+"px");
-                document.documentElement.style
-                .setProperty('--spacer', (Math.max(Height*1.5,Width*1.5,Length*1.5)).toString()+"px");
-                minEW=Math.min(Height,Width)
-                minNS=Math.min(Height,Length)
-                Windows()
-
-            }
-        //Auto updating box
-        //Width
-        $("#cb_w").keyup(function(){
-            // Getting the current value of input
-            if( $(this).val() == "" )
-            {    Width = (Math.log(1+.5))*100;
-                 document.getElementById("cb_w").style.borderColor="red";
-                 document.getElementById("cb_w").style.backgroundColor="lightpink";
-            }else{
-                W=parseInt($(this).val())
-                Width = (Math.log(W+.5))*100;
-                let area = document.querySelector("#cb_w");
-                if ( (W>0) && (W<=30) ){
-                //resetting box
-
-                    ResetBox();
-                    document.getElementById("cb_w").style.borderColor="black";
-                    document.getElementById("cb_w").style.backgroundColor="white";
-                    area.setCustomValidity("");
-                }
-                else{
-                    Width = (Math.log(30+.5))*100;
-                    document.getElementById("cb_w").style.borderColor="red";
-                    document.getElementById("cb_w").style.backgroundColor="lightpink";
-                    area.setCustomValidity("Over the boundry!");
-
-
-                }
-            }
-        });
-
-        $("#cb_h").keyup(function(){
-            // Getting the current value of input
-            if( $(this).val() == "" )
-            { Height = (Math.log(1+.5))*100;
-              document.getElementById("cb_h").style.borderColor="red";
-              document.getElementById("cb_h").style.backgroundColor="lightpink";
-            }else{
-                H=parseInt($(this).val())
-                Height = (Math.log(H+.5))*100;
-                if ((H>0) && (H<=10) ){
-                //resetting box
-                    ResetBox();
-                    document.getElementById("cb_h").style.borderColor="black"
-                    document.getElementById("cb_h").style.backgroundColor="white";;
-                }
-                else{
-                    Height = (Math.log(10+.5))*100;
-                    document.getElementById("cb_h").style.borderColor="red";
-                    document.getElementById('cb_h').innerHTML="this is an invalid name"
-                    document.getElementById("cb_h").style.backgroundColor="lightpink";
-    ;
-                }
-            }
-        });
-
-        $("#cb_l").keyup(function(){
-            // Getting the current value of input
-            if( $(this).val() == "" )
-            {   Length = (Math.log(1+.5))*100;
-                document.getElementById("cb_l").style.borderColor="red";
-                document.getElementById("cb_l").style.backgroundColor="lightpink";}
-            else{
-                L=parseInt($(this).val())
-                Length = (Math.log(L+.5))*100;
-                if ((L>0) && (L<=30)){
-                //resetting box
-                    ResetBox();
-                    document.getElementById("cb_l").style.borderColor="black";
-                    document.getElementById("cb_l").style.backgroundColor="white";
-
-                }
-                else{
-                    Length = (Math.log(30+.5))*100;
-                    document.getElementById("cb_l").style.borderColor="red";
-                    document.getElementById("cb_l").style.backgroundColor="lightpink";
-                    document.getElementById('cb_l').innerHTML="this is an invalid name";
-                }
-            }
-        });
-        var roofval = document.getElementById("rroof").value;
-        var floorval = document.getElementById("rfloor").value;
-        function Wnchange() {
-            val = document.getElementById("wnorth").value;
-            Windows()
-        }
-        function Wschange() {
-            val2 = document.getElementById("wsouth").value;
-            Windows()
-        }
-        function Wwchange() {
-            val3 = document.getElementById("wwest").value;
-            Windows()
-        }
-        function Wechange() {
-            val4 = document.getElementById("weast").value;
-            Windows()
-        }
-        function Roofchange() {
-            roofval = document.getElementById("rroof").value;
-            Windows()
-        }
-        function Floorchange() {
-            floorval = document.getElementById("rfloor").value;
-            Windows()
-        }
-        val = document.getElementById("wnorth").value;
-        console.log('logging window wwr  ', val)
-        $("#wnorth").on("change", Wnchange);
-        $("#wsouth").on("change", Wschange);
-        $("#wwest").on("change", Wwchange);
-        $("#weast").on("change", Wechange);
-        $("#rroof").on("change", Roofchange);
-        $("#rfloor").on("change", Floorchange);
-
-        //Window ratios
-        function Windows() {
-            minEW=Math.min(Height,Width)
-            minNS=Math.min(Height,Length)
-            if(val == 0){
-                document.documentElement.style
-                .setProperty('--wn', (0).toString()+"px");
-                document.documentElement.style
-                        .setProperty('--ncolor', ("white"));
-            }else if(val == 0.001){
-                document.documentElement.style
-                .setProperty('--wn', (0).toString()+"px");
-                document.documentElement.style
-                        .setProperty('--ncolor', ("#fff"));
-            }else{
-                if (minNS<90){
-                    document.documentElement.style
-                .setProperty('--wn', ((1-val)*(minNS/3)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--ncolor', ("hsla( 0, 0%, 0%, 0.0)"));
-                }else{
-
-                document.documentElement.style
-                .setProperty('--wn', ((1-val)*(minNS/2)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--ncolor', ("hsla( 0, 0%, 0%, 0.0)"));
-            }}
-
-            if(val2 == 0){
-            document.documentElement.style
-                .setProperty('--ws', (0).toString()+"px");
-                document.documentElement.style
-                        .setProperty('--scolor', ("white"));
-            }else if(val2 == 0.001){
-                document.documentElement.style
-                .setProperty('--ws', (0).toString()+"px");
-                document.documentElement.style
-                        .setProperty('--scolor', ("grey"));
-            }else{
-            if (minNS<90){
-                    document.documentElement.style
-                .setProperty('--ws', ((1-val2)*(minNS/3)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--scolor', ("hsla( 0, 0%, 0%, 0.0)"));
-                }else{
-                document.documentElement.style
-                .setProperty('--ws', ((1-val2)*(minNS/2)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--scolor', ("hsla( 0, 0%, 0%, 0.0)"));
-            }}
-
-            if(val3 == 0){
-            document.documentElement.style
-                .setProperty('--ww', (0).toString()+"px");
-            document.documentElement.style
-                        .setProperty('--wcolor', ("white"));
-            }else if(val3 == 0.001){
-                document.documentElement.style
-                .setProperty('--ww', (0).toString()+"px");
-                document.documentElement.style
-                        .setProperty('--wcolor', ("grey"));
-            }else{
-            if (minEW<90){
-                    document.documentElement.style
-                .setProperty('--ww', ((1-val3)*(minEW/3)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--wcolor', ("hsla( 0, 0%, 0%, 0.0)"));
-                }else{
-                document.documentElement.style
-                .setProperty('--ww', ((1-val3)*(minEW/2)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--wcolor', ("hsla( 0, 0%, 0%, 0.0)"));
-           } }
-
-            if(val4 == 0){
-            document.documentElement.style
-                .setProperty('--we', (0).toString()+"px");
-            document.documentElement.style
-                        .setProperty('--ecolor', ("white"));
-            }else if(val4 == 0.001){
-                document.documentElement.style
-                .setProperty('--we', (0).toString()+"px");
-                document.documentElement.style
-                        .setProperty('--ecolor', ("grey"));
-            }else{
-            if (minEW<90){
-                    document.documentElement.style
-                .setProperty('--we', ((1-val4)*(minEW/3)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--ecolor', ("hsla( 0, 0%, 0%, 0.0)"));
-                }else{
-                document.documentElement.style
-                .setProperty('--we', ((1-val4)*(minEW/2)).toString()+"px");
-                document.documentElement.style
-                            .setProperty('--ecolor', ("hsla( 0, 0%, 0%, 0.0)"));
-            }}
-
-            if(roofval ==0){
-             document.documentElement.style
-                .setProperty('--rcolor', ('#CCC'));
-            }else{
-            document.documentElement.style
-                .setProperty('--rcolor', ('#fff'));
-            }
-
-            if(floorval ==0){
-             document.documentElement.style
-                .setProperty('--fcolor', ('#CCC'));
-            }else{
-            document.documentElement.style
-                .setProperty('--fcolor', ('#fff'));
-            }
-        }
-        Windows()
-
-        var scene= Math.max(Height, Width, Length)*1.05
-
-         ResetBox()
+        $('[data-toggle="tooltip"]').tooltip(); 
 
         // ref:https://stackoverflow.com/questions/21229979/remember-check-box-value-when-re-visited-the-same-page
         // This uses the jQuery cookie library.
@@ -1065,78 +645,5 @@
 <script src= '/static/js/IndoorTemp.js'></script>
 <script src= '/static/js/Energy.js'></script>
 <script src= '/static/js/FileSaver.js'></script>
-<script src= '/static/js/Climabox.js'></script>
 <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
-
-<script>
-    function Graphs(){
-        var max =0;
-        var l=0;
-        document.getElementById("lowline").style.visibility= "hidden";
-        for (i=2; i<6; i++) {
-                var svgid = "#svgenergy" + i;
-                var svg = d3.select(svgid);
-                svg.selectAll("*").remove();
-                document.getElementById("but"+i).style.visibility= "hidden";
-
-                try{
-                    var savedGraph = JSON.parse(getCookieValue(cityN+i));
-
-                    if (savedGraph["total"] > max){
-                        max = savedGraph["total"];
-                        console.log("max: "+max);
-                    }
-                    if(i>l){
-                        l =i;
-                    }
-                }
-                catch(err) {
-                    console.log("no saved graphs" +first)
-                }
-
-            }
-
-        var CITY = "{{session["city"]}}"
-        cityL = CITY.split(' (')
-        cityN = cityL[0].split(" ").join("")
-        var first = 0;
-        var last = false;
-        var rightmargin = ["100%", "78%", "60%", "40%"];
-        var leftmargin = ["20px", "25%", "40%", "100%"]
-        for (i=2; i<6; i++) {
-            try{
-                var savedGraph = JSON.parse(getCookieValue(cityN+i));
-                var svgid = "#svgenergy" + i;
-                var textid = "S" + i;
-                var element = document.getElementById(textid);
-                first++;
-                element.innerHTML = savedGraph["name"];
-                delete savedGraph["name"]
-                // newBase([savedGraph], svgid, first, max)
-                if(i==l){
-                        last = true;
-                    }
-                newBase([savedGraph], svgid, first, max, last)
-
-                document.getElementById("but"+i).style.visibility= "visible"
-                if(i==2){
-                        document.getElementById("lowline").style.visibility= "visible"
-                        document.getElementById("lowline").style.marginRight = "100%";
-                    }
-
-                document.getElementById("lowline").style.marginRight = rightmargin[i-2];
-                if(first==1){
-                    document.getElementById("lowline").style.marginLeft = leftmargin[i-2];
-                }
-
-            }
-            catch(err) {
-                console.log("no saved graphs" +first)
-            }
-        }
-    }
-    Graphs()
-
-</script>
-
 {% endblock %}

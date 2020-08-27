@@ -39,23 +39,25 @@ var rgbrad = ['#9F00BF', '#6800C2', '#2F00C6', '#000CCA', '#00CDD5', '#00DD61', 
 var rgbwind = ['#C2FBFF', '#A8E5F1', '#90CCE4', '#7AB2D7', '#6696CA', '#537ABD', '#425EB0', '#3342A2', '#252795', '#251988', '#270F7B', '#29066E', '#2C0060']
 function pickHex(num, max, color) {
     if (color=="rad"){
-//        console.log("if "+color)
-        var dom = max/12;
+		// console.log("if "+color)
+		var dom = max/12;
 
         return rgbrad[parseInt(num/dom)];
     }else{
-//        console.log("else"+color+max)
+		// console.log("else"+color+max)
         var dom = max/12;
         return rgbwind[parseInt(num/dom)];
     }
 }
 
-var x=0;
+// var num = pickHex(rad[1],1200,'rad') 
+// console.log(num, '445555444444++++eee', maxrad);
+
+var c_psy=0;
 var colorsr=[];
 var colorsw=[];
 
 function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, invertm = false, color= "none", rad = 0, maxrad=0, wv=0, maxwv=0,) {
-//    console.log(color+"psych chart")
 	var width,
 	height,
 	context,
@@ -70,7 +72,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
 	// offset = offset = (($(window).width() <= 600) ? -10: 0),
 	hExtent = [h1,h2],
 	mExtent = [m1, m2];
-    x++;
+    c_psy++;
 	var monthAbb = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 	//set up the scales and line function
@@ -310,12 +312,11 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
 
 
 			//finally - plot the points
-//			if (nums!=0){
-
-            if(x==1){
+            if(c_psy==1){
                 console.log("firsttime rad")
                 for (i=0; i<rad.length; i++){
                     colorsr.push(pickHex(rad[i],maxrad,"rad"))
+                    // console.log('loading color for rad')
                 }
             }
             psychChart.selectAll(".hours")
@@ -343,7 +344,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
                     }
                 }});   ///Just change parameters to show night time
 
-            if(x==1){
+            if(c_psy==1){
                 console.log("firsttime wind")
                 for (i=0; i<rad.length; i++){
                     colorsw.push(pickHex(wv[i],maxwv,"wind"))
@@ -480,7 +481,7 @@ function psychrometricChart(h1 = 0, h2 = 23, m1 = 0 , m2 = 11, inverth = false, 
 
 }
 
-
+// console.log(colorsr, '9999999999999')
 
 function psychrometrics() {
 	var barPress = 101300;
@@ -566,13 +567,11 @@ function psychrometrics() {
 		}
 		return result;
 	}
-
 	// from remcmurry python psych tool kit - uses newton-Rhapson iteration method
 	this.calcWetBulb = function(temp, rh, bar) {
 		var wNorm = this.calcHumidRatio(temp, rh, bar);
 		var result = temp;
 		var wNew = this.calcHumidRatiofromWetBulb(temp, result, bar);
-
 		while (Math.abs((wNew - wNorm) / wNorm) > 0.00001) {
 			var wNew2 = this.calcHumidRatiofromWetBulb(temp, result - 0.001, bar);
 			var dw = (wNew - wNew2) / 0.001;
@@ -580,7 +579,6 @@ function psychrometrics() {
 			wNew = this.calcHumidRatiofromWetBulb(temp, result, bar);
 		}
 		return result;
-
 	}
 	*/
 
@@ -795,7 +793,5 @@ function psychrometrics() {
 // }
 
 var globalCodes = {"DZA": {"country": "Algeria", "code": "DZ"}, "AGO": {"country": "Angola", "code": "AO"}, "EGY": {"country": "Egypt", "code": "EG"}, "BGD": {"country": "Bangladesh", "code": "BD"}, "NER": {"country": "Niger", "code": "NE"}, "LIE": {"country": "Liechtenstein", "code": "LI"}, "NAM": {"country": "Namibia", "code": "NA"}, "BGR": {"country": "Bulgaria", "code": "BG"}, "BOL": {"country": "Bolivia", "code": "BO"}, "GHA": {"country": "Ghana", "code": "GH"}, "CCK": {"country": "Cocos (Keeling) Islands", "code": "CC"}, "PAK": {"country": "Pakistan", "code": "PK"}, "CPV": {"country": "Cape Verde", "code": "CV"}, "JOR": {"country": "Jordan", "code": "JO"}, "LBR": {"country": "Liberia", "code": "LR"}, "LBY": {"country": "Libya", "code": "LY"}, "MYS": {"country": "Malaysia", "code": "MY"}, "DOM": {"country": "Dominican Republic", "code": "DO"}, "PRI": {"country": "Puerto Rico", "code": "PR"}, "MYT": {"country": "Mayotte", "code": "YT"}, "PRK": {"country": "Korea, Democratic People's Republic of", "code": "KP"}, "PSE": {"country": "Palestine, State of", "code": "PS"}, "TZA": {"country": "United Republic of Tanzania", "code": "TZ"}, "BWA": {"country": "Botswana", "code": "BW"}, "KHM": {"country": "Cambodia", "code": "KH"}, "UMI": {"country": "United States Minor Outlying Islands", "code": "UM"}, "TTO": {"country": "Trinidad and Tobago", "code": "TT"}, "PRY": {"country": "Paraguay", "code": "PY"}, "HKG": {"country": "Hong Kong", "code": "HK"}, "SAU": {"country": "Saudi Arabia", "code": "SA"}, "LBN": {"country": "Lebanon", "code": "LB"}, "SVN": {"country": "Slovenia", "code": "SI"}, "BFA": {"country": "Burkina Faso", "code": "BF"}, "SVK": {"country": "Slovakia", "code": "SK"}, "MRT": {"country": "Mauritania", "code": "MR"}, "HRV": {"country": "Croatia", "code": "HR"}, "CHL": {"country": "Chile", "code": "CL"}, "CHN": {"country": "China", "code": "CN"}, "KNA": {"country": "Saint Kitts and Nevis", "code": "KN"}, "JAM": {"country": "Jamaica", "code": "JM"}, "SMR": {"country": "San Marino", "code": "SM"}, "GIB": {"country": "Gibraltar", "code": "GI"}, "DJI": {"country": "Djibouti", "code": "DJ"}, "GIN": {"country": "Guinea", "code": "GN"}, "FIN": {"country": "Finland", "code": "FI"}, "URY": {"country": "Uruguay", "code": "UY"}, "VAT": {"country": "Holy See (Vatican City State)", "code": "VA"}, "STP": {"country": "Sao Tome and Principe", "code": "ST"}, "SYC": {"country": "Seychelles", "code": "SC"}, "NPL": {"country": "Nepal", "code": "NP"}, "CXR": {"country": "Christmas Island", "code": "CX"}, "LAO": {"country": "Lao People's Democratic Republic", "code": "LA"}, "YEM": {"country": "Yemen", "code": "YE"}, "BVT": {"country": "Bouvet Island", "code": "BV"}, "ZAF": {"country": "South Africa", "code": "ZA"}, "KIR": {"country": "Kiribati", "code": "KI"}, "PHL": {"country": "Philippines", "code": "PH"}, "SXM": {"country": "Sint Maarten (Dutch part)", "code": "SX"}, "ROU": {"country": "Romania", "code": "RO"}, "VIR": {"country": "US Virgin Islands", "code": "VI"}, "SYR": {"country": "Syrian Arab Republic", "code": "SY"}, "MAC": {"country": "Macao", "code": "MO"}, "NIC": {"country": "Nicaragua", "code": "NI"}, "MLT": {"country": "Malta", "code": "MT"}, "KAZ": {"country": "Kazakhstan", "code": "KZ"}, "TCA": {"country": "Turks and Caicos Islands", "code": "TC"}, "PYF": {"country": "French Polynesia", "code": "PF"}, "NIU": {"country": "Niue", "code": "NU"}, "DMA": {"country": "Dominica", "code": "DM"}, "GBR": {"country": "United Kingdom", "code": "GB"}, "BEN": {"country": "Benin", "code": "BJ"}, "GUF": {"country": "French Guiana", "code": "GF"}, "BEL": {"country": "Belgium", "code": "BE"}, "MSR": {"country": "Montserrat", "code": "MS"}, "TGO": {"country": "Togo", "code": "TG"}, "DEU": {"country": "Germany", "code": "DE"}, "GUM": {"country": "Guam", "code": "GU"}, "LKA": {"country": "Sri Lanka", "code": "LK"}, "SSD": {"country": "South Sudan", "code": "SS"}, "FLK": {"country": "Falkland Islands (Malvinas)", "code": "FK"}, "PCN": {"country": "Pitcairn", "code": "PN"}, "BES": {"country": "Bonaire", "code": "BQ"}, "GUY": {"country": "Guyana", "code": "GY"}, "CRI": {"country": "Costa Rica", "code": "CR"}, "COK": {"country": "Cook Islands", "code": "CK"}, "MAR": {"country": "Morocco", "code": "MA"}, "MNP": {"country": "Northern Mariana Islands", "code": "MP"}, "LSO": {"country": "Lesotho", "code": "LS"}, "HUN": {"country": "Hungary", "code": "HU"}, "TKM": {"country": "Turkmenistan", "code": "TM"}, "SUR": {"country": "Suriname", "code": "SR"}, "NLD": {"country": "Netherlands", "code": "NL"}, "BMU": {"country": "Bermuda", "code": "BM"}, "HMD": {"country": "Heard Island and McDonald Mcdonald Islands", "code": "HM"}, "TCD": {"country": "Chad", "code": "TD"}, "GEO": {"country": "Georgia", "code": "GE"}, "MNE": {"country": "Montenegro", "code": "ME"}, "MNG": {"country": "Mongolia", "code": "MN"}, "MHL": {"country": "Marshall Islands", "code": "MH"}, "MTQ": {"country": "Martinique", "code": "MQ"}, "BLZ": {"country": "Belize", "code": "BZ"}, "NFK": {"country": "Norfolk Island", "code": "NF"}, "MMR": {"country": "Myanmar", "code": "MM"}, "AFG": {"country": "Afghanistan", "code": "AF"}, "BDI": {"country": "Burundi", "code": "BI"}, "VGB": {"country": "British Virgin Islands", "code": "VG"}, "BLR": {"country": "Belarus", "code": "BY"}, "BLM": {"country": "Saint Barthalemy", "code": "BL"}, "GRD": {"country": "Grenada", "code": "GD"}, "ALA": {"country": "Åland Islands", "code": "AX"}, "TKL": {"country": "Tokelau", "code": "TK"}, "GRC": {"country": "Greece", "code": "GR"}, "GRL": {"country": "Greenland", "code": "GL"}, "SHN": {"country": "Saint Helena", "code": "SH"}, "AND": {"country": "Andorra", "code": "AD"}, "MOZ": {"country": "Mozambique", "code": "MZ"}, "TJK": {"country": "Tajikistan", "code": "TJ"}, "THA": {"country": "Thailand", "code": "TH"}, "HTI": {"country": "Haiti", "code": "HT"}, "MEX": {"country": "Mexico", "code": "MX"}, "ZWE": {"country": "Zimbabwe", "code": "ZW"}, "LCA": {"country": "Saint Lucia", "code": "LC"}, "IND": {"country": "India", "code": "IN"}, "LVA": {"country": "Latvia", "code": "LV"}, "BTN": {"country": "Bhutan", "code": "BT"}, "VCT": {"country": "Saint Vincent and the Grenadines", "code": "VC"}, "VNM": {"country": "Viet Nam", "code": "VN"}, "NOR": {"country": "Norway", "code": "NO"}, "CZE": {"country": "Czech Republic", "code": "CZ"}, "ATF": {"country": "French Southern Territories", "code": "TF"}, "ATG": {"country": "Antigua and Barbuda", "code": "AG"}, "FJI": {"country": "Fiji", "code": "FJ"}, "IOT": {"country": "British Indian Ocean Territory", "code": "IO"}, "HND": {"country": "Honduras", "code": "HN"}, "MUS": {"country": "Mauritius", "code": "MU"}, "ATA": {"country": "Antarctica", "code": "AQ"}, "LUX": {"country": "Luxembourg", "code": "LU"}, "ISR": {"country": "Israel", "code": "IL"}, "FSM": {"country": "Micronesia, Federated States of", "code": "FM"}, "PER": {"country": "Peru", "code": "PE"}, "REU": {"country": "Réunion", "code": "RE"}, "IDN": {"country": "Indonesia", "code": "ID"}, "VUT": {"country": "Vanuatu", "code": "VU"}, "MKD": {"country": "Macedonia, the Former Yugoslav Republic of", "code": "MK"}, "COD": {"country": "Democratic Republic of the Congo", "code": "CD"}, "COG": {"country": "Congo", "code": "CG"}, "ISL": {"country": "Iceland", "code": "IS"}, "GLP": {"country": "Guadeloupe", "code": "GP"}, "ETH": {"country": "Ethiopia", "code": "ET"}, "COM": {"country": "Comoros", "code": "KM"}, "COL": {"country": "Colombia", "code": "CO"}, "NGA": {"country": "Nigeria", "code": "NG"}, "TLS": {"country": "Timor-Leste", "code": "TL"}, "TWN": {"country": "Taiwan, Province of China", "code": "TW"}, "PRT": {"country": "Portugal", "code": "PT"}, "MDA": {"country": "Moldova, Republic of", "code": "MD"}, "GGY": {"country": "Guernsey", "code": "GG"}, "MDG": {"country": "Madagascar", "code": "MG"}, "ECU": {"country": "Ecuador", "code": "EC"}, "SEN": {"country": "Senegal", "code": "SN"}, "ESH": {"country": "Western Sahara", "code": "EH"}, "MDV": {"country": "Maldives", "code": "MV"}, "ASM": {"country": "American Samoa", "code": "AS"}, "SPM": {"country": "Saint Pierre and Miquelon", "code": "PM"}, "CUW": {"country": "Curaçao", "code": "CW"}, "FRA": {"country": "France", "code": "FR"}, "LTU": {"country": "Lithuania", "code": "LT"}, "RWA": {"country": "Rwanda", "code": "RW"}, "ZMB": {"country": "Zambia", "code": "ZM"}, "GMB": {"country": "Gambia", "code": "GM"}, "WLF": {"country": "Wallis and Futuna", "code": "WF"}, "JEY": {"country": "Jersey", "code": "JE"}, "FRO": {"country": "Faroe Islands", "code": "FO"}, "GTM": {"country": "Guatemala", "code": "GT"}, "DNK": {"country": "Denmark", "code": "DK"}, "IMN": {"country": "Isle of Man", "code": "IM"}, "MAF": {"country": "Saint Martin (French part)", "code": "MF"}, "AUS": {"country": "Australia", "code": "AU"}, "AUT": {"country": "Austria", "code": "AT"}, "SJM": {"country": "Svalbard and Jan Mayen", "code": "SJ"}, "VEN": {"country": "Venezuela", "code": "VE"}, "PLW": {"country": "Palau", "code": "PW"}, "KEN": {"country": "Kenya", "code": "KE"}, "TUR": {"country": "Turkey", "code": "TR"}, "ALB": {"country": "Albania", "code": "AL"}, "OMN": {"country": "Oman", "code": "OM"}, "TUV": {"country": "Tuvalu", "code": "TV"}, "ITA": {"country": "Italy", "code": "IT"}, "BRN": {"country": "Brunei Darussalam", "code": "BN"}, "TUN": {"country": "Tunisia", "code": "TN"}, "RUS": {"country": "Russian Federation", "code": "RU"}, "BRB": {"country": "Barbados", "code": "BB"}, "BRA": {"country": "Brazil", "code": "BR"}, "CIV": {"country": "Côte d'Ivoire", "code": "CI"}, "SRB": {"country": "Serbia", "code": "RS"}, "GNQ": {"country": "Equatorial Guinea", "code": "GQ"}, "USA": {"country": "United States", "code": "US"}, "QAT": {"country": "Qatar", "code": "QA"}, "WSM": {"country": "Samoa", "code": "WS"}, "AZE": {"country": "Azerbaijan", "code": "AZ"}, "GNB": {"country": "Guinea-Bissau", "code": "GW"}, "SWZ": {"country": "Swaziland", "code": "SZ"}, "TON": {"country": "Tonga", "code": "TO"}, "CAN": {"country": "Canada", "code": "CA"}, "UKR": {"country": "Ukraine", "code": "UA"}, "KOR": {"country": "Korea, Republic of", "code": "KR"}, "AIA": {"country": "Anguilla", "code": "AI"}, "CAF": {"country": "Central African Republic", "code": "CF"}, "CHE": {"country": "Switzerland", "code": "CH"}, "CYP": {"country": "Cyprus", "code": "CY"}, "BIH": {"country": "Bosnia and Herzegovina", "code": "BA"}, "SGP": {"country": "Singapore", "code": "SG"}, "SGS": {"country": "South Georgia and the South Sandwich Islands", "code": "GS"}, "SOM": {"country": "Somalia", "code": "SO"}, "UZB": {"country": "Uzbekistan", "code": "UZ"}, "CMR": {"country": "Cameroon", "code": "CM"}, "POL": {"country": "Poland", "code": "PL"}, "KWT": {"country": "Kuwait", "code": "KW"}, "ERI": {"country": "Eritrea", "code": "ER"}, "GAB": {"country": "Gabon", "code": "GA"}, "CYM": {"country": "Cayman Islands", "code": "KY"}, "ARE": {"country": "United Arab Emirates", "code": "AE"}, "EST": {"country": "Estonia", "code": "EE"}, "MWI": {"country": "Malawi", "code": "MW"}, "ESP": {"country": "Spain", "code": "ES"}, "IRQ": {"country": "Iraq", "code": "IQ"}, "SLV": {"country": "El Salvador", "code": "SV"}, "MLI": {"country": "Mali", "code": "ML"}, "IRL": {"country": "Ireland", "code": "IE"}, "IRN": {"country": "Iran, Islamic Republic of", "code": "IR"}, "ABW": {"country": "Aruba", "code": "AW"}, "SLE": {"country": "Sierra Leone", "code": "SL"}, "PAN": {"country": "Panama", "code": "PA"}, "SDN": {"country": "Sudan", "code": "SD"}, "SLB": {"country": "Solomon Islands", "code": "SB"}, "NZL": {"country": "New Zealand", "code": "NZ"}, "MCO": {"country": "Monaco", "code": "MC"}, "JPN": {"country": "Japan", "code": "JP"}, "KGZ": {"country": "Kyrgyzstan", "code": "KG"}, "UGA": {"country": "Uganda", "code": "UG"}, "NCL": {"country": "New Caledonia", "code": "NC"}, "PNG": {"country": "Papua New Guinea", "code": "PG"}, "ARG": {"country": "Argentina", "code": "AR"}, "SWE": {"country": "Sweden", "code": "SE"}, "BHS": {"country": "Bahamas", "code": "BS"}, "BHR": {"country": "Bahrain", "code": "BH"}, "ARM": {"country": "Armenia", "code": "AM"}, "NRU": {"country": "Nauru", "code": "NR"}, "CUB": {"country": "Cuba", "code": "CU"}};
-
-
 
 

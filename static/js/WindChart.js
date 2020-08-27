@@ -62,7 +62,53 @@ function wrangleWind(WINDA, WINDV) {
   }  return (orient)
 }
 
-// place svg canvas into main
+//// place svg canvas into main
+//var margin = {top: -30, right: 100, bottom: 18, left: 36},
+//    width = (400*1.2) - margin.left - margin.right,
+//    height = (300*1.2) - margin.top - margin.bottom;
+//
+//var svg = d3.select("#svgwindrose")
+//    .append("svg")
+//    .attr("width", width + margin.left + margin.right + 10)
+//    .attr("height", height + margin.top + margin.bottom +20)
+//  // .append("g")
+//  //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+//
+//
+//    innerRadius = 20,
+//    chartWidth = width - margin.left - margin.right,
+//    chartHeight= height - margin.top - margin.bottom,
+//    // outerRadius = (Math.min(chartWidth, chartHeight) / 2),
+//    outerRadius = 150
+//    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+//
+//    var angle = d3.scaleLinear()
+//        .range([0, 2 * Math.PI]);
+//
+//    var radius = d3.scaleLinear()
+//        .range([innerRadius, outerRadius]);
+//
+//    var x = d3.scaleBand()
+//        .range([0, 2 * Math.PI])
+//        .align(0);
+//
+//    var y = d3.scaleLinear() //you can try scaleRadial but it scales differently
+//        .range([innerRadius, outerRadius]);
+//
+//    var z = d3.scaleOrdinal()
+//        .range(["#4242f4", "#42c5f4", "#42f4ce", "#42f456", "#adf442", "#f4e242", "#f4a142", "#f44242"]);
+
+
+    // d3.csv("/static/dataWind_.csv",processRow).then(processData)
+      
+    //   function processRow (d, i, columns) {
+    //     for (i = 1, t = 0; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
+    //     d.total = t;
+    //     return d;
+    // } 
+
+  function processData(data) {
+    // place svg canvas into main
 var margin = {top: -30, right: 100, bottom: 18, left: 36},
     width = (400*1.2) - margin.left - margin.right,
     height = (300*1.2) - margin.top - margin.bottom;
@@ -74,7 +120,7 @@ var svg = d3.select("#svgwindrose")
   // .append("g")
   //   .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-      
+
     innerRadius = 20,
     chartWidth = width - margin.left - margin.right,
     chartHeight= height - margin.top - margin.bottom,
@@ -98,16 +144,6 @@ var svg = d3.select("#svgwindrose")
     var z = d3.scaleOrdinal()
         .range(["#4242f4", "#42c5f4", "#42f4ce", "#42f456", "#adf442", "#f4e242", "#f4a142", "#f44242"]);
 
-
-    // d3.csv("/static/dataWind_.csv",processRow).then(processData)
-      
-    //   function processRow (d, i, columns) {
-    //     for (i = 1, t = 0; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
-    //     d.total = t;
-    //     return d;
-    // } 
-
-  function processData(data) {
     x.domain(data.map(function(d) {
       return d.angle; }));
     y.domain([0, d3.max(data, function(d) { return d.total; })]);
@@ -208,8 +244,8 @@ var svg = d3.select("#svgwindrose")
       
 WINDA_ = WINDA.slice(WC_START,WC_END)
 WINDV_ = WINDV.slice(WC_START,WC_END)
-console.log(WC_START)
-console.log(WC_END)
+// console.log(WINDV_)
+// console.log(WINDA_)
 data = wrangleWind(WINDA_,WINDV_);
 processData(data)
 // console.log(data.columns)

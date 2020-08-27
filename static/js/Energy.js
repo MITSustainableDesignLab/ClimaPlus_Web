@@ -1,5 +1,4 @@
 /* * * * * * * * * * * * * * * * * * * * * * * *
-
 * * * * * * * * * * * * * * * * * * * * * * * * */
 $("#climabox").addClass("active");
 
@@ -324,4 +323,3 @@ initStackedBarChart.draw({
   title:"Cost ($/kWh.m2)",
   color:colorL_
 });
-

@@ -1,19 +1,14 @@
-{% extends "baseM.html" %}
-{% block main %}
 
-
-<!-- <link rel="stylesheet" href="../static/css/p_skeleton.css"> -->
+{% include 'baseMLib.html' %}
 
 <link rel="stylesheet" href="../static/css/p_style.css">
-<!-- <link rel="stylesheet" href="../static/css/p_normaize.css"> -->
-<style>
-
-</style>
 <section class="module-small" id = "secTemp">
+
 <!-- Divider -->
-<hr class="divider-w mt-60 mb-60">
-<p></p>
+<!-- <hr class="divider-w mt-60 mb-60">
+<p></p> -->
 <!-- Divider -->
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
@@ -34,7 +29,7 @@
                 <font class="dl" href="#" size='2' onclick="save_as_svg('svgtemp','Average temperature.svg')">[download svg]</font>
             </div>
 
-            <form action="{{ url_for('TempRH') }}"  method='post'>
+            <form action="{{ url_for('OUTDOOR') }}"  method='post'>
                 <div >
                     <input class='dd' id='tupper_input' type="text" name="tupper" default=24 placeholder="Upper (&deg;)">
                     <input class='dd' id='tlower_input' type="text" name="tlower" default=18 placeholder="Lower (&deg;)">
@@ -48,7 +43,7 @@
                 <font size="2"> , Lower treshold limit, <font color="orangered" size="3" id = "tlowerdisplay"> (default is 18) </font> </font>  
             </div>  
         </div>
-</div></div>
+</div></div></section>
 
 <section class="module-small" id = "secDD">
 <!-- Divider -->
@@ -74,7 +69,7 @@
                 Months <br>
                 <font class="dl" href="#" onclick="save_as_svg('svgddchart','Degree Days.svg')">[download svg]</font>
             </div>
-            <form action="{{ url_for('TempRH') }}"  method='post'>
+            <form action="{{ url_for('OUTDOOR') }}"  method='post'>
                 <div >
                     <input class='dd' id='hdd_input' type="text" name="hddsp" default=18 placeholder="HDD&deg;">
                     <input class='dd' id='cdd_input' type="text" name="cddsp" default=10 placeholder="CDD&deg;">
@@ -88,7 +83,7 @@
                 <font size="2"> , CDD setpoint temperature: <font color="orangered" size="3" id = "cdddisplay"> (default is 10) </font> </font>  
             </div>  
         </div>
-</div></div>
+</div></div></section>
 
 <section class="module-small" id = "secPSYCHRO">
 <!-- Divider -->
@@ -116,28 +111,37 @@
             <!-- Graph -->
 
             <div style="text-align:center; height: 350; z-index:-1;"  id="svgpsychrochart"> </div>
+            <!-- <div class="col-sm-6 col-sm-offset-3"> -->
+            <div style="justify-content: center; display: flex;">
+                <img id="scale" src="/static/radmap/radscale.jpg" alt="Legend" width="350" height="10"></div>
+            <div class= 'centerBlock greyDes'><a id = "minlim">0 Wh/m2</a> <font color = "white">gappppppppppppppping space to be fixed </font>
+            <a id = "maxlim"> 1000 Wh/m2 </a> </div>
 
-            <div class="vertical-center" style="padding:20px;">
-                <p1 id="minlim" style="position:absolute;margin-left:-390px; margin-top:-5px">0 Wh/m^2</p1><img id="scale" src="/static/radmap/radscale.jpg" style="margin-top:-60px"><p1 id="maxlim" style="margin-top:-10px;margin-left: -73px;">1000 Wh/m^2</p1>
-            </div>
+            <!-- <div class="vertical-center" >
+                <img id="scale" src="/static/radmap/radscale.jpg" style="padding-top:0px" alt="Legend" width="320" height="10">
+                <div style="padding-top:20px"><a id="minlim"> 0 Wh/m2 </a>
+                <font color = "white">gappppppppppppppppppppppppppping space to be fixed </font>
+                <a id="maxlim"> 1000 Wh/m^2 </a></div></div> -->
+    
+
+                <!-- <p1 id="minlim" style="margin-left:-320px; margin-top:0px">0 Wh/m^2</p1>
+                
+                <p1 id="maxlim" style="margin-right:0px; margin-top:0px">1000 Wh/m^2</p1> -->
+            
 
             <!-- Sliders source code -->
 
             <script src="../static/js/d3-simple-slider.js"></script>
 
-
-
             <!-- Sliders -->
 
-
-
-            <div class="vertical-center" style="padding:20px;">
-                <button class="col selected" id="rad" class="hswitch" style="z-index:2;">Rad</button>
+            <div class="vertical-center" style="padding:30px;">
+                <button class="col selected" id="rad" class="hswitch" style="z-index:2;">Radiation</button>
                 <button class="col" id="wind" class="hswitch" style="z-index:2;">Wind</button>
             </div>
 
             <div class="vertical-center">
-            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px">
+            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px;margin-top: -40">
                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" onclick="updatehSldr()" checked>
                     <label class="onoffswitch-label" for="myonoffswitch"></label>
                 </div>
@@ -146,12 +150,8 @@
             <div  id="hslider-range" ></div>
             </div>
             <!-- month slider -->
-<!--            <div class="onoffswitch2" style="z-index:2;">-->
-<!--                    <input type="checkbox" name="onoffswitch2" class="onoffswitch2-checkbox" id="myonoffswitch2" tabindex="0" onclick="updateSldr()" checked>-->
-<!--                    <label class="onoffswitch2-label" for="myonoffswitch2"></label>-->
-<!--                </div>-->
             <div class="vertical-center">
-            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px">
+            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px;margin-top: -40">
                     <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch2" tabindex="0" onclick="updatemSldr()" checked>
                     <label class="onoffswitch-label" for="myonoffswitch2"></label>
                 </div>
@@ -172,10 +172,9 @@
             </div>  --> 
         <!-- </div> -->
 </div></div>
+</div></section>
 
       
-{% endblock %}
-{% block scripts %}
 
 <script type="text/javascript">
 
@@ -192,7 +191,7 @@
       var state2 = false;
       hourSlider(state1, state2)
 
-      document.getElementById('maxlim').innerHTML = maxrad+" Wh/m^2"
+      document.getElementById('maxlim').innerHTML = maxrad+" Wh/m2"
 
       $('.col').on('click', function(){
           if ($(this).attr("id") != gcolor){
@@ -205,18 +204,18 @@
                     $(this).addClass('selected');
                     if(gcolor=="rad"){
                         document.getElementById('minlim').innerHTML = "0 Wh/m^2";
-                        document.getElementById('minlim').style.marginLeft = '-390px';
+                        // document.getElementById('minlim').style.marginLeft = '-390px';
                         console.log("radScale")
                         document.getElementById('scale').src='/static/radmap/radscale.jpg';
                         console.log("radScale")
                         document.getElementById('maxlim').innerHTML = maxrad+" Wh/m^2";
-                        document.getElementById('maxlim').style.marginLeft = '-73px';
+                        // document.getElementById('maxlim').style.marginLeft = '-73px';
                     }else{
-                        document.getElementById('minlim').innerHTML = "0 m/s";
-                        document.getElementById('minlim').style.marginLeft = '-407px';
+                        document.getElementById('minlim').innerHTML = "0 m/s  ";
+                        // document.getElementById('minlim').style.marginLeft = '-407px';
                         document.getElementById('scale').src='/static/img/windscale.jpg';
                         document.getElementById('maxlim').innerHTML = maxwv+" m/s";
-                        document.getElementById('maxlim').style.marginLeft = '-50px';
+                        // document.getElementById('maxlim').style.marginLeft = '-50px';
                     }
                 }
 
@@ -365,7 +364,7 @@
     var CDDL = {{dd_data["CDDL"]}}
     var CITY = "{{session['city']}}" 
     var epwName = "{{session['location']}}"
-    var jsFileLoc = "{{session['locationJs']}}"
+    var jsFileLoc = "{{session['locationJs_psych']}}"
     var wthjson = "{{session['id']}}"+".json"
 
     var sp= {
@@ -405,7 +404,7 @@
         var epwfile = "/static/epw/"+epwName+".epw"
 
         // var epwfile = "/static/epw/ny.epw"
-        console.log('TESSTT WTH', epwfile)
+        // console.log('TESSTT WTH', epwfile)
         
         // d3.text(epwfile).then(function(data) {
         // // d3.text("static/js/AUS_WA_Wyndham.epw").then(function(data) {
@@ -442,4 +441,3 @@
 <script src= '/static/js/TempAve.js'></script>
 <script src= '/static/js/DDChart.js'></script>
 <script src= '/static/js/FileSaver.js'></script>
-{% endblock %}

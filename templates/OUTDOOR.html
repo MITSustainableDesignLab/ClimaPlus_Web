@@ -1,6 +1,8 @@
-<!-- {% extends "baseM.html" %}
+{% extends "baseM.html" %}
 {% block main %}
-{% include 'climateNav.html' %} -->
+{% include 'climateNav.html' %}
+
+
 
 <link rel="stylesheet" href="../static/css/p_style.css">
 <section class="module-small" id = "secSunpath">
@@ -88,7 +90,7 @@
     </div>
     <div class="row">
         
-        <div  id="radScale"></div>
+        <div  ></div>
         <div class= 'centerBlock' class = "greyDes">0 kWh/m2 <font color = "white">gapppppppppppppppppping space to be fixed </font>
          <a id = "radmax"> maxRad </a> &nbsp; kWh/m2 </div>
         
@@ -101,12 +103,16 @@
 </section>
 
 <!-- Divider -->
-<hr class="divider-w mt-60 mb-60">
-<p></p>
+<!-- <hr class="divider-w mt-60 mb-60">
+<p></p> -->
 <!-- Divider -->
 
-<!-- {% endblock %}
-{% block scripts %} -->
+{% include 'TempRH.html' %}
+
+{% include 'Wind.html' %}
+
+{% endblock %}
+{% block scripts %}
 
 <script type="text/javascript">
     
@@ -123,8 +129,8 @@
     var maxRad = {{session["maxRad"]}} | 0
 
     $(document).ready(function(){
-        console.log(CITY);
         $("#radmax").text(maxRad);
+        // $("#cityNav").text(CITY);
     });
 
     var session= {
@@ -139,5 +145,6 @@
 <script src= '/static/js/SunPath.js'></script>
 <script src= '/static/js/RadMonth.js'></script>
 <script src= '/static/js/RadCum.js'></script>
+<!-- <script src= '/static/js/TempAve.js'></script> -->
 <script src= '/static/js/FileSaver.js'></script>
-<!-- {% endblock %} -->
+{% endblock %}

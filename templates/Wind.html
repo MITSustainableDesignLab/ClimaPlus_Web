@@ -1,5 +1,4 @@
-{% extends "baseM.html" %}
-{% block main %}
+
 
 <link rel="stylesheet" href="../static/css/p_style.css">
 
@@ -28,26 +27,44 @@
             <div style="text-align:center;" id="svgwindrose"> </div>
             
             <div class="module-subtitle font-serif">  
-                Wind velocity (m/s) <br>
+                Wind velocity (m/s)<br>
                 <font class="dl" href="#" size='2' onclick="save_as_svg('svgwindrose','Wind Rose.svg')">[download svg]</font>
             </div>
 
-            <form action="{{ url_for('Wind') }}"  method='post'>
-                <div >
-                    <input class='dd' id='starthr_input' type="text" name="start_hr" default=0 placeholder="Start (hr)">
-                    <input class='dd' id='endhr_input' type="text" name="end_hr" default=8760 placeholder="End (hr)">
-                    <input type="submit" value="Go" name="submitWindRose">
-                </div>   
-            </form>
+<!--            <form action="{{ url_for('OUTDOOR') }}"  method='post'>-->
+<!--                <div >-->
+<!--                    <input class='dd' id='starthr_input' type="text" name="start_hr" default=0 placeholder="Start (hr)">-->
+<!--                    <input class='dd' id='endhr_input' type="text" name="end_hr" default=8760 placeholder="End (hr)">-->
+<!--                    <input type="submit" value="Go" name="submitWindRose">-->
+<!--                </div>-->
+<!--            </form>-->
+            <div class="vertical-center">
+            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px;margin-top: -40">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch3" onclick="updatehSldr(3)" tabindex="0"  checked>
+                    <label class="onoffswitch-label" for="myonoffswitch3"></label>
+                </div>
+
+            <!-- hours slider -->
+            <div  id="h2slider-range" ></div>
+            </div>
+            <!-- month slider -->
+            <div class="vertical-center">
+            <div class="onoffswitch" style="z-index:2;position:absolute;margin-left:-450px;margin-top: -40">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch4" onclick="updatehSldr(4)" tabindex="0"  checked>
+                    <label class="onoffswitch-label" for="myonoffswitch4"></label>
+                </div>
+            <div id="m2slider-range" ></div>
+            </div>
+
             
-            <div class = "centerBlock">
-                <font size="2">Displayed data is for the hours between  <font color="orangered" size="3" id = "wcstartdisplay">  1   </font> </font>
-               
-                <font size="2">   --  <font color="orangered" size="3" id = "wcenddisplay">  8670 </font>
-                , from the total 8670 hours in a year</font>  
-            </div>  
+<!--            <div class = "centerBlock">-->
+<!--                <font size="2">Displayed data is for the hours between  <font color="orangered" size="3" id = "wcstartdisplay">  1   </font> </font>-->
+<!--               -->
+<!--                <font size="2">   &#45;&#45;  <font color="orangered" size="3" id = "wcenddisplay">  8760 </font>-->
+<!--                , from the total 8760 hours in a year</font>  -->
+<!--            </div>  -->
         </div>
-</div></div>
+</div></div></section>
 
 
 
@@ -76,11 +93,11 @@
             <div style="text-align:center;" id="svgwindenergy"> </div>
             
             <div class="module-subtitle font-serif">  
-                Wind velocity (m/s) <br> 
+                Wind velocity (m/s) <br>
                 <font class="dl" href="#" onclick="save_as_svg('svgwindenergy','Wind Power.svg')">[download svg]</font>
             </div>
 
-            <form action="{{ url_for('Wind') }}"  method='post'>
+            <form action="{{ url_for('OUTDOOR') }}"  method='post'>
                 <div >
                     <input class='dd' id='turbd_input' type="text" name="turb_d" default=3 placeholder="D (m)">
                     <input class='dd' id='turbh_input' type="text" name="turb_h" default=100 placeholder="H (m)">
@@ -94,12 +111,11 @@
                 <font size="2"> , Wind turbine height (H) in m, <font color="orangered" size="3" id = "turbhdisplay"> 100 </font> </font>  
             </div>  
         </div>
-</div></div>
+</div></div></section>
 
 
+<script src= '/static/js/slider.js'></script>
 
-{% endblock %}
-{% block scripts %}
 <script type="text/javascript">
     
     var WINDV = {{dataW['windv']}}
@@ -122,6 +138,29 @@
         $("#city").text(CITY);
         });
 
+    console.log("hello")
+    var state1 = false;
+    var state2 = false;
+    var sldrs = [0, 23, 0, 11];
+    sliders(sldrs, state1, state2, WC_START, WC_END);
+
+    function updatehSldr(num) {
+        var svg = d3.select('#h2slider-range');
+        svg.selectAll("*").remove();
+        var svg = d3.select('#m2slider-range');
+        svg.selectAll("*").remove();
+        var svg = d3.select('#svgwindrose');
+        svg.selectAll("*").remove();
+        if (num==3){
+            state1 = !(document.getElementById("myonoffswitch3").checked);
+        }else{
+            state2 = !(document.getElementById("myonoffswitch4").checked);
+        }
+        sliders(sldrs, state1, state2, WC_START, WC_END);
+        var WCs = findDates(sldrs, state1, state2, WINDA, WINDV);
+        data = wrangleWind(WCs[0],WCs[1]);
+        processData(data);
+      }
 </script>
 <script type="text/javascript">
     function myFunction() {
@@ -132,4 +171,4 @@
 <script src= '/static/js/WindChart.js'></script>
 <script src= '/static/js/FileSaver.js'></script>
 
-{% endblock %}
+

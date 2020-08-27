@@ -31,7 +31,7 @@ class findEPWN():
 				break
 
 class LogEPW():
-	def __init__(self,city_code, ff):
+	def __init__(self,city_code, ff,logf):
 		cityL = city_code.split(' (')
 		cityN = cityL[0]
 		# print(cityN)
@@ -43,11 +43,11 @@ class LogEPW():
 				# print(city[6])
 				a_dict = [city[0], city[1], city[2], city[3], city[4], city[5], city[6], localtime]
 				# print(a_dict)
-				with open("./static/dataLog.json") as file:
+				with open(logf) as file:
 					# print("opened")
 					data = json.load(file)
 					data['dropdown_'+ff] = a_dict
-					with open("./static/dataLog.json", 'w') as f:
+					with open(logf, 'w') as f:
 						json.dump(data, f)
 						# print("saved")
 				break
@@ -68,7 +68,7 @@ class findMaxRad():
 dstDirEpw = './static/temp' #epw_africa'
 jsDir = './static/temp'
 class runCumRad():
-	def __init__(self, ff):
+	def __init__(self, ff, dstDirEpw):
 		self.ff = ff
 		epwMainList, self.repeated = [],[]
 		epws = os.listdir(dstDirEpw)
@@ -78,7 +78,7 @@ class runCumRad():
 				# filename = epw.replace(".epw","")
 				filename = ff
 				epwf = dstDirEpw + "/"+epw
-				self.jsonf = jsDir + "/"+filename+'.json'
+				self.jsonf = dstDirEpw + "/"+filename+'.json'
 				
 				#first check if the radiation map aleady exists
 				# found = 0
@@ -113,7 +113,7 @@ class runCumRad():
 				## epwMainList.append((filename, c , r, ct, maxRad, lat, lon, tz))
 				# Uncomment the file ABOVE
 
-	def logData(self):
+	def logData(self,logf):
 		print("inside")
 		localtime = str(time.ctime(time.time()))
 		with open(self.jsonf) as wthj:
@@ -128,11 +128,11 @@ class runCumRad():
 		# print("dict made")
 		# print(a_dict)
 
-		with open("./static/dataLog.json") as file:
+		with open(logf) as file:
 			# print("opened")
 			data = json.load(file)
 			data[self.ff] = a_dict
-			with open("./static/dataLog.json", 'w') as f:
+			with open(logf, 'w') as f:
 				json.dump(data, f)
 				# print("written")
 
