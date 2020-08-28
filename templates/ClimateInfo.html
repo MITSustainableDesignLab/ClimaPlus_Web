@@ -209,32 +209,7 @@ a:hover {
               <a id="windenergy_" class="collapse"> -->
                 The figure shows the frequency distribution of wind velocity along with the efficiency curve of a wind turbine as well as the resulting annual electricity yield for a given wind speed.  The underlying model estimates the wind speed at a given height and rotor height and diameter.  </a> 
           </div></div>
-        </div></div></div></div>
-</section>
 
-
-
-<section  id = "secClimaboxInfo"">
-  <div style="padding:90px 0;"></div>
-  <!-- Divider -->
-  <hr class="divider-w mt-60 mb-60">
-  <p></p>
-  <!-- Divider -->
-  <!-- <div style="padding: 30px"></div> -->
-      <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-          <a class="module-title-info">CLIMABOX</a>
-          <div style="padding:10px 0;"></div>
-          <div class="row">
-            <div class="col-xs-5 col-sm-6 col-lg-4"><img src="static/img/climaBox_dynamic.jpg" alt="CLIMABOX" width="200" height=""></div>
-            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
-              <a href="/Climabox#parameters" class="hover">CLIMABOX </a></br>
-              ClimaPlus includes a simple one zone thermal model to estimate the effect of key design parameters on indoor temperature and energy use for a given site. The model considers solar radiation onto different facades, one dimensional heat flow through walls, roof and windows, internal gains from solar radiation, equipment and occupants as well as thermal mass effects using a RC-based lag time constant.
-
-              A ClimaBox is used as an abstraction of a building to predict comfort, energy performance, CO2 emissions, and cost for a naturally ventilated, hybrid or fully conditioned building.   
-              
-          </div></div>
-          <div><p> </p></div>
           <!-- Divider -->
           <hr class="divider-w mt-60 mb-60">
           <p></p>
@@ -275,8 +250,81 @@ a:hover {
               <a href="/Climabox#SavedEnergyGraphs" class="hover">Saved Scenarios</a></br>
               This chart shows four different upgrade scenarios that are saved after running the energy calculations of the climabox. Starting from a base case, the selected building updagrades can be saved as scenarios 1, 2 or 3, with an additional custom name.
           </div></div>
+        </div></div></div></div>
+</section>
 
-    </div></div></section>
+
+
+<section  id = "secSimulation"">
+  <div style="padding:90px 0;"></div>
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
+  <!-- <div style="padding: 30px"></div> -->
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <a class="module-title-info">CLIMABOX GEOMETRY</a>
+          <div style="padding:10px 0;"></div>
+          <div class="row"></div>
+            <div class="col-xs-5 col-sm-6 col-lg-4">
+              <div style="padding: 70px"></div>
+              <img src="static/img/climaBox_dynamic.jpg" alt="CLIMABOX" width="200" height=""></div>
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              ClimaPlus includes a simple one zone thermal model to estimate the effect of key design parameters on indoor temperature and energy use for a given site. The model considers solar radiation onto different facades, one dimensional heat flow through walls, roof and windows, internal gains from solar radiation, equipment and occupants as well as thermal mass effects using a RC-based lag time constant.
+              A ClimaBox is used as an abstraction of a building to predict comfort, energy performance, CO2 emissions, and cost for a naturally ventilated, hybrid or fully conditioned building.   
+              
+              <div style="padding: 20px"></div>
+              <a>Climabox Dimensions</a></br>
+              These parameters define the inner dimensions of the one zone building model in meter. The building is oriented along the cardinal directions. W (m) input corresponds to the width of the West and East facing facades, L (m) defines the length of the North and South facing facades, and the third parameter H (m) corresponds to the interior floor to ceiling distance.
+              <div style="padding: 20px"></div>
+              <a>Window to wall ratio</a></br>
+              The window-to-wall ratio for each façade corresponds to the percentage of glazing area vis-à-vis the overall façade area adjacent to the space.  
+          </div>
+        </div>
+      </div>
+          
+  <!-- Divider -->
+  <hr class="divider-w mt-60 mb-60">
+  <p></p>
+  <!-- Divider -->
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <a class="module-title-info">CLIMABOX SETTINGS</a>
+            <div style="padding:30px 0;"></div>
+            <img src="static/img/climaboxInputs.png" alt="CLIMABOX parameters" width="900" height="">  
+            <div class="col-xs-5 col-sm-6 col-lg-4"></div>      
+            <div class="col-xs-7 col-sm-6 col-lg-8 module-about">
+              <div style="padding: 20px"></div>
+              <a>Construction</a></br>
+              The user can change the roof, wall and glazing constructions using predefine construction assemblies. The U-value of the different choices are provided in SI units. It is assumed that the floor of the building is adiabatic, i.e. there is no heat flow between the building and the ground.
+              <div style="padding: 20px"></div>
+              <a>Exposed thermal mass</a></br>
+              The use can specify the amount of active thermal mass within the space. The exposed thermal mass corresponds to a 40mm thick concrete layer with a volumetric heat capacity of 2016kJ/m3 K.
+              <div style="padding: 20px"></div>
+              <a>Infiltration</a></br>
+              The infiltration rate in Air Change per Hour (ACH) corresponds to volume of fresh air that enters the space through accidentals leaks in the building envelope. 
+              <div style="padding: 20px"></div>
+              <a>Peak internal gain</a></br>
+              These two input parameters set the peak gains from equipment and electric lighting for the space. The time of day schedules for a typical weekday are shown below. 
+              <div style="padding: 20px"></div>
+              <a>Natural ventilation</a></br>
+              The entry field specifies whether natural ventilation is supported or not. In the latter case, it is assumed that the windows are sealed (no operable). If the windows are operable, ClimaPlus uses the empirical formulas to predict the air exchange rate when the windows are opened. In the case of fan assisted outdoor air supply, it is assumed that an electric fan supplies outside air to the space at a rate of up to 5 ACH.  For both options, the windows are opened if all of the following conditions are met: T_outside is between 18°C and 26°C, and T_inside > 20°C.
+              <div style="padding: 20px"></div>
+              <a>Conditioning system</a><br>
+              In order to convert heating and cooling loads into energy use, ClimaPlus support a series of systems using constant coefficients of performance. Gas-fired boiler heating – COP 0.85, electric baseboard heating – COP 1, direct expansion cooling – COP 3, ground source heat pump  – COP 3.93.
+              <div style="padding: 20px"></div>
+              <a>Emissions</a><br>
+              Carbon emissions from gas and electricity used for heating, cooling, lighting and equipment are calculated using the emission factors given in kgCO2e/kWh. Representative emission factors for some cities are given in the dropdown. And the ‘custom’ entry field allows to enter new values.
+              <div style="padding: 20px"></div>
+              <a>Cost</a><br>
+              Operation energy costs for gas and electricity are calculated using the cost of energy per kWh selected from the dropdown. Custom cost factors can be specified using the ‘custom’ option.
+            </div>
+          <div style="padding: 20px"></div>
+        </div>
+      </div>
+    </section>
+          
 
     
 

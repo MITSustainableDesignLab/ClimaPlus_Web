@@ -75,13 +75,11 @@
         <div class="col-sm-6 col-sm-offset-3">
            
             <h2 class="module-title font-alt">Annual Solar Radiation Map</h2>
+            <div class="centerBlock"> <button class="btn" onclick="saveRad()"><i class="fa fa-download"></i></button></div>
+            
             <div class="module-subtitle font-serif">
                 False color map of annual solar radiation levels for different surface orientations, 
                     using an upward-facing hemisphere
-            </div>
-
-            <div class="centerBlock">
-                <!-- <font size='2' onclick="save_as_svg('canvas','Anual Solar Radiation.jpg')">[download svg]</font> -->
             </div>
 
             <div><canvas class="circle" id="canvas" width="520" height="520">  
@@ -90,7 +88,7 @@
     </div>
     <div class="row">
         
-        <div  ></div>
+        <div  id="radScale"></div>
         <div class= 'centerBlock' class = "greyDes">0 kWh/m2 <font color = "white">gapppppppppppppppppping space to be fixed </font>
          <a id = "radmax"> maxRad </a> &nbsp; kWh/m2 </div>
         
@@ -138,6 +136,15 @@
         location: "{{session["location"]}}",
     };
 
+
+    function saveRad() { 
+        //saving rad map canvas
+        var canvas = document.getElementById("canvas");
+        // draw to canvas...
+        canvas.toBlob(function(blob) {
+            saveAs(blob, "Cummulative Radiation.png");
+        });
+    }
 
 </script>
 

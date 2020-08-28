@@ -167,9 +167,11 @@ display:none;
             </div>
               <input class='cs' id='climateGo' name='selectEPW' type="submit" value=">>">
           </form>
-          <!-- <div id="dragdropA" href="#" onClick="refreshPage()">Or <br> drag and drop an epw <br> click here to refresh -->
-          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw here</div>
 
+          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw <br> 
+          <div id='loadingmessage' style='display:none'>
+            <img src='/static/img/ajax-loader.gif'/>
+          </div></div>
           <div id='downloadclimate' ><a> Climate files can be downloaded from</a><br> <a href="http://climate.onebuilding.org"/>climate.onebuilding.org</a></div>
           <div style="padding: 10px">
           <div style="text-align:center;color:grey">Works best with Google Chrome and Firefox</div>
@@ -197,6 +199,13 @@ $('#climateGo').blur(function()
     }
 });
 
+function delay(delayInms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(2);
+    }, delayInms);
+  });
+}
 
 function readTextFile(file) {
   var reader = new FileReader();
@@ -204,6 +213,9 @@ function readTextFile(file) {
   reader.onloadend = function(e) {
     if (e.target.readyState == FileReader.DONE) {
       var content = reader.result;
+
+      $('#loadingmessage').show();
+      // delay(3000);
 
       //set the csv file as the new data
       
@@ -223,7 +235,8 @@ function readTextFile(file) {
         // traditional: "true",
         // data: JSON.stringify(data),
         // dataType: "json"
-        data: {city : tcity, tdata: (data)}, //{city: cdata['city'], tdata: data} {city: data['city'], test: "test", tdata: (JSON.stringify(data))}, RF parant was orig
+        // data: {city : tcity, tdata: (data)}, //{city: cdata['city'], tdata: data} {city: data['city'], test: "test", tdata: (JSON.stringify(data))}, RF parant was orig
+        data: {city : tcity, tdata: (JSON.stringify(data))},
         success: function(response){
             window.location.href = "AnalysisSelect";//"ClimateInfo";
         }

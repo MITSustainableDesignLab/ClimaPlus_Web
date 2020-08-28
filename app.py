@@ -124,7 +124,8 @@ def AnalysisSelect():
             session['dragdrop'] = True
             wthdata = (request.form["tdata"])
             session['location'] = "picture"
-            session['city'] = request.form["city"]
+            # session['city'] = request.form["city"]
+            wthdata = (json.loads(request.form["tdata"]))
             # print("set")
             lwthdata= wthdata
             # par1 = './static/temp/'
