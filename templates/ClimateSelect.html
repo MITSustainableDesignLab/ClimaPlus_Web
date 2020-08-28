@@ -139,7 +139,11 @@ display:none;
               <input class='cs' id='climateGo' name='selectEPW' type="submit" value=">>">
           </form>
           <!-- <div id="dragdropA" href="#" onClick="refreshPage()">Or <br> drag and drop an epw <br> click here to refresh -->
-          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw <br> click here to refresh</div>
+          <div id="dragdropA" onClick="refreshPage()" style="cursor: pointer;">Or <br> drag and drop an epw <br> click here to refresh
+          <div id='loadingmessage' style='display:none'>
+                 <img src='/static/img/ajax-loader.gif'/>
+          </div></div>
+
           <div style="text-align:center;color:grey">Works best with Google Chrome and Firefox</div>
           <div style="text-align:center;color:grey;font-size:smaller;"><font small> Use diffent browers to open multiple climates at the same time </font></div>
           </div>
@@ -167,7 +171,13 @@ $('#climateGo').blur(function()
         $(this).parents('.submit-btn').addClass('hide');
     }
 });
-
+function delay(delayInms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(2);
+    }, delayInms);
+  });
+}
 
 function readTextFile(file) {
   var reader = new FileReader();
@@ -176,6 +186,8 @@ function readTextFile(file) {
     if (e.target.readyState == FileReader.DONE) {
       var content = reader.result;
 
+      $('#loadingmessage').show();
+<!--      delay(3000);-->
       //set the csv file as the new data
       
       // data = formatEpwM(content)
@@ -186,7 +198,6 @@ function readTextFile(file) {
       console.log(tcity, cdata['latitude'], cdata['longitude'], cdata['code']);
 
       console.log("test");
-           
       $.ajax({
         type: "POST",
         // contentType: "application/json;charset=utf-8",
@@ -194,7 +205,7 @@ function readTextFile(file) {
         // traditional: "true",
         // data: JSON.stringify(data),
         // dataType: "json"
-        data: {city : tcity, tdata: (data)}, //{city: cdata['city'], tdata: data} {city: data['city'], test: "test", tdata: (JSON.stringify(data))}, RF parant was orig
+        data: {city : tcity, tdata: (JSON.stringify(data))},
         success: function(response){
             window.location.href = "AnalysisSelect";//"ClimateInfo";
         }

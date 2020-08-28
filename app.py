@@ -120,7 +120,8 @@ def AnalysisSelect():
             # file = request.form
             # file.save(os.path.join(app.config["UPLOAD_FOLDER"], ff))
             session['dragdrop'] = True
-            wthdata = (request.form["tdata"])
+            wthdata = (json.loads(request.form["tdata"]))
+            # print(wthdata)
             session['location'] = "picture"
             session['city'] = request.form["city"]
             # print("set")
